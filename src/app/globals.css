@@ -1,26 +1,117 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* -------------------------------------------------------------------------- */
+/* Design tokens — alinhados ao system-design (dark mode imersivo L2)        */
+/* -------------------------------------------------------------------------- */
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Cores primitivas e semânticas de marca */
+  --color-brand-dark: #020617;
+  --color-brand-card: #0f172a;
+  --color-brand-cta: #dc2626;
+  --color-brand-cta-hover: #b91c1c;
+  --color-brand-gold: #d97706;
+  --color-brand-gold-hover: #b45309;
+  --color-brand-success: #22c55e;
+
+  /* Aliases semânticos de superfície e texto */
+  --color-background: var(--color-brand-dark);
+  --color-foreground: #f1f5f9;
+  --color-muted: #94a3b8;
+  --color-border: #1e293b;
+
+  /* Tipografia — variáveis injetadas por next/font no layout */
+  --font-serif: var(--font-cinzel), ui-serif, Georgia, serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  /* Breakpoint ultrawide (mobile-first: sm–2xl são defaults do Tailwind) */
+  --breakpoint-3xl: 2560px;
+
+  /* Anel de foco acessível (WCAG) */
+  --color-focus-ring: var(--color-brand-cta);
 }
 
-@media (prefers-color-scheme: dark) {
+/* -------------------------------------------------------------------------- */
+/* Tipografia e espaçamento fluidos (clamp)                                   */
+/* -------------------------------------------------------------------------- */
+
+:root {
+  --text-base: clamp(1rem, 0.875rem + 0.39vw, 1.25rem);
+  --text-h1: clamp(2.25rem, 1.75rem + 2vw, 4rem);
+  --text-h2: clamp(1.5rem, 1.25rem + 1vw, 2.25rem);
+  --spacing-container: clamp(1rem, 5vw, 4rem);
+
+  /* Grid responsivo: 4 → 8 (md) → 12 (lg+) colunas */
+  --grid-columns: 4;
+  --grid-gutter: 1rem;
+}
+
+@media (min-width: 768px) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --grid-columns: 8;
+    --grid-gutter: 1.5rem;
   }
 }
 
+@media (min-width: 1024px) {
+  :root {
+    --grid-columns: 12;
+    --grid-gutter: 2rem;
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/* Utilitários de layout e tipografia fluida                                  */
+/* -------------------------------------------------------------------------- */
+
+@utility text-fluid-base {
+  font-size: var(--text-base);
+}
+
+@utility text-fluid-h1 {
+  font-size: var(--text-h1);
+  line-height: 1.1;
+}
+
+@utility text-fluid-h2 {
+  font-size: var(--text-h2);
+  line-height: 1.2;
+}
+
+@utility container-content {
+  width: 100%;
+  max-width: 1920px;
+  margin-inline: auto;
+  padding-inline: var(--spacing-container);
+}
+
+@utility container-grid {
+  display: grid;
+  width: 100%;
+  max-width: 1920px;
+  margin-inline: auto;
+  padding-inline: var(--spacing-container);
+  grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
+  gap: var(--grid-gutter);
+}
+
+@utility focus-ring {
+  outline: none;
+
+  &:focus-visible {
+    outline: 2px solid var(--color-focus-ring);
+    outline-offset: 2px;
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/* Base                                                                       */
+/* -------------------------------------------------------------------------- */
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-brand-dark);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: 1.6;
 }
