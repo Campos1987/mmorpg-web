@@ -8,6 +8,7 @@ export const ROUTES = {
   RULES: "/regras",
   DONATIONS: "/doacoes",
   AUTH: {
+    /** Página de login — implementação em `app/login/page.tsx` (Fase 4+) */
     LOGIN: "/login",
     REGISTER: "/registro",
   },
