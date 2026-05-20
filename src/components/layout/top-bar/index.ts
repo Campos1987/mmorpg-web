@@ -1,4 +1,6 @@
 export { AuthLoginLink } from "@/components/layout/top-bar/AuthLoginLink";
+export { ConnectedHamburgerButton } from "@/components/layout/top-bar/ConnectedHamburgerButton";
+export { ConnectedNavigationDrawer } from "@/components/layout/top-bar/ConnectedNavigationDrawer";
 export { HamburgerButton } from "@/components/layout/top-bar/HamburgerButton";
 export { NavigationDrawer } from "@/components/layout/top-bar/NavigationDrawer";
 export { AuthRegisterLink } from "@/components/layout/top-bar/AuthRegisterLink";
