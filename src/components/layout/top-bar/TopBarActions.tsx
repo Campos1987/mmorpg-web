@@ -3,10 +3,7 @@ import { AuthRegisterLink } from "@/components/layout/top-bar/AuthRegisterLink";
 
 export function TopBarActions() {
   return (
-    <div
-      className="ml-auto flex shrink-0 items-center gap-2 sm:gap-3"
-      aria-label="Ações de conta"
-    >
+    <div className="flex shrink-0 items-center gap-2 sm:gap-3" aria-label="Ações de conta">
       <AuthLoginLink />
       <AuthRegisterLink />
     </div>
