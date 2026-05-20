@@ -11,10 +11,16 @@ export function TopBar() {
         "sticky top-0 z-50 w-full border-b border-border bg-brand-dark",
       )}
     >
-      <div className="container-content flex h-16 items-center gap-4 lg:gap-8">
+      <div
+        className={cn(
+          "container-content grid h-16 w-full items-center gap-x-2 sm:gap-x-3",
+          "max-xl:grid-cols-[minmax(0,1fr)_auto]",
+          "xl:grid-cols-[auto_minmax(0,1fr)_auto] xl:gap-x-4",
+        )}
+      >
         <TopBarLogo />
         <TopBarNav />
-        <div className="ml-auto flex items-center gap-2 sm:gap-3">
+        <div className="flex shrink-0 items-center justify-end gap-1.5 sm:gap-2 xl:gap-3">
           <TopBarMobileNav />
           <TopBarActions />
         </div>

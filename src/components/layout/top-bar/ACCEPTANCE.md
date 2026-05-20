@@ -9,7 +9,7 @@ Verificação cruzada com [specify.md](../../../../.spec/top-bar/specify.md) em 
 | Itens e subitens da spec | ✅ | `navigation.ts` — 7 raízes + 11 folhas; rotas em `routes.ts` |
 | Dropdown com chevron e transição | ✅ | `NavDropdown.tsx` — `˅`, `duration-200`, hover/focus/keyboard |
 | Hover perceptível (desktop) | ✅ | `NavLink` / `NavDropdown` — `hover:text-brand-gold` |
-| Mobile: nav oculta, drawer completo | ✅ | `TopBarNav` `hidden lg:flex`; `TopBarMobileNav` `lg:hidden` + `NavigationDrawerContent` |
+| Mobile/tablet: nav oculta, drawer completo | ✅ | `TopBarNav` `hidden xl:block`; `TopBarMobileNav` `xl:hidden` (nav horizontal só ≥1280px) |
 | Login sutil / Registro CTA forte | ✅ | `AuthLoginLink` outline; `AuthRegisterLink` `bg-brand-cta` + uppercase |
 | Contraste e foco (dark) | ✅ | tokens `brand-dark` / `foreground`; utilitário `focus-ring` |
 
@@ -28,8 +28,8 @@ Verificação cruzada com [specify.md](../../../../.spec/top-bar/specify.md) em 
 ## Teste manual recomendado
 
 1. `npm run dev` — abrir `/`
-2. **Desktop (≥1024px):** hover nos dropdowns; Tab/Enter/Escape; clicar todos os links
-3. **Mobile (&lt;1024px):** hambúrguer → drawer → submenus `<details>`; fechar por overlay/Escape/link
+2. **Desktop (≥1280px):** navegação horizontal; hover nos dropdowns; Tab/Enter/Escape
+3. **Mobile/tablet (&lt;1280px):** hambúrguer → drawer → submenus `<details>`; fechar por overlay/Escape/link
 4. Rolar a home de exemplo — header permanece visível (`sticky`)
 
 ## Rotas de ação

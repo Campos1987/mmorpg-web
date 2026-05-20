@@ -11,9 +11,9 @@ export function NavLink({ label, href }: NavLinkProps) {
       <Link
         href={href}
         className={cn(
-          "focus-ring inline-flex min-h-12 min-w-12 items-center justify-center px-3 py-2",
-          "text-sm font-medium uppercase tracking-wide text-foreground",
-          "transition-colors hover:text-brand-gold",
+          "focus-ring inline-flex min-h-12 items-center justify-center whitespace-nowrap px-2 py-2",
+          "text-xs font-medium uppercase tracking-wide text-foreground",
+          "transition-colors hover:text-brand-gold xl:min-w-12 xl:px-3 xl:text-sm 2xl:px-3",
         )}
       >
         {label}

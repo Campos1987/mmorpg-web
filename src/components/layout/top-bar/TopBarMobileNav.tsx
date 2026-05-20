@@ -8,7 +8,7 @@ import { ConnectedNavigationDrawer } from "@/components/layout/top-bar/Connected
  */
 export function TopBarMobileNav() {
   return (
-    <div className="lg:hidden">
+    <div className="xl:hidden">
       <ConnectedHamburgerButton />
       <ConnectedNavigationDrawer />
     </div>

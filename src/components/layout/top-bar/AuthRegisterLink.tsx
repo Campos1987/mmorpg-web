@@ -8,8 +8,9 @@ export function AuthRegisterLink() {
     <Link
       href={ROUTES.AUTH.REGISTER}
       className={cn(
-        "focus-ring inline-flex min-h-12 min-w-12 items-center justify-center px-5 py-2",
-        "rounded-md bg-brand-cta text-sm font-semibold uppercase tracking-wide text-foreground",
+        "focus-ring inline-flex min-h-12 shrink-0 items-center justify-center whitespace-nowrap px-2 py-2",
+        "rounded-md bg-brand-cta text-xs font-semibold uppercase tracking-wide text-foreground",
+        "xl:px-3 xl:text-sm",
         "ring-1 ring-brand-gold/40 transition-colors",
         "hover:bg-brand-cta-hover hover:ring-brand-gold/60",
       )}

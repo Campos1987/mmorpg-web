@@ -1,6 +1,7 @@
 import { MAIN_NAVIGATION } from "@/config/navigation";
 import { NavDropdown } from "@/components/layout/top-bar/NavDropdown";
 import { NavLink } from "@/components/layout/top-bar/NavLink";
+import { cn } from "@/lib/utils";
 import {
   isNavigationDropdownItem,
   isNavigationLinkItem,
@@ -9,10 +10,13 @@ import {
 export function TopBarNav() {
   return (
     <nav
-      className="hidden flex-1 justify-center lg:flex"
+      className={cn(
+        "hidden min-w-0 xl:block",
+        "overflow-x-auto overscroll-x-contain scrollbar-none",
+      )}
       aria-label="Navegação principal"
     >
-      <ul className="flex flex-wrap items-center justify-center gap-1">
+      <ul className="mx-auto flex w-max max-w-full flex-nowrap items-center justify-center gap-0.5 xl:gap-1 2xl:gap-1.5">
         {MAIN_NAVIGATION.map((item) => {
           if (isNavigationLinkItem(item)) {
             return (

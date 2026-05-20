@@ -12,6 +12,8 @@
   --color-brand-cta-hover: #b91c1c;
   --color-brand-gold: #d97706;
   --color-brand-gold-hover: #b45309;
+  --color-brand-logo: #d4af37;
+  --color-brand-logo-hover: #e5c76b;
   --color-brand-success: #22c55e;
 
   /* Aliases semânticos de superfície e texto */
@@ -94,6 +96,15 @@
   padding-inline: var(--spacing-container);
   grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
   gap: var(--grid-gutter);
+}
+
+@utility scrollbar-none {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 @utility focus-ring {
