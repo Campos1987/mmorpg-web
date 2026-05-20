@@ -2,7 +2,10 @@
 
 import { useCallback, useEffect, useRef } from "react";
 
-import { NAVIGATION_DRAWER_PANEL_ID } from "@/components/layout/top-bar/constants";
+import {
+  NAVIGATION_DRAWER_PANEL_ID,
+  NAVIGATION_DRAWER_TITLE_ID,
+} from "@/components/layout/top-bar/constants";
 import { NavigationDrawerContent } from "@/components/layout/top-bar/NavigationDrawerContent";
 import { useBodyScrollLock } from "@/hooks/use-body-scroll-lock";
 import { useFocusTrap } from "@/hooks/use-focus-trap";
@@ -61,7 +64,7 @@ export function NavigationDrawer({
       <button
         type="button"
         className={cn(
-          "absolute inset-0 bg-brand-dark/80 transition-opacity duration-300",
+          "focus-ring absolute inset-0 bg-brand-dark/80 transition-opacity duration-300",
           isNavigationDrawerOpen ? "opacity-100" : "opacity-0",
         )}
         aria-label="Fechar menu de navegação"
@@ -74,7 +77,7 @@ export function NavigationDrawer({
         id={NAVIGATION_DRAWER_PANEL_ID}
         role="dialog"
         aria-modal="true"
-        aria-label="Menu de navegação"
+        aria-labelledby={NAVIGATION_DRAWER_TITLE_ID}
         className={cn(
           "absolute right-0 top-0 flex h-full w-full max-w-sm flex-col",
           "border-l border-border bg-brand-card shadow-xl",
@@ -83,7 +86,10 @@ export function NavigationDrawer({
         )}
       >
         <div className="flex min-h-16 items-center border-b border-border px-4">
-          <p className="font-serif text-lg font-bold text-foreground">
+          <p
+            id={NAVIGATION_DRAWER_TITLE_ID}
+            className="font-serif text-lg font-bold text-foreground"
+          >
             Menu
           </p>
         </div>
