@@ -1,3 +1,5 @@
+export { AuthLoginLink } from "@/components/layout/top-bar/AuthLoginLink";
+export { AuthRegisterLink } from "@/components/layout/top-bar/AuthRegisterLink";
 export { NavDropdown } from "@/components/layout/top-bar/NavDropdown";
 export { NavLink } from "@/components/layout/top-bar/NavLink";
 export { TopBar } from "@/components/layout/top-bar/TopBar";

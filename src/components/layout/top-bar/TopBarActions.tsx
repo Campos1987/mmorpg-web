@@ -1,11 +1,14 @@
-/**
- * Slot de ações (Login / Registro) — conteúdo implementado na Fase 5.
- */
+import { AuthLoginLink } from "@/components/layout/top-bar/AuthLoginLink";
+import { AuthRegisterLink } from "@/components/layout/top-bar/AuthRegisterLink";
+
 export function TopBarActions() {
   return (
     <div
-      className="ml-auto flex shrink-0 items-center gap-2"
+      className="ml-auto flex shrink-0 items-center gap-2 sm:gap-3"
       aria-label="Ações de conta"
-    />
+    >
+      <AuthLoginLink />
+      <AuthRegisterLink />
+    </div>
   );
 }
