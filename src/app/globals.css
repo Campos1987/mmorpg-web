@@ -40,6 +40,7 @@
   --text-h1: clamp(2.25rem, 1.75rem + 2vw, 4rem);
   --text-h2: clamp(1.5rem, 1.25rem + 1vw, 2.25rem);
   --spacing-container: clamp(1rem, 5vw, 4rem);
+  --top-bar-height: 4rem;
 
   /* Grid responsivo: 4 → 8 (md) → 12 (lg+) colunas */
   --grid-columns: 4;
@@ -107,6 +108,10 @@
 /* -------------------------------------------------------------------------- */
 /* Base                                                                       */
 /* -------------------------------------------------------------------------- */
+
+html {
+  scroll-padding-top: var(--top-bar-height);
+}
 
 body {
   background-color: var(--color-brand-dark);

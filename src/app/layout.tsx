@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Cinzel, Inter } from "next/font/google";
+
+import { TopBar } from "@/components/layout/top-bar";
 import "./globals.css";
 
 const cinzel = Cinzel({
@@ -29,8 +31,11 @@ export default function RootLayout({
       lang="pt-BR"
       className={`${cinzel.variable} ${inter.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-background text-foreground font-sans">
-        {children}
+      <body className="flex min-h-full flex-col bg-background font-sans text-foreground">
+        <TopBar />
+        <main id="main-content" className="flex flex-1 flex-col">
+          {children}
+        </main>
       </body>
     </html>
   );
