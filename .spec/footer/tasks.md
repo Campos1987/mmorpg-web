@@ -60,15 +60,15 @@ Primeira coluna de conteúdo conforme specify.
 
 ---
 
-## Fase 5: Seção Atalhos Rápidos
+## Fase 5: Seção Atalhos Rápidos ✅
 
 Segunda coluna — mapa secundário de páginas cruciais.
 
-- [ ] Criar `FooterQuickLinksSection` com heading visível (ex.: "Atalhos" ou rótulo da spec)
-- [ ] Implementar `FooterLink` para rotas internas via `next/link` e `AppRoute`
-- [ ] Vincular Downloads → `ROUTES.DOWNLOADS`, Regras → `ROUTES.RULES`, Suporte → rota definida na Fase 1
-- [ ] Reutilizar padrões de tipografia e espaçamento da Top Bar (`text-sm`, uppercase opcional conforme hierarquia do rodapé)
-- [ ] Aplicar estados hover/focus consistentes com a Fase 4
+- [x] Criar `FooterQuickLinksSection` com heading visível (ex.: "Atalhos" ou rótulo da spec)
+- [x] Implementar `FooterLink` para rotas internas via `next/link` e `AppRoute`
+- [x] Vincular Downloads → `ROUTES.DOWNLOADS`, Regras → `ROUTES.RULES`, Suporte → rota definida na Fase 1
+- [x] Reutilizar padrões de tipografia e espaçamento da Top Bar (`text-sm`, uppercase opcional conforme hierarquia do rodapé)
+- [x] Aplicar estados hover/focus consistentes com a Fase 4
 
 ---
 

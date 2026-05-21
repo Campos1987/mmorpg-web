@@ -1,4 +1,5 @@
 import { FOOTER_SECTIONS } from "@/config/footer-data";
+import { FooterQuickLinksSection } from "@/components/layout/footer/FooterQuickLinksSection";
 import { FooterSection } from "@/components/layout/footer/FooterSection";
 import { FooterSocialSection } from "@/components/layout/footer/FooterSocialSection";
 import { cn } from "@/lib/utils";
@@ -17,10 +18,7 @@ export function Footer() {
           )}
         >
           <FooterSocialSection />
-          <FooterSection
-            sectionId={FOOTER_SECTIONS.quickLinks.id}
-            heading={FOOTER_SECTIONS.quickLinks.heading}
-          />
+          <FooterQuickLinksSection />
           <FooterSection
             sectionId={FOOTER_SECTIONS.legal.id}
             heading={FOOTER_SECTIONS.legal.heading}
