@@ -19,16 +19,16 @@ Preparar o ambiente e isolar tipos/contratos antes de qualquer UI.
 
 ---
 
-## Fase 2: Schema de Validação (Zod)
+## Fase 2: Schema de Validação (Zod) ✅
 
 Fonte única da verdade das regras client-side, conforme specify e contrato do endpoint.
 
-- [ ] Criar schema Zod dedicado (ex.: `src/schemas/login-schema.ts`) isolado de componentes visuais
-- [ ] Mapear campo `user`: obrigatório, tamanho entre 5 e 100 caracteres (conforme specify §3.1)
-- [ ] Mapear campo `password`: obrigatório, mesma regra de complexidade do registro (min 8, max 12, maiúscula, número e caractere especial) para bloquear requisições inválidas antes do Argon2 no backend
-- [ ] Exportar tipo inferido do schema (`LoginFormValues`) para uso no formulário e na submissão
-- [ ] Exportar helper `mapZodErrorsToFieldErrors` (ou equivalente) para erros 400 mapeados por campo
-- [ ] Definir mensagens de erro em português, genéricas em falhas de autenticação (sem revelar se o usuário existe)
+- [x] Criar schema Zod dedicado (ex.: `src/schemas/login-schema.ts`) isolado de componentes visuais
+- [x] Mapear campo `user`: obrigatório, tamanho entre 5 e 100 caracteres (conforme specify §3.1)
+- [x] Mapear campo `password`: obrigatório, mesma regra de complexidade do registro (min 8, max 12, maiúscula, número e caractere especial) para bloquear requisições inválidas antes do Argon2 no backend
+- [x] Exportar tipo inferido do schema (`LoginFormValues`) para uso no formulário e na submissão
+- [x] Exportar helper `mapZodErrorsToFieldErrors` (ou equivalente) para erros 400 mapeados por campo
+- [x] Definir mensagens de erro em português, genéricas em falhas de autenticação (sem revelar se o usuário existe)
 
 ---
 

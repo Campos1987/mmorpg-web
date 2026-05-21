@@ -1,11 +1,8 @@
-/**
- * Contratos da API de login — espelham specify.md e Documentation/end-points/login.md.
- * LoginPayload será reexportado do schema Zod na Fase 2 quando disponível.
- */
-export type LoginPayload = {
-  user: string;
-  password: string;
-};
+import type { LoginFormValues, LoginPayload } from "@/schemas/login-schema";
+
+export type { LoginFormValues, LoginPayload };
+
+export { LOGIN_UNAUTHORIZED_MESSAGE } from "@/schemas/login-schema";
 
 export type LoginSuccessResponse = {
   token: string;

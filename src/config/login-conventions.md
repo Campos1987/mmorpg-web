@@ -6,7 +6,9 @@
 | `handle` + ação | `handleLoginFormSubmit` |
 | `set` + feedback | `setLoginGlobalFeedback` |
 
-Campos do formulário espelham `LoginPayload`: `user`, `password`.
+Campos do formulário espelham `LoginFormValues` / `LoginPayload`: `user`, `password`.
+
+Erro 401 da API: exibir sempre `LOGIN_UNAUTHORIZED_MESSAGE` (*"Credenciais inválidas."*) — nunca indicar qual campo falhou.
 
 ## Variáveis de ambiente
 
