@@ -5,9 +5,8 @@ import { FooterSocialSection } from "@/components/layout/footer/FooterSocialSect
 import { cn } from "@/lib/utils";
 
 /**
- * Rodapé global — Server Component (RSC).
+ * Rodapé global — Server Component (RSC), renderizado no `RootLayout`.
  * Layout: colunas empilhadas no mobile, grid 3 colunas a partir de `lg`, `container-content` em ultrawide.
- * Integração no `RootLayout` na Fase 9 — `main` já usa `flex-1` para não ser comprimido.
  */
 export function Footer() {
   return (

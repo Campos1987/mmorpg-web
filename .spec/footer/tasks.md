@@ -106,14 +106,14 @@ Comportamento mobile-first conforme specify e system-design.
 
 ---
 
-## Fase 9: Integração no RootLayout
+## Fase 9: Integração no RootLayout ✅
 
 Persistência global do rodapé em todas as páginas públicas.
 
-- [ ] Importar e renderizar `<Footer />` em `src/app/layout.tsx`, abaixo de `<main id="main-content">`
-- [ ] Manter `TopBar` + `main` + `Footer` na hierarquia `flex min-h-full flex-col` do `body`
-- [ ] Confirmar que nenhuma página filha duplica o rodapé
-- [ ] Revisar ordem de tabulação: conteúdo principal → rodapé (links navegáveis após o main)
+- [x] Importar e renderizar `<Footer />` em `src/app/layout.tsx`, abaixo de `<main id="main-content">`
+- [x] Manter `TopBar` + `main` + `Footer` na hierarquia `flex min-h-full flex-col` do `body`
+- [x] Confirmar que nenhuma página filha duplica o rodapé
+- [x] Revisar ordem de tabulação: conteúdo principal → rodapé (links navegáveis após o main)
 
 ---
 
