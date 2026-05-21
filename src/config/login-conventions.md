@@ -17,3 +17,9 @@ Erro 401 da API: exibir sempre `LOGIN_UNAUTHORIZED_MESSAGE` (*"Credenciais invá
 | `API_BASE_URL` | Não | URL base do backend (ex.: `http://localhost:8080`). Vazio = requisições para a mesma origem do Next.js. |
 
 Copie `.env.example` para `.env.local` e defina `API_BASE_URL` ao integrar com o Spring Boot em desenvolvimento.
+
+## Segurança na integração
+
+- A senha é enviada em texto plano no JSON apenas até o backend (hash Argon2 no servidor).
+- Em produção, use sempre **HTTPS** para proteger credenciais em trânsito.
+- O serviço `login-user.ts` e a action `login-user-action.ts` rodam apenas no servidor (`server-only` / `"use server"`).

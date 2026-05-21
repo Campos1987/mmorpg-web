@@ -32,18 +32,18 @@ Fonte única da verdade das regras client-side, conforme specify e contrato do e
 
 ---
 
-## Fase 3: Camada de Integração (Serviço / Server Action)
+## Fase 3: Camada de Integração (Serviço / Server Action) ✅
 
 Lógica de negócio e comunicação HTTP fora dos componentes visuais.
 
-- [ ] Criar serviço de login em `src/services/` com `server-only`, recebendo payload já validado
-- [ ] Criar Server Action (ex.: `src/actions/login-user-action.ts`) que revalida payload com o mesmo schema Zod (defesa em profundidade)
-- [ ] Implementar `POST` para `/api/auth/login` com `Content-Type: application/json`
-- [ ] Garantir que a senha trafega em texto plano no JSON (sem hash no cliente); documentar dependência de HTTPS em produção
-- [ ] Tipar retorno de sucesso (`200`) com `token` e `type: "Bearer"` de forma discriminada
-- [ ] Tipar erros `400` (validação com `details` por campo) e `401` (mensagem genérica *"Credenciais inválidas."*)
-- [ ] Mapear corpo `details` do erro 400 para estrutura consumível pelo formulário (`setError` por campo)
-- [ ] Tratar status inesperados ou falha de rede com mensagem genérica e segura (sem vazar detalhes internos)
+- [x] Criar serviço de login em `src/services/` com `server-only`, recebendo payload já validado
+- [x] Criar Server Action (ex.: `src/actions/login-user-action.ts`) que revalida payload com o mesmo schema Zod (defesa em profundidade)
+- [x] Implementar `POST` para `/api/auth/login` com `Content-Type: application/json`
+- [x] Garantir que a senha trafega em texto plano no JSON (sem hash no cliente); documentar dependência de HTTPS em produção
+- [x] Tipar retorno de sucesso (`200`) com `token` e `type: "Bearer"` de forma discriminada
+- [x] Tipar erros `400` (validação com `details` por campo) e `401` (mensagem genérica *"Credenciais inválidas."*)
+- [x] Mapear corpo `details` do erro 400 para estrutura consumível pelo formulário (`setError` por campo)
+- [x] Tratar status inesperados ou falha de rede com mensagem genérica e segura (sem vazar detalhes internos)
 
 ---
 
