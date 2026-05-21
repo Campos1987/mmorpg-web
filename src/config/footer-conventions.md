@@ -30,8 +30,9 @@ O rodapé **não recria** o design system. Confirmado na base da Top Bar:
 | :--- | :--- |
 | Rotas internas | `ROUTES.SUPPORT`, `ROUTES.LEGAL.PRIVACY` em `src/config/routes.ts` |
 | URLs externas | `FOOTER_EXTERNAL_LINKS.DISCORD` em `src/config/footer-links.ts` |
-| Arrays estáticos (Fase 2) | `FOOTER_SOCIAL_LINKS`, `FOOTER_QUICK_LINKS`, `FOOTER_LEGAL_LINKS` |
-| Títulos de seção | `FOOTER_SECTION_HEADINGS` |
+| Arrays estáticos (Fase 2) | `src/config/footer-data.ts` — `FOOTER_SOCIAL_LINKS`, `FOOTER_QUICK_LINKS`, `FOOTER_LEGAL_LINKS` |
+| Metadados de seção | `FOOTER_SECTIONS` (`id` + `heading`); alias `FOOTER_SECTION_HEADINGS` |
+| Atributos de link externo | `FOOTER_EXTERNAL_LINK_TARGET`, `FOOTER_EXTERNAL_LINK_REL` |
 
 ## Tipos (`src/types/footer.ts`)
 

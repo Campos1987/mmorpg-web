@@ -23,15 +23,15 @@ Confirmar pré-requisitos do design system (já entregues na Top Bar) e preparar
 
 ---
 
-## Fase 2: Modelo de Dados Estático
+## Fase 2: Modelo de Dados Estático ✅
 
 Arrays tipados e fonte única da verdade antes do layout visual.
 
-- [ ] Montar array estático **Redes Sociais e Comunidade** conforme a spec: Discord e Reddit (URLs externas, `rel="noopener noreferrer"`, `target="_blank"` quando aplicável)
-- [ ] Montar array estático **Atalhos Rápidos**: Downloads, Regras e Suporte (reutilizando `ROUTES` existentes onde couber)
-- [ ] Montar array estático **Área Legal**: EULA, Aviso de Privacidade, Termos de Uso e Preferências de Cookies
-- [ ] Definir metadados de seção (título/heading por coluna) para reutilização em desktop e mobile
-- [ ] Garantir que nenhum dado sensível ou segredo de API apareça nos arrays estáticos exportados ao cliente
+- [x] Montar array estático **Redes Sociais e Comunidade** conforme a spec: Discord e Reddit (URLs externas, `rel="noopener noreferrer"`, `target="_blank"` quando aplicável)
+- [x] Montar array estático **Atalhos Rápidos**: Downloads, Regras e Suporte (reutilizando `ROUTES` existentes onde couber)
+- [x] Montar array estático **Área Legal**: EULA, Aviso de Privacidade, Termos de Uso e Preferências de Cookies
+- [x] Definir metadados de seção (título/heading por coluna) para reutilização em desktop e mobile
+- [x] Garantir que nenhum dado sensível ou segredo de API apareça nos arrays estáticos exportados ao cliente
 
 ---
 
