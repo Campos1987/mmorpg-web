@@ -29,6 +29,15 @@ export const ROUTES = {
     TOP_PK: "/rankings/pk",
     TOP_CLAN: "/rankings/clan",
   },
+  /** Atalho do rodapé — placeholder até `app/suporte/page.tsx` existir */
+  SUPPORT: "/suporte",
+  /** Páginas legais do rodapé — placeholders até as rotas institucionais existirem */
+  LEGAL: {
+    EULA: "/legal/eula",
+    PRIVACY: "/legal/privacidade",
+    TERMS: "/legal/termos",
+    COOKIES: "/legal/cookies",
+  },
 } as const;
 
 type RouteValue<T> = T extends string
