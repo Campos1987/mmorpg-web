@@ -11,6 +11,8 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="dashboard-surface min-h-screen text-white">{children}</div>
+    <div className="dashboard-surface flex flex-1 flex-col text-white">
+      {children}
+    </div>
   );
 }

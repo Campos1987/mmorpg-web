@@ -5,7 +5,6 @@ import { useCallback, useMemo, useState } from "react";
 import { AccountHeader } from "@/components/dashboard/account";
 import { ActivityDashboard } from "@/components/dashboard/activity";
 import { CharacterCarousel } from "@/components/dashboard/character";
-import { DashboardNavbar } from "@/components/dashboard/navbar";
 import { getCharactersBySubAccount } from "@/mocks/dashboard-mock-data";
 import type { DashboardMockData } from "@/types/dashboard";
 
@@ -42,7 +41,6 @@ export function DashboardView({ data }: DashboardViewProps) {
 
   return (
     <>
-      <DashboardNavbar user={data.user} />
       <AccountHeader
         subAccounts={data.subAccounts}
         selectedSubAccountId={selectedSubAccountId}
