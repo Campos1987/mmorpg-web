@@ -19,7 +19,7 @@ export function FooterSocialLink({ link }: FooterSocialLinkProps) {
       href={link.href}
       target={FOOTER_EXTERNAL_LINK_TARGET}
       rel={FOOTER_EXTERNAL_LINK_REL}
-      aria-label={link.label}
+      aria-label={`${link.label} (abre em nova aba)`}
       className={cn(
         "focus-ring inline-flex min-h-12 min-w-12 items-center justify-center rounded-md",
         "text-muted transition-colors hover:text-brand-gold",

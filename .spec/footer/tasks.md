@@ -117,17 +117,17 @@ Persistência global do rodapé em todas as páginas públicas.
 
 ---
 
-## Fase 10: Acessibilidade, Performance e Qualidade
+## Fase 10: Acessibilidade, Performance e Qualidade ✅
 
 Conformidade WCAG e padrões Staff Engineer.
 
-- [ ] Usar HTML semântico: `<footer>`, `<nav>` por seção de links, listas `<ul>/<li>`
-- [ ] Associar headings de seção com hierarquia correta (`h2` ou `h3` conforme outline da página)
-- [ ] Marcar links externos com indicação acessível (texto visível ou `aria-label` quando só ícone)
-- [ ] Garantir navegação completa por teclado e anéis de foco visíveis em todos os links e ícones
-- [ ] Proibir valores arbitrários no Tailwind; usar apenas tokens do tema e utilitário `cn()`
-- [ ] Confirmar zero JavaScript de cliente no rodapé nesta entrega (permanecer 100% RSC)
-- [ ] Executar `npm run lint` e `npm run build` sem erros após integração
+- [x] Usar HTML semântico: `<footer>`, `<nav>` por seção de links, listas `<ul>/<li>`
+- [x] Associar headings de seção com hierarquia correta (`h2` ou `h3` conforme outline da página)
+- [x] Marcar links externos com indicação acessível (texto visível ou `aria-label` quando só ícone)
+- [x] Garantir navegação completa por teclado e anéis de foco visíveis em todos os links e ícones
+- [x] Proibir valores arbitrários no Tailwind; usar apenas tokens do tema e utilitário `cn()`
+- [x] Confirmar zero JavaScript de cliente no rodapé nesta entrega (permanecer 100% RSC)
+- [x] Executar `npm run lint` e `npm run build` sem erros após integração
 
 ---
 
