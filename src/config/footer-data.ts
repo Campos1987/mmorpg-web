@@ -12,6 +12,16 @@ import type {
 export const FOOTER_EXTERNAL_LINK_TARGET = "_blank" as const;
 export const FOOTER_EXTERNAL_LINK_REL = "noopener noreferrer" as const;
 
+/** Nome exibido na faixa de copyright do rodapé. */
+export const FOOTER_BRAND_NAME = "Portal MMORPG" as const;
+
+/**
+ * Menção a marcas registradas — texto configurável sem alterar componentes.
+ * Complementa o ano dinâmico renderizado em `FooterCopyright`.
+ */
+export const FOOTER_COPYRIGHT_NOTICE =
+  "Lineage II é marca registrada da NCsoft Corporation. Todos os direitos reservados." as const;
+
 /**
  * Metadados por coluna — `id` estável para `aria-labelledby` / `id` do heading.
  */

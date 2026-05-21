@@ -49,8 +49,8 @@ Discriminante: `kind: "internal" | "external"`; externos exigem `isExternal: tru
 
 | Padrão | Exemplo |
 | :--- | :--- |
-| Ano dinâmico (RSC) | `currentYear` — `new Date().getFullYear()` no Server Component |
-| Texto configurável | `FOOTER_COPYRIGHT_NOTICE` em módulo de config (Fase 2+) |
+| Ano dinâmico (RSC) | `currentYear` em `FooterCopyright` via `new Date().getFullYear()` |
+| Texto configurável | `FOOTER_BRAND_NAME`, `FOOTER_COPYRIGHT_NOTICE` em `src/config/footer-data.ts` |
 
 ## Acessibilidade
 

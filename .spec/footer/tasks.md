@@ -83,14 +83,14 @@ Terceira coluna — conformidade e políticas.
 
 ---
 
-## Fase 7: Copyright e Ano Dinâmico
+## Fase 7: Copyright e Ano Dinâmico ✅
 
 Faixa inferior de direitos autorais.
 
-- [ ] Criar `FooterCopyright` como subcomponente do `Footer`
-- [ ] Exibir ano dinâmico via `new Date().getFullYear()` no servidor (RSC), sem hidratação client-side
-- [ ] Incluir mensagem padrão de reserva de direitos e menção às marcas registradas do servidor/jogo (texto configurável em constante)
-- [ ] Separar visualmente a faixa de copyright das colunas de links (borda superior sutil ou espaçamento com tokens do tema)
+- [x] Criar `FooterCopyright` como subcomponente do `Footer`
+- [x] Exibir ano dinâmico via `new Date().getFullYear()` no servidor (RSC), sem hidratação client-side
+- [x] Incluir mensagem padrão de reserva de direitos e menção às marcas registradas do servidor/jogo (texto configurável em constante)
+- [x] Separar visualmente a faixa de copyright das colunas de links (borda superior sutil ou espaçamento com tokens do tema)
 
 ---
 

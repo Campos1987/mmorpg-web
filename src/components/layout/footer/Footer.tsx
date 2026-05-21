@@ -1,11 +1,10 @@
+import { FooterCopyright } from "@/components/layout/footer/FooterCopyright";
 import { FooterLegalSection } from "@/components/layout/footer/FooterLegalSection";
 import { FooterQuickLinksSection } from "@/components/layout/footer/FooterQuickLinksSection";
 import { FooterSocialSection } from "@/components/layout/footer/FooterSocialSection";
 import { cn } from "@/lib/utils";
 
-/**
- * Rodapé global — Server Component. Colunas de links nas Fases 4–6; copyright na Fase 7.
- */
+/** Rodapé global — Server Component (RSC). */
 export function Footer() {
   return (
     <footer className={cn("mt-auto border-t border-border bg-brand-dark")}>
@@ -20,6 +19,7 @@ export function Footer() {
           <FooterQuickLinksSection />
           <FooterLegalSection />
         </div>
+        <FooterCopyright />
       </div>
     </footer>
   );
