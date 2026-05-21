@@ -59,17 +59,17 @@ Reaproveitar design system do registro antes do formulário completo.
 
 ---
 
-## Fase 5: Formulário e Interatividade (Client)
+## Fase 5: Formulário e Interatividade (Client) ✅
 
 Montagem do formulário com RHF + Zod na folha client mínima.
 
-- [ ] Criar componente `LoginForm` com `'use client'`
-- [ ] Inicializar `useForm` com `zodResolver(loginSchema)` e `mode: "onChange"` para validação em tempo real
-- [ ] Registrar campos: `user`, `password` com placeholders *"Usuário"* e *"Senha"*
-- [ ] Configurar `autoComplete` adequado (`username`, `current-password`) para teclados virtuais em mobile
-- [ ] Desabilitar botão de envio enquanto `isLoginRequestPending` ou formulário inválido
-- [ ] Exibir mensagens de erro do Zod abaixo de cada input via componentes reutilizados
-- [ ] Implementar estado de loading no submit (feedback visual no botão, ex.: *"Entrando…"*)
+- [x] Criar componente `LoginForm` com `'use client'`
+- [x] Inicializar `useForm` com `zodResolver(loginSchema)` e `mode: "onChange"` para validação em tempo real
+- [x] Registrar campos: `user`, `password` com placeholders *"Usuário"* e *"Senha"*
+- [x] Configurar `autoComplete` adequado (`username`, `current-password`) para teclados virtuais em mobile
+- [x] Desabilitar botão de envio enquanto `isLoginRequestPending` ou formulário inválido
+- [x] Exibir mensagens de erro do Zod abaixo de cada input via componentes reutilizados
+- [x] Implementar estado de loading no submit (feedback visual no botão, ex.: *"Entrando…"*)
 
 ---
 

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { LoginFormShell } from "@/components/auth/login/LoginFormShell";
+import { LoginForm } from "@/components/auth/login/LoginForm";
 import { ROUTES } from "@/config/routes";
 
 export const metadata: Metadata = {
@@ -20,7 +20,7 @@ export default function LoginPage() {
           </p>
         </header>
 
-        <LoginFormShell />
+        <LoginForm />
 
         <p className="mt-6 text-center text-sm text-muted">
           <Link
