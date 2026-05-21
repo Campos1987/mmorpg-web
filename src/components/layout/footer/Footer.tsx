@@ -1,11 +1,10 @@
-import { FOOTER_SECTIONS } from "@/config/footer-data";
+import { FooterLegalSection } from "@/components/layout/footer/FooterLegalSection";
 import { FooterQuickLinksSection } from "@/components/layout/footer/FooterQuickLinksSection";
-import { FooterSection } from "@/components/layout/footer/FooterSection";
 import { FooterSocialSection } from "@/components/layout/footer/FooterSocialSection";
 import { cn } from "@/lib/utils";
 
 /**
- * Rodapé global — Server Component (shell). Links por seção nas Fases 4–6.
+ * Rodapé global — Server Component. Colunas de links nas Fases 4–6; copyright na Fase 7.
  */
 export function Footer() {
   return (
@@ -19,10 +18,7 @@ export function Footer() {
         >
           <FooterSocialSection />
           <FooterQuickLinksSection />
-          <FooterSection
-            sectionId={FOOTER_SECTIONS.legal.id}
-            heading={FOOTER_SECTIONS.legal.heading}
-          />
+          <FooterLegalSection />
         </div>
       </div>
     </footer>

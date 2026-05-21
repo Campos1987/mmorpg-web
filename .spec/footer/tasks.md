@@ -72,14 +72,14 @@ Segunda coluna — mapa secundário de páginas cruciais.
 
 ---
 
-## Fase 6: Seção Legal e Conformidade
+## Fase 6: Seção Legal e Conformidade ✅
 
 Terceira coluna — conformidade e políticas.
 
-- [ ] Criar `FooterLegalSection` com heading acessível (ex.: "Legal" ou "Informações legais")
-- [ ] Listar EULA, Aviso de Privacidade, Termos de Uso e Preferências de Cookies a partir do array estático
-- [ ] Definir comportamento de **Preferências de Cookies**: link para rota placeholder ou âncora documentada até existir modal/painel (sem `'use client'` nesta entrega, salvo requisito futuro explícito)
-- [ ] Garantir que links legais usem rotas internas tipadas; evitar URLs hardcoded espalhadas no JSX
+- [x] Criar `FooterLegalSection` com heading acessível (ex.: "Legal" ou "Informações legais")
+- [x] Listar EULA, Aviso de Privacidade, Termos de Uso e Preferências de Cookies a partir do array estático
+- [x] Definir comportamento de **Preferências de Cookies**: link para rota placeholder ou âncora documentada até existir modal/painel (sem `'use client'` nesta entrega, salvo requisito futuro explícito)
+- [x] Garantir que links legais usem rotas internas tipadas; evitar URLs hardcoded espalhadas no JSX
 
 ---
 
