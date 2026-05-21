@@ -47,15 +47,15 @@ Lógica de negócio e comunicação HTTP fora dos componentes visuais.
 
 ---
 
-## Fase 4: Componentes de UI Base e Shell da Página
+## Fase 4: Componentes de UI Base e Shell da Página ✅
 
 Reaproveitar design system do registro antes do formulário completo.
 
-- [ ] Reutilizar componentes de formulário existentes (`FormPlaceholderInput`, `FormFieldError`, `form-control-styles`) — mesmos tokens: borda 1px, `rounded-lg`, tema escuro, `focus-ring`, alvos de toque ≥ 48px
-- [ ] Criar estrutura de pastas modular (ex.: `src/components/auth/login/`)
-- [ ] Criar shell da página `app/login/page.tsx` (RSC quando possível) espelhando `/registro`: título, subtítulo, `container-content`, `max-w-lg`, link para voltar à home
-- [ ] Garantir layout responsivo mobile-first (coluna única, espaçamento `gap-4` entre campos)
-- [ ] Ordem visual dos campos (igual à hierarquia do registro, versão reduzida): **Usuário** → **Senha** → botão de envio
+- [x] Reutilizar componentes de formulário existentes (`FormPlaceholderInput`, `FormFieldError`, `form-control-styles`) — mesmos tokens: borda 1px, `rounded-lg`, tema escuro, `focus-ring`, alvos de toque ≥ 48px
+- [x] Criar estrutura de pastas modular (ex.: `src/components/auth/login/`)
+- [x] Criar shell da página `app/login/page.tsx` (RSC quando possível) espelhando `/registro`: título, subtítulo, `container-content`, `max-w-lg`, link para voltar à home
+- [x] Garantir layout responsivo mobile-first (coluna única, espaçamento `gap-4` entre campos)
+- [x] Ordem visual dos campos (igual à hierarquia do registro, versão reduzida): **Usuário** → **Senha** → botão de envio
 
 ---
 
