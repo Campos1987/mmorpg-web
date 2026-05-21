@@ -1,11 +1,12 @@
 /**
  * Endpoints de autenticação — desacoplados da UI.
- * Base opcional via API_BASE_URL (ex.: backend Spring Boot). Vazio = mesma origem (Next.js).
+ * Contrato alinhado ao Spring Boot (`AuthController` em `/auth`).
+ * Base via API_BASE_URL (ex.: http://localhost:4000).
  */
 export const AUTH_API = {
-  LOGIN_PATH: "/api/auth/login",
+  LOGIN_PATH: "/auth/login",
   LOGIN_METHOD: "POST",
-  REGISTER_PATH: "/api/auth/register",
+  REGISTER_PATH: "/auth/register",
   REGISTER_METHOD: "POST",
 } as const;
 

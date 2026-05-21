@@ -4,6 +4,7 @@ import {
   loginPayloadSchema,
   mapZodErrorsToFieldErrors,
 } from "@/schemas/login-schema";
+import { setSessionToken } from "@/lib/auth/session";
 import { loginUserRequest } from "@/services/login-user";
 import type { LoginActionResult } from "@/types/login";
 
@@ -17,5 +18,12 @@ export async function loginUserAction(raw: unknown): Promise<LoginActionResult> 
     };
   }
 
-  return loginUserRequest(parsed.data);
+  const result = await loginUserRequest(parsed.data);
+
+  if (result.status === "success") {
+    await setSessionToken(result.token);
+    return { status: "success" };
+  }
+
+  return result;
 }

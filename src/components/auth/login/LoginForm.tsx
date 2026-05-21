@@ -1,10 +1,15 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
+import { loginUserAction } from "@/actions/login-user-action";
+import { LoginFeedback } from "@/components/auth/login/LoginFeedback";
 import { FormPlaceholderInput } from "@/components/ui/form/FormPlaceholderInput";
+import { ROUTES } from "@/config/routes";
 import { cn } from "@/lib/utils";
 import {
   type LoginFormValues,
@@ -17,11 +22,15 @@ const defaultValues: LoginFormValues = {
 };
 
 export function LoginForm() {
+  const router = useRouter();
   const [isLoginRequestPending, setIsLoginRequestPending] = useState(false);
+  const [globalError, setGlobalError] = useState<string | null>(null);
 
   const {
     register,
     handleSubmit,
+    setError,
+    resetField,
     formState: { errors, isValid },
   } = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
@@ -29,10 +38,37 @@ export function LoginForm() {
     defaultValues,
   });
 
-  const handleLoginFormSubmit = handleSubmit(async () => {
+  const handleLoginFormSubmit = handleSubmit(async (values) => {
     setIsLoginRequestPending(true);
+    setGlobalError(null);
+
     try {
-      // Fase 6: integração com loginUserAction
+      const result = await loginUserAction(values);
+
+      if (result.status === "success") {
+        router.push(ROUTES.HOME);
+        router.refresh();
+        return;
+      }
+
+      if (result.status === "validation") {
+        for (const [field, message] of Object.entries(result.fieldErrors)) {
+          if (message && (field === "user" || field === "password")) {
+            setError(field, { message });
+          }
+        }
+        resetField("password");
+        return;
+      }
+
+      if (result.status === "unauthorized") {
+        setGlobalError(result.message);
+        resetField("password");
+        return;
+      }
+
+      setGlobalError(result.message);
+      resetField("password");
     } finally {
       setIsLoginRequestPending(false);
     }
@@ -45,6 +81,8 @@ export function LoginForm() {
       className="flex w-full flex-col gap-4"
       aria-label="Formulário de login"
     >
+      {globalError ? <LoginFeedback message={globalError} /> : null}
+
       <FormPlaceholderInput
         id="user"
         placeholder="Usuário"
@@ -76,6 +114,16 @@ export function LoginForm() {
       >
         {isLoginRequestPending ? "Entrando…" : "Entrar"}
       </button>
+
+      <p className="text-center text-sm text-muted">
+        Não tem conta?{" "}
+        <Link
+          href={ROUTES.AUTH.REGISTER}
+          className="focus-ring text-brand-gold hover:text-brand-gold-hover"
+        >
+          Registre-se
+        </Link>
+      </p>
     </form>
   );
 }

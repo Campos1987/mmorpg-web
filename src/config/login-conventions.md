@@ -14,7 +14,13 @@ Erro 401 da API: exibir sempre `LOGIN_UNAUTHORIZED_MESSAGE` (*"Credenciais invá
 
 | Variável | Obrigatória | Descrição |
 | :--- | :--- | :--- |
-| `API_BASE_URL` | Não | URL base do backend (ex.: `http://localhost:8080`). Vazio = requisições para a mesma origem do Next.js. |
+| `API_BASE_URL` | Não | URL base do backend (ex.: `http://localhost:4000`). Vazio = requisições para a mesma origem do Next.js. |
+
+## Sessão JWT
+
+- Endpoint: `POST {API_BASE_URL}/auth/login` — resposta **202** com `{ loginTime, claims }` (`claims` = JWT).
+- O token é gravado em cookie **HttpOnly** (`mmorpg_auth_token`) pela Server Action; nunca vai para `localStorage`.
+- Chamadas server-side autenticadas à API devem usar `getAuthorizationHeader()` de `src/lib/auth/session.ts`.
 
 Copie `.env.example` para `.env.local` e defina `API_BASE_URL` ao integrar com o Spring Boot em desenvolvimento.
 
