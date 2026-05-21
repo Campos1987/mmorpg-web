@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Cinzel, Inter } from "next/font/google";
 
+import { Footer } from "@/components/layout/footer";
 import { TopBar } from "@/components/layout/top-bar";
 import "./globals.css";
 
@@ -36,6 +37,7 @@ export default function RootLayout({
         <main id="main-content" className="flex flex-1 flex-col">
           {children}
         </main>
+        <Footer />
       </body>
     </html>
   );

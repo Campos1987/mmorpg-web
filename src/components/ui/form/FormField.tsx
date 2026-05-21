@@ -26,11 +26,15 @@ export function FormField({
       </label>
       {children}
       {error ? (
+<<<<<<< HEAD
         <p
           id={errorId}
           role="alert"
           className="text-sm text-brand-cta"
         >
+=======
+        <p id={errorId} role="alert" className="text-sm text-brand-cta">
+>>>>>>> main
           {error}
         </p>
       ) : null}

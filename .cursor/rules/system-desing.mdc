@@ -1,0 +1,139 @@
+---
+alwaysApply: true
+---
+
+## **1. ARQUITETURA DE VIEWPORTS & BREAKPOINTS**
+A abordagem utiliza **Mobile-First**, garantindo que o CSS base seja o mais leve possível para conexões móveis, escalando progressivamente para telas Ultrawide.
+### **Estratégia de Breakpoints (Tailwind Configuration)**
+O sistema adota os seguintes breakpoints, definidos em pixels para garantir consistência entre os motores de renderização (Blink, WebKit, Gecko):
+
+|**Breakpoint**|**Resolução (px)**|**Dispositivo Alvo**|**Escopo de Renderização**|
+| :- | :- | :- | :- |
+|base|320px - 639px|Mobile (Smartphones antigos/pequenos)|Layout de coluna única, menus colapsados (Hamburger).|
+|sm|640px|Mobile Large / Phablets|Ajuste de espaçamentos em formulários.|
+|md|768px|Tablet Portrait|Transição para cards em grid duplo, navegação compacta.|
+|lg|1024px|Tablet Landscape / Laptops|Introdução da Sidebar fixa no Dashboard e Header horizontal.|
+|xl|1280px|Desktops Padrão|Layout total (12 colunas reais), banners expandidos.|
+|2xl|1536px|Monitores Large|Limite do container central para evitar espalhamento de conteúdo.|
+|3xl|2560px+|Ultrawide|Fundo imersivo infinito; área de conteúdo fixada em no máximo 1920px.|
+### **Tipografia Fluida (Fluid Typography) e Espaçamento**
+Em vez de definir tamanhos fixos para cada breakpoint, utilizamos funções clamp() do CSS. Isso garante que a tipografia e o espaçamento cresçam linearmente junto com a viewport, sem "saltos" visuais abruptos.
+
+CSS
+
+/\* globas.css \*/
+
+:root {
+
+`  `/\* clamp(min, preferencial baseado em vw, max) \*/
+
+`  `--text-base: clamp(1rem, 0.875rem + 0.39vw, 1.25rem);
+
+`  `--text-h1: clamp(2.25rem, 1.75rem + 2vw, 4rem);
+
+`  `--spacing-container: clamp(1rem, 5vw, 4rem);
+
+}
+## **2. DESIGN SYSTEM & FUNDAÇÕES (UI Tokens)**
+Para suportar a atmosfera descrita (High Five, Dark Mode imersivo), o Design System injeta tokens diretamente na configuração do Tailwind, garantindo escalabilidade caso o projeto exija novos temas no futuro.
+### **Arquitetura de Design Tokens (tailwind.config.ts)**
+- **Cores Primitivas:** Baseadas no Dark Mode nativo (bg-slate-950 para fundo primário e bg-slate-900 para cards).
+- **Cores Semânticas:** Call to Actions (CTA) em destaque para conversão (vermelho escarlate/dourado) e status de servidores.
+- **Grid System:**
+  - **Mobile:** 4 colunas, gutter de 16px.
+  - **Tablet (md):** 8 colunas, gutter de 24px.
+  - **Desktop (lg+):** 12 colunas, gutter de 32px.
+
+TypeScript
+
+// tailwind.config.ts
+
+module.exports = {
+
+`  `theme: {
+
+`    `extend: {
+
+`      `colors: {
+
+`        `brand: {
+
+`          `dark: '#020617', // slate-950
+
+`          `card: '#0f172a', // slate-900
+
+`          `cta: '#dc2626', // red-600
+
+`          `'cta-hover': '#b91c1c', // red-700
+
+`          `success: '#22c55e', // green-500
+
+`        `},
+
+`      `},
+
+`      `fontFamily: {
+
+`        `serif: ['"Cinzel"', 'serif'], // Headings medievais/fantasia
+
+`        `sans: ['"Inter"', 'sans-serif'], // Leitura técnica (Patch notes, Regras)
+
+`      `}
+
+`    `}
+
+`  `}
+
+}
+## **3. ARQUITETURA DE COMPONENTES RESPONSIVOS CRÍTICOS**
+A adaptação entre dispositivos não é apenas visual (CSS), mas estrutural, utilizando técnicas avançadas de marcação.
+### **3.1. Sistema de Navegação**
+Na **Área Autenticada**, a navegação transita radicalmente:
+
+- **Mobile (< 1024px):** Utiliza uma Navigation Drawer (Menu Lateral Oculto) acessível via botão Hambúrguer. O estado gerencia o travamento do scroll do <body> (overflow-hidden) quando aberto, prendendo o foco (Focus Trap) dentro do menu.
+- **Desktop (>= 1024px):** Renderiza uma Sidebar fixa à esquerda. O Header horizontal foca em métricas rápidas (Saldo de Coins e Status Premium).
+### **3.2. Tabelas de Dados Complexas (Ex: Lista de Personagens)**
+Tabelas HTML padrão (<table>) quebram a experiência mobile. A abordagem arquitetural é a transmutação estrutural:
+
+- **Desktop:** Exibição tradicional em colunas (Nome, Nível, Classe, Subclasse, Noblesse).
+- **Mobile:** A <table> assume display: flex; flex-direction: column;. Cada <tr> vira um Card estilizado (com bg-slate-900), e os <td> recebem atributos data-label gerados via CSS pseudo-elementos (::before) para identificar a qual coluna o dado pertence.
+### **3.3. Formulários, Inputs e Autenticação**
+O fluxo de conversão (Registro/Login) carece de alta segurança e usabilidade:
+
+- **Layout:** Coluna única em Mobile para evitar toques acidentais, dividindo-se em duas colunas apenas no Desktop se houver imagem contextual ao lado.
+- **Virtual Keyboards:** Uso estrito de atributos como inputmode="email" e autocomplete.
+- **Integração de Segurança:** O frontend deve estruturar as requisições de senha prontas para receber criptografia robusta no backend (como fluxos que processam **Argon2** via rotas de API seguras, evitando gargalos de CPU no Node/Next Server).
+- **Microinterações:** Validação assíncrona (ex: *debounce* de 300ms para checar se o login já existe) sem bloquear a Thread principal.
+## **4. PERFORMANCE DE RENDERIZAÇÃO & MÍDIA RESPONSIVA**
+A home page é a ponta do funil de conversão e deve atingir pontuações perfeitas no Lighthouse (LCP < 2.5s).
+### **Estratégia de Imagens**
+<a name="p-rc_1a8056848aca84b5-19"></a>Banners imersivos de alta resolução exigem a tag <picture> para controle de direção de arte, combinando formatos **WebP/AVIF**. 
+
+HTML
+
+<picture>
+
+`  `<source media="(max-width: 767px)" srcSet="/img/hero-mobile.avif" type="image/avif" />
+
+`  `<source media="(min-width: 768px)" srcSet="/img/hero-desktop.avif" type="image/avif" />
+
+`  `<img src="/img/hero-fallback.jpg" alt="Batalha Épica" fetchpriority="high" />
+
+</picture>
+### **Otimização e Hidratação Seletiva**
+<a name="p-rc_1a8056848aca84b5-20"></a>Widgets interativos como as Enquetes ou a interface de monetização baseada em cards são carregados dinamicamente via next/dynamic. Se o usuário estiver em um celular em rede 3G, scripts pesados de partículas de fundo exclusivas para Desktop sequer serão baixados, implementando code-splitting baseado em detecção de feature/viewport. 
+## **5. ARQUITETURA TÉCNICA DO FRONTEND (ESTADO E RENDERIZAÇÃO)**
+### **Estratégia de Renderização (Next.js App Router)**
+- <a name="p-rc_1a8056848aca84b5-21"></a>**SSG (Static Site Generation):** Páginas como /sobre, /downloads e os Pilares do Servidor devem ser pré-renderizadas no tempo de build, garantindo Time to First Byte (TTFB) na casa dos milissegundos. 
+- <a name="p-rc_1a8056848aca84b5-22"></a>**ISR (Incremental Static Regeneration):** O Painel de Notícias utiliza revalidação de cache (ex: revalidate: 60 segundos) para atualizar Patch Notes sem onerar o banco de dados. 
+- <a name="p-rc_1a8056848aca84b5-23"></a>**RSC (React Server Components) vs Client Components:** Apenas os componentes que necessitam de interatividade (ex: Contador do TvT, Badge de Jogadores Online piscando ) serão use client. Todo o restante da árvore permanece no servidor, despachando 0kb de JavaScript. 
+### **Gerenciamento de Estado UI**
+O controle de abas do layout de monetização e estados complexos de menus serão geridos por uma store leve como **Zustand**, dispensando Redux pela sua complexidade de boilerplate, garantindo que a alteração da Sidebar não cause re-render na Lista de Personagens.
+## **6. ACESSIBILIDADE (A11Y) E INTERAÇÃO RESPONSIVA**
+Para atender à norma **WCAG 2.1 AA**, o Design System incorpora validações rigorosas de uso.
+
+- **Alvos de Toque (Touch Targets):** Todos os botões interativos (CTAs, links de navegação, controles da tabela) terão dimensão mínima absoluta de 48x48px em dispositivos móveis, utilizando utilitários como min-h-[48px] min-w-[48px] p-4.
+- **Navegação por Teclado e Foco (Focus Management):**
+  - Elementos clicáveis terão a classe focus:ring-2 focus:ring-brand-cta outline-none para dar feedback visual claro para quem navega por Tab.
+  - Uso de aria-live="polite" nos contadores de eventos dinâmicos (CTF/TvT) para que leitores de tela anunciem as atualizações de horário sem interromper o usuário.
+- **Contraste (Dark Mode):** O fundo bg-slate-950 combinado com textos em text-slate-100 e títulos Serifados em tons mais claros garantem uma taxa de contraste superior a 4.5:1, tornando as regras do servidor e atributos de itens perfeitamente legíveis.

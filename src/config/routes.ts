@@ -8,6 +8,7 @@ export const ROUTES = {
   RULES: "/regras",
   DONATIONS: "/doacoes",
   AUTH: {
+    /** Página de login — implementação em `app/login/page.tsx` (Fase 4+) */
     LOGIN: "/login",
     REGISTER: "/registro",
   },
@@ -27,6 +28,15 @@ export const ROUTES = {
     TOP_PVP: "/rankings/pvp",
     TOP_PK: "/rankings/pk",
     TOP_CLAN: "/rankings/clan",
+  },
+  /** Atalho do rodapé — placeholder até `app/suporte/page.tsx` existir */
+  SUPPORT: "/suporte",
+  /** Páginas legais do rodapé — placeholders até as rotas institucionais existirem */
+  LEGAL: {
+    EULA: "/legal/eula",
+    PRIVACY: "/legal/privacidade",
+    TERMS: "/legal/termos",
+    COOKIES: "/legal/cookies",
   },
 } as const;
 
