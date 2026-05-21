@@ -35,16 +35,16 @@ Arrays tipados e fonte única da verdade antes do layout visual.
 
 ---
 
-## Fase 3: Estrutura do Componente (Server-First)
+## Fase 3: Estrutura do Componente (Server-First) ✅
 
 Shell do rodapé como RSC, sem interatividade de cliente desnecessária.
 
-- [ ] Definir estrutura de pastas modular (ex.: `src/components/layout/footer/`) respeitando SRP
-- [ ] Criar componente raiz `Footer` como Server Component (sem `'use client'`)
-- [ ] Envolver o rodapé em `<footer>` semântico com `role="contentinfo"` implícito
-- [ ] Implementar container com fundo escuro coerente com tokens (`bg-background` / `bg-slate-950` ou equivalente semântico do tema)
-- [ ] Criar subcomponente `FooterSection` (título + lista de links) reutilizável para as três colunas de conteúdo
-- [ ] Exportar barrel `index.ts` com API pública mínima (`Footer` e subcomponentes necessários ao layout)
+- [x] Definir estrutura de pastas modular (ex.: `src/components/layout/footer/`) respeitando SRP
+- [x] Criar componente raiz `Footer` como Server Component (sem `'use client'`)
+- [x] Envolver o rodapé em `<footer>` semântico com `role="contentinfo"` implícito
+- [x] Implementar container com fundo escuro coerente com tokens (`bg-background` / `bg-slate-950` ou equivalente semântico do tema)
+- [x] Criar subcomponente `FooterSection` (título + lista de links) reutilizável para as três colunas de conteúdo
+- [x] Exportar barrel `index.ts` com API pública mínima (`Footer` e subcomponentes necessários ao layout)
 
 ---
 
