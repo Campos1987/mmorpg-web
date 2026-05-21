@@ -9,6 +9,7 @@ import { ROUTES } from "@/config/routes";
 import type { DashboardUser } from "@/types/dashboard";
 import { cn } from "@/lib/utils";
 
+import { DashboardMobileNav } from "./DashboardMobileNav";
 import { DashboardNavLink } from "./DashboardNavLink";
 import { DashboardQuickActions } from "./DashboardQuickActions";
 import { DashboardUserMenu } from "./DashboardUserMenu";
@@ -62,6 +63,7 @@ export function DashboardNavbar({
         </nav>
 
         <div className="flex items-center gap-2 sm:gap-4">
+          <DashboardMobileNav />
           <DashboardUserMenu user={user} />
           <DashboardQuickActions unreadCount={user.unreadNotifications} />
         </div>
