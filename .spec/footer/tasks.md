@@ -48,15 +48,15 @@ Shell do rodapé como RSC, sem interatividade de cliente desnecessária.
 
 ---
 
-## Fase 4: Seção Redes Sociais e Comunidade
+## Fase 4: Seção Redes Sociais e Comunidade ✅
 
 Primeira coluna de conteúdo conforme specify.
 
-- [ ] Criar `FooterSocialSection` que itera sobre o array estático da Fase 2
-- [ ] Implementar `FooterSocialLink` com `next/link` (externo) ou `<a>` nativo para URLs absolutas
-- [ ] Adicionar ícones acessíveis (SVG inline ou componente de ícone) com `aria-label` descritivo por rede
-- [ ] Garantir alvos de toque mínimos de **48×48px** nos ícones/links sociais
-- [ ] Aplicar `focus-ring` e transição de cor no hover alinhada ao tema (brilho/neon ou `hover:text-brand-gold`)
+- [x] Criar `FooterSocialSection` que itera sobre o array estático da Fase 2
+- [x] Implementar `FooterSocialLink` com `next/link` (externo) ou `<a>` nativo para URLs absolutas
+- [x] Adicionar ícones acessíveis (SVG inline ou componente de ícone) com `aria-label` descritivo por rede
+- [x] Garantir alvos de toque mínimos de **48×48px** nos ícones/links sociais
+- [x] Aplicar `focus-ring` e transição de cor no hover alinhada ao tema (brilho/neon ou `hover:text-brand-gold`)
 
 ---
 

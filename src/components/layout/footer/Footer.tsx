@@ -1,5 +1,6 @@
 import { FOOTER_SECTIONS } from "@/config/footer-data";
 import { FooterSection } from "@/components/layout/footer/FooterSection";
+import { FooterSocialSection } from "@/components/layout/footer/FooterSocialSection";
 import { cn } from "@/lib/utils";
 
 /**
@@ -15,10 +16,7 @@ export function Footer() {
             "lg:flex-row lg:items-start lg:justify-between lg:gap-8",
           )}
         >
-          <FooterSection
-            sectionId={FOOTER_SECTIONS.social.id}
-            heading={FOOTER_SECTIONS.social.heading}
-          />
+          <FooterSocialSection />
           <FooterSection
             sectionId={FOOTER_SECTIONS.quickLinks.id}
             heading={FOOTER_SECTIONS.quickLinks.heading}
