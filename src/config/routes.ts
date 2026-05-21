@@ -4,6 +4,13 @@
  */
 export const ROUTES = {
   HOME: "/",
+  DASHBOARD: {
+    ROOT: "/dashboard",
+    PROFILE: "/dashboard/perfil",
+    MARKET: "/dashboard/mercado",
+    GUILD: "/dashboard/guilda",
+    SETTINGS: "/dashboard/configuracoes",
+  },
   DOWNLOADS: "/downloads",
   RULES: "/regras",
   DONATIONS: "/doacoes",

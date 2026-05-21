@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  <rect width="400" height="200" fill="#20005f"/>
+  <text x="200" y="100" text-anchor="middle" fill="#89ffff" font-size="24" font-weight="700">Castle Siege</text>
+  <text x="200" y="130" text-anchor="middle" fill="#94a3b8" font-size="14">Próximo evento</text>
+</svg>
