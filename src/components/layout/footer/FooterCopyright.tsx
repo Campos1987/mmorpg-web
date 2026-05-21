@@ -14,10 +14,12 @@ export function FooterCopyright() {
     <div
       className={cn(
         "mt-10 border-t border-border pt-8",
-        "text-center text-xs leading-relaxed text-muted",
+        "mx-auto w-full max-w-3xl",
+        "px-0 text-center text-xs leading-relaxed text-muted",
+        "sm:px-[var(--spacing-container)]",
       )}
     >
-      <p>
+      <p className="text-pretty">
         ©{currentYear} {FOOTER_BRAND_NAME}. {FOOTER_COPYRIGHT_NOTICE}
       </p>
     </div>

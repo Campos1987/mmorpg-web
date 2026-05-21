@@ -20,7 +20,7 @@ export function FooterSection({
 }: FooterSectionProps) {
   return (
     <section
-      className={cn("min-w-0", className)}
+      className={cn("w-full min-w-0", className)}
       aria-labelledby={sectionId}
     >
       <h2

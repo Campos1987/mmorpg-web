@@ -94,15 +94,15 @@ Faixa inferior de direitos autorais.
 
 ---
 
-## Fase 8: Layout Responsivo
+## Fase 8: Layout Responsivo ✅
 
 Comportamento mobile-first conforme specify e system-design.
 
-- [ ] Implementar grid/flex das três seções: **colunas lado a lado no desktop** (`lg:` ou breakpoint definido no projeto)
-- [ ] Empilhar seções **verticalmente no mobile** (`flex-col` / `grid-cols-1`) com espaçamento fluido (`clamp` ou tokens de spacing)
-- [ ] Limitar largura do conteúdo em viewports ultrawide (container central, alinhado ao padrão da Top Bar)
-- [ ] Garantir que o rodapé não comprima o `<main>` — posicionar após `children` no fluxo do layout (`flex-1` no main já existente)
-- [ ] Validar legibilidade e contraste das colunas empilhadas em viewports &lt; 640px
+- [x] Implementar grid/flex das três seções: **colunas lado a lado no desktop** (`lg:` ou breakpoint definido no projeto)
+- [x] Empilhar seções **verticalmente no mobile** (`flex-col` / `grid-cols-1`) com espaçamento fluido (`clamp` ou tokens de spacing)
+- [x] Limitar largura do conteúdo em viewports ultrawide (container central, alinhado ao padrão da Top Bar)
+- [x] Garantir que o rodapé não comprima o `<main>` — posicionar após `children` no fluxo do layout (`flex-1` no main já existente)
+- [x] Validar legibilidade e contraste das colunas empilhadas em viewports &lt; 640px
 
 ---
 

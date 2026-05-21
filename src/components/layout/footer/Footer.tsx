@@ -4,15 +4,20 @@ import { FooterQuickLinksSection } from "@/components/layout/footer/FooterQuickL
 import { FooterSocialSection } from "@/components/layout/footer/FooterSocialSection";
 import { cn } from "@/lib/utils";
 
-/** Rodapé global — Server Component (RSC). */
+/**
+ * Rodapé global — Server Component (RSC).
+ * Layout: colunas empilhadas no mobile, grid 3 colunas a partir de `lg`, `container-content` em ultrawide.
+ * Integração no `RootLayout` na Fase 9 — `main` já usa `flex-1` para não ser comprimido.
+ */
 export function Footer() {
   return (
-    <footer className={cn("mt-auto border-t border-border bg-brand-dark")}>
-      <div className="container-content py-10 md:py-12">
+    <footer className={cn("mt-auto shrink-0 border-t border-border bg-brand-dark")}>
+      <div className="container-content w-full py-10 md:py-12">
         <div
           className={cn(
-            "flex flex-col gap-10",
-            "lg:flex-row lg:items-start lg:justify-between lg:gap-8",
+            "grid w-full grid-cols-1",
+            "gap-x-8 gap-y-[var(--spacing-container)]",
+            "lg:grid-cols-3 lg:items-start lg:gap-y-8",
           )}
         >
           <FooterSocialSection />
