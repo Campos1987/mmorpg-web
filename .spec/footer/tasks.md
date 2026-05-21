@@ -131,19 +131,19 @@ Conformidade WCAG e padrões Staff Engineer.
 
 ---
 
-## Fase 11: Verificação Manual e Critérios de Aceite
+## Fase 11: Verificação Manual e Critérios de Aceite ✅
 
-Checklist final contra a spec.
+Checklist final contra a spec. Evidências em [ACCEPTANCE.md](../../src/components/layout/footer/ACCEPTANCE.md).
 
-- [ ] Três categorias visíveis: Redes Sociais, Atalhos Rápidos e Legal
-- [ ] Discord e Reddit abrem destino correto em nova aba (externo) com segurança (`noopener`)
-- [ ] Downloads, Regras e Suporte navegam para rotas internas corretas
-- [ ] Todos os quatro itens legais estão presentes e clicáveis
-- [ ] Copyright exibe ano atual e texto de marcas registradas
-- [ ] Desktop: colunas distribuídas horizontalmente; Mobile: colunas empilhadas
-- [ ] Hover perceptível em links e ícones (efeito neon/brilho ou cor de destaque do tema)
-- [ ] Contraste e legibilidade adequados no tema escuro
-- [ ] Rodapé presente em todas as rotas que usam `RootLayout` (home, login, registro, etc.)
+- [x] Três categorias visíveis: Redes Sociais, Atalhos Rápidos e Legal
+- [x] Discord e Reddit abrem destino correto em nova aba (externo) com segurança (`noopener`)
+- [x] Downloads, Regras e Suporte navegam para rotas internas corretas
+- [x] Todos os quatro itens legais estão presentes e clicáveis
+- [x] Copyright exibe ano atual e texto de marcas registradas
+- [x] Desktop: colunas distribuídas horizontalmente; Mobile: colunas empilhadas
+- [x] Hover perceptível em links e ícones (efeito neon/brilho ou cor de destaque do tema)
+- [x] Contraste e legibilidade adequados no tema escuro
+- [x] Rodapé presente em todas as rotas que usam `RootLayout` (home, login, registro, etc.)
 
 ---
 
