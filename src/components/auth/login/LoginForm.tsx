@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-import { loginUserAction } from "@/actions/login-user-action";
+import { loginAction } from "@/actions/auth";
 import { LoginFeedback } from "@/components/auth/login/LoginFeedback";
 import { FormPlaceholderInput } from "@/components/ui/form/FormPlaceholderInput";
 import { ROUTES } from "@/config/routes";
@@ -15,6 +15,8 @@ import {
   type LoginFormValues,
   loginSchema,
 } from "@/schemas/login-schema";
+import { getErrorMessage } from "@/utils/api-error-handler";
+import { parseLoginFieldErrorsFromApiMessage } from "@/lib/auth/parse-api-error";
 
 const defaultValues: LoginFormValues = {
   user: "",
@@ -43,31 +45,39 @@ export function LoginForm() {
     setGlobalError(null);
 
     try {
-      const result = await loginUserAction(values);
+      const result = await loginAction(values);
 
-      if (result.status === "success") {
+      if (result.data) {
         router.push(ROUTES.HOME);
         router.refresh();
         return;
       }
 
-      if (result.status === "validation") {
-        for (const [field, message] of Object.entries(result.fieldErrors)) {
-          if (message && (field === "user" || field === "password")) {
-            setError(field, { message });
+      if (result.error) {
+        const apiError = result.error;
+
+        if (apiError.error === "BAD_REQUEST" && apiError.message) {
+          const fieldErrors = parseLoginFieldErrorsFromApiMessage(
+            apiError.message,
+          );
+          const hasFieldErrors = Object.keys(fieldErrors).length > 0;
+
+          if (hasFieldErrors) {
+            for (const [field, message] of Object.entries(fieldErrors)) {
+              if (message && (field === "user" || field === "password")) {
+                setError(field, { message });
+              }
+            }
+            resetField("password");
+            return;
           }
         }
-        resetField("password");
-        return;
-      }
 
-      if (result.status === "unauthorized") {
-        setGlobalError(result.message);
+        setGlobalError(getErrorMessage(apiError));
         resetField("password");
-        return;
       }
-
-      setGlobalError(result.message);
+    } catch {
+      setGlobalError("Ocorreu um erro inesperado. Tente novamente mais tarde.");
       resetField("password");
     } finally {
       setIsLoginRequestPending(false);
@@ -85,7 +95,7 @@ export function LoginForm() {
 
       <FormPlaceholderInput
         id="user"
-        placeholder="Usuário"
+        placeholder="Usuário ou E-mail"
         autoComplete="username"
         hasError={Boolean(errors.user)}
         error={errors.user?.message}
@@ -110,16 +120,43 @@ export function LoginForm() {
           "text-sm font-semibold uppercase tracking-wide text-foreground",
           "transition-colors hover:bg-brand-cta-hover",
           "disabled:cursor-not-allowed disabled:opacity-50",
+          "flex items-center justify-center"
         )}
       >
-        {isLoginRequestPending ? "Entrando…" : "Entrar"}
+        {isLoginRequestPending ? (
+          <span className="flex items-center justify-center gap-2">
+            <svg
+              className="h-5 w-5 animate-spin text-foreground"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                className="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                strokeWidth="4"
+              />
+              <path
+                className="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              />
+            </svg>
+            Entrando…
+          </span>
+        ) : (
+          "Entrar"
+        )}
       </button>
 
       <p className="text-center text-sm text-muted">
         Não tem conta?{" "}
         <Link
           href={ROUTES.AUTH.REGISTER}
-          className="focus-ring text-brand-gold hover:text-brand-gold-hover"
+          className="focus-ring text-brand-gold hover:text-brand-gold-hover font-semibold transition-colors"
         >
           Registre-se
         </Link>
@@ -127,3 +164,4 @@ export function LoginForm() {
     </form>
   );
 }
+

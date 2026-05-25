@@ -188,3 +188,186 @@ body {
   font-size: var(--text-base);
   line-height: 1.6;
 }
+
+/*backgroud top-bar*/
+.header-container {
+  background: linear-gradient(90deg, rgba(136, 115, 60, 0) 52.29%, rgba(127, 103, 44, .25)),
+    linear-gradient(0deg, hsla(47, 25%, 54%, 0), hsla(47, 25%, 54%, 0)),
+    url(/images/background-texture-four.png) repeat,
+    url(/images/background-texture-two.jpeg) no-repeat,
+    #111111;
+  background-blend-mode: normal, color-dodge, normal, screen, normal;
+}
+
+.header-container:after,
+.header-container:before {
+  background: linear-gradient(90deg, rgba(0, 0, 0, .3), hsla(0, 0%, 66%, .7), rgba(0, 0, 0, .3));
+  content: "";
+  height: 1px;
+  left: 0;
+  position: absolute;
+  right: 0
+}
+
+.header-container:before {
+  top: 0
+}
+
+.header-container:after {
+  bottom: 0
+}
+
+.container-bg {
+  background-color: 111111;
+  backdrop-filter: blur(8px);
+  border-top: rgba(212, 162, 55, .25) solid 1px;
+}
+
+/* Aplica as mesmas linhas de divisão sutis (1px) no topo e base do dropdown */
+.container-bg:after,
+.container-bg:before {
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.3), hsla(0, 0%, 66%, 0.7), rgba(0, 0, 0, 0.3));
+  content: "";
+  height: 1px;
+  left: 0;
+  position: absolute;
+  right: 0;
+}
+
+.container-bg:before {
+  top: 0;
+}
+
+.container-bg:after {
+  bottom: 0;
+}
+
+.footer-gradient-bg {
+  background-color: 111111;
+  backdrop-filter: blur(8px);
+  border-top: rgba(212, 162, 55, .25) solid 1px;
+}
+
+/* Aplica as mesmas linhas de divisão sutis (1px) no topo e base do dropdown */
+.footer-gradient-bg:after,
+.footer-gradient-bg:before {
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.3), hsla(0, 0%, 66%, 0.7), rgba(0, 0, 0, 0.3));
+  content: "";
+  height: 1px;
+  left: 0;
+  position: absolute;
+  right: 0;
+}
+
+.footer-gradient-bg:before {
+  top: 0;
+}
+
+.footer-gradient-bg:after {
+  bottom: 0;
+}
+
+/* ==========================================
+   Botao top-bar Registro
+   ========================================== */
+.bt-top-bar-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  /* Ajustes de Posicionamento e Tamanho */
+  position: absolute;
+  right: 0;
+  height: 100%;
+  /* Mudado de absolute para relative para ele respeitar o fluxo da página */
+  min-height: 42px;
+  min-width: 200px;
+  padding: 0 50px;
+  cursor: pointer;
+  border: none;
+  overflow: hidden;
+
+  box-shadow: -10px 0 15px rgba(0, 0, 0, 0.65);
+
+  /* Cor/Gradiente Base para o botão não iniciar invisível */
+  background: linear-gradient(268.29deg, #e7dacb -.04%, #c59768 24.44%,
+      #7f4f2c 51%, #a66b42 78.09%, #c49d6d 99.96%);
+  color: #000;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: .1em;
+
+  clip-path: polygon(20% 0%, 100% 0, 100% 100%, 0% 100%);
+  /* Se quiser o efeito inclinado original */
+  transition: all .35s ease-in-out;
+}
+
+/* Corrige o texto para não ficar torto devido ao skewX */
+.bt-top-bar-button span {
+  position: relative;
+  /* Necessário para o z-index funcionar */
+  z-index: 2;
+  /* Joga o texto para a camada da frente */
+  color: #1f1a10;
+  font-family: Georgia, serif;
+  /* Fonte com serifa para o estilo RPG */
+  font-size: 1.75rem;
+  font-weight: bold;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-decoration: none;
+  text-shadow:
+    -1px -1px 1px rgba(0, 0, 0, 0.45),
+    /* Sombra interna cortando o topo e a esquerda */
+    1px 1px 1px rgba(255, 255, 255, 0.7);
+  /* Borda iluminada na base e na direita */
+}
+
+.bt-top-bar-button:hover span {
+  color: #332c1d;
+}
+
+.bt-top-bar-button:before {
+  background: linear-gradient(90deg, transparent 0, hsla(0, 0%, 100%, .6) 50%, transparent);
+  content: "";
+  height: 150px;
+  width: 101px;
+  position: absolute;
+  top: -55%;
+  left: -150%;
+  /* Começa escondido à esquerda */
+  transition: left 0.6s ease-in-out;
+  z-index: 1;
+}
+
+/* Quando passa o mouse, o brilho cruza o botão para a direita */
+.bt-top-bar-button:hover:before {
+  left: 150%;
+}
+
+.bt-top-bar-button:after {
+  background:
+    linear-gradient(0deg, rgba(150, 44, 0, .45), rgba(150, 44, 0, .45)),
+    url(/images/TLScratchedMetal.jpeg),
+    radial-gradient(55.59% 125% at 46.14% 13.16%, rgba(255, 228, 194, 0.5) 0, rgba(197, 151, 104, 0) 100%),
+    linear-gradient(268.29deg, rgba(231, 218, 203, 0.5) -.04%, rgba(197, 151, 104, 0.5) 24.44%, rgba(127, 79, 44, 0.5) 51%, rgba(166, 107, 66, 0.5) 78.09%, rgba(196, 157, 109, 0.5) 99.96%),
+    linear-gradient(271.17deg, rgba(255, 255, 255, .2) -.68%, rgba(255, 255, 255, 0) 49%),
+    #262626;
+  background-blend-mode: normal, overlay, normal, normal, normal, normal;
+  background-position: 50%;
+  background-size: cover;
+  bottom: 0;
+  content: " ";
+  left: 0;
+  opacity: 1;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transform: matrix(-1, 0, 0, 1, 0, 0);
+  transition: opacity .35s ease-in-out
+}
+
+.bt-top-bar-button:hover {
+  color: #fff;
+}
