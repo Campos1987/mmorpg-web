@@ -1,63 +1,43 @@
 "use client";
 
-import { useCallback, useMemo, useState } from "react";
+import { CharacterPanel } from "./CharacterPanel";
+import { WalletPanel } from "./WalletPanel";
+import { AchievementsPanel } from "./AchievementsPanel";
+import { ChallengesPanel } from "./ChallengesPanel";
+import { CalendarPanel } from "./CalendarPanel";
+import { RankingsPanel } from "./RankingsPanel";
 
-import { AccountHeader } from "@/components/dashboard/account";
-import { ActivityDashboard } from "@/components/dashboard/activity";
-import { CharacterCarousel } from "@/components/dashboard/character";
-import { getCharactersBySubAccount } from "@/mocks/dashboard-mock-data";
 import type { DashboardMockData } from "@/types/dashboard";
 
 type DashboardViewProps = {
   data: DashboardMockData;
 };
 
-export function DashboardView({ data }: DashboardViewProps) {
-  const [selectedSubAccountId, setSelectedSubAccountId] = useState(
-    data.subAccounts[0]?.id ?? "",
-  );
-
-  const visibleCharacters = useMemo(
-    () => getCharactersBySubAccount(selectedSubAccountId, data.characters),
-    [selectedSubAccountId, data.characters],
-  );
-
-  const [activeCharacterId, setActiveCharacterId] = useState<string | null>(
-    () => visibleCharacters[0]?.id ?? null,
-  );
-
-  const handleSubAccountChange = useCallback(
-    (subAccountId: string) => {
-      setSelectedSubAccountId(subAccountId);
-      const nextCharacters = getCharactersBySubAccount(subAccountId, data.characters);
-      setActiveCharacterId(nextCharacters[0]?.id ?? null);
-    },
-    [data.characters],
-  );
-
-  const handleCharacterSelect = useCallback((characterId: string) => {
-    setActiveCharacterId(characterId);
-  }, []);
-
+export function DashboardView({ data: _data }: DashboardViewProps) {
   return (
-    <>
-      <AccountHeader
-        subAccounts={data.subAccounts}
-        selectedSubAccountId={selectedSubAccountId}
-        onSubAccountChange={handleSubAccountChange}
-        currencies={data.currencies}
-      />
-      <CharacterCarousel
-        characters={visibleCharacters}
-        activeCharacterId={activeCharacterId}
-        onCharacterSelect={handleCharacterSelect}
-      />
-      <ActivityDashboard
-        dailyQuests={data.dailyQuests}
-        weeklyChallenges={data.weeklyChallenges}
-        nextEvent={data.nextEvent}
-        achievements={data.achievements}
-      />
-    </>
+    <div className="container-content py-8 md:py-12 flex-1 flex flex-col justify-center">
+      {/* Bento Grid Principal */}
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-12 items-stretch">
+        
+        {/* Coluna da Esquerda (Perfil e Status) */}
+        <div className="lg:col-span-3 h-full">
+          <CharacterPanel />
+        </div>
+
+        {/* Coluna do Meio (Economia, Conquistas, Desafios) */}
+        <div className="flex flex-col gap-6 lg:col-span-5 justify-between">
+          <WalletPanel />
+          <AchievementsPanel />
+          <ChallengesPanel />
+        </div>
+
+        {/* Coluna da Direita (Calendário de Eventos, Rankings) */}
+        <div className="flex flex-col gap-6 lg:col-span-4 justify-between">
+          <CalendarPanel />
+          <RankingsPanel />
+        </div>
+
+      </div>
+    </div>
   );
 }

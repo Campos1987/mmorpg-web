@@ -165,12 +165,10 @@
 }
 
 @utility dashboard-surface {
-  background: linear-gradient(
-    180deg,
-    var(--color-dashboard-bg-deep) 0%,
-    var(--color-dashboard-bg-mid) 50%,
-    var(--color-dashboard-bg-accent) 100%
-  );
+  background: linear-gradient(180deg,
+      var(--color-dashboard-bg-deep) 0%,
+      var(--color-dashboard-bg-mid) 50%,
+      var(--color-dashboard-bg-accent) 100%);
 }
 
 /* -------------------------------------------------------------------------- */
