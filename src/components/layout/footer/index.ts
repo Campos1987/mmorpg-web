@@ -6,3 +6,4 @@ export { FooterQuickLinksSection } from "@/components/layout/footer/FooterQuickL
 export { FooterSection } from "@/components/layout/footer/FooterSection";
 export { FooterSocialLink } from "@/components/layout/footer/FooterSocialLink";
 export { FooterSocialSection } from "@/components/layout/footer/FooterSocialSection";
+export { FooterAgeRating } from "@/components/layout/footer/FooterAgeRating";

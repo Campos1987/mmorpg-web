@@ -1,7 +1,15 @@
 import type { AppRoute } from "@/config/routes";
 
 /** Identificador de ícone para redes sociais no rodapé (Fase 4+). */
-export type FooterSocialIconId = "discord" | "reddit";
+export type FooterSocialIconId =
+  | "discord"
+  | "reddit"
+  | "twitch"
+  | "x"
+  | "facebook"
+  | "youtube"
+  | "instagram"
+  | "tiktok";
 
 /** Link interno — navegação dentro do portal via `AppRoute`. */
 export type FooterInternalLink = {

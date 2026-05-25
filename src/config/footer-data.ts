@@ -20,7 +20,7 @@ export const FOOTER_BRAND_NAME = "Portal MMORPG" as const;
  * Complementa o ano dinâmico renderizado em `FooterCopyright`.
  */
 export const FOOTER_COPYRIGHT_NOTICE =
-  "Lineage II é marca registrada da NCsoft Corporation. Todos os direitos reservados." as const;
+  "Lineage II é marca registrada da NCsoft Corporation. Os logotipos da família \"PS\", \"PS5\", \"Xbox Series X|S\", \"Xbox\" e \"Steam\" são marcas registradas ou comerciais de seus respectivos proprietários. Todos os direitos reservados." as const;
 
 /**
  * Metadados por coluna — `id` estável para `aria-labelledby` / `id` do heading.
@@ -62,10 +62,45 @@ export const FOOTER_SOCIAL_LINKS = [
   },
   {
     kind: "external",
-    label: "Reddit",
-    href: FOOTER_EXTERNAL_LINKS.REDDIT,
+    label: "Twitch",
+    href: FOOTER_EXTERNAL_LINKS.TWITCH,
     isExternal: true,
-    icon: "reddit",
+    icon: "twitch",
+  },
+  {
+    kind: "external",
+    label: "X",
+    href: FOOTER_EXTERNAL_LINKS.X,
+    isExternal: true,
+    icon: "x",
+  },
+  {
+    kind: "external",
+    label: "Facebook",
+    href: FOOTER_EXTERNAL_LINKS.FACEBOOK,
+    isExternal: true,
+    icon: "facebook",
+  },
+  {
+    kind: "external",
+    label: "YouTube",
+    href: FOOTER_EXTERNAL_LINKS.YOUTUBE,
+    isExternal: true,
+    icon: "youtube",
+  },
+  {
+    kind: "external",
+    label: "Instagram",
+    href: FOOTER_EXTERNAL_LINKS.INSTAGRAM,
+    isExternal: true,
+    icon: "instagram",
+  },
+  {
+    kind: "external",
+    label: "TikTok",
+    href: FOOTER_EXTERNAL_LINKS.TIKTOK,
+    isExternal: true,
+    icon: "tiktok",
   },
 ] as const satisfies readonly FooterSocialLink[];
 

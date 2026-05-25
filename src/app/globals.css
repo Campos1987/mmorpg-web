@@ -163,11 +163,9 @@ body {
 }
 
 .dropdown-gradient-bg {
-  background: linear-gradient(90deg, rgba(136, 115, 60, 0) 99.29%, rgba(127, 103, 44, .25)),
-    linear-gradient(0deg, hsla(47, 25%, 54%, 0), hsla(47, 25%, 54%, 0)),
-    url(/images/background-texture-four.png) repeat,
-    url(/images/background-texture-two.jpeg) no-repeat, #020617;
-  background-blend-mode: normal, normal, overlay, normal, normal;
+  background-color: 111111;
+  backdrop-filter: blur(8px);
+  border: rgba(212, 162, 55, .25) solid 1px;
 }
 
 /* Aplica as mesmas linhas de divisão sutis (1px) no topo e base do dropdown */
