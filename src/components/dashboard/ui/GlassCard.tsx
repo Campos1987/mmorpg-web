@@ -14,9 +14,15 @@ export function GlassCard({
   title,
 }: GlassCardProps) {
   return (
-    <Component className={cn("glass-panel rounded-xl p-4 md:p-5", className)}>
+    <Component
+      className={cn(
+        "rounded-xl border border-yellow-600/40 bg-black/40 p-4 backdrop-blur-md md:p-5",
+        "transition-dashboard hover:border-yellow-500",
+        className,
+      )}
+    >
       {title ? (
-        <h3 className="mb-3 font-serif text-sm font-semibold uppercase tracking-wide text-dashboard-neon-blue md:text-base">
+        <h3 className="mb-3 font-serif text-sm font-semibold uppercase tracking-wide text-brand-gold md:text-base">
           {title}
         </h3>
       ) : null}

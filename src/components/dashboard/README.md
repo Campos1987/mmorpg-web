@@ -11,5 +11,5 @@ Convenção de pastas para o painel autenticado (tema Cyber-Fantasy), desacoplad
 
 - Navegação global: **TopBar** e **Footer** do layout `(site)` — sem navbar própria do painel.
 - Preferir **Server Components** na página; `'use client'` apenas em folhas com eventos/estado.
-- Tokens visuais: `globals.css` (`--color-dashboard-*`, utilitários `glass-panel`, `neon-border-*`).
+- Tokens visuais: design system (`brand-*`, `muted`, `foreground`) + glass escuro (`bg-black/40`, bordas `yellow-600/40`).
 - Dados mockados: `src/mocks/dashboard-mock-data.ts` até integração com API.

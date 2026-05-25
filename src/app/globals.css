@@ -31,18 +31,6 @@
 
   /* Anel de foco acessível (WCAG) */
   --color-focus-ring: var(--color-brand-cta);
-
-  /* Dashboard — tema Cyber-Fantasy (escopo isolado do portal público) */
-  --color-dashboard-bg-deep: #1a0b2e;
-  --color-dashboard-bg-mid: #20005f;
-  --color-dashboard-bg-accent: #25006b;
-  --color-dashboard-neon-blue: #89ffff;
-  --color-dashboard-neon-purple: #c084fc;
-  --color-dashboard-neon-purple-active: #a855f7;
-  --color-dashboard-gold: #fbbf24;
-  --color-dashboard-danger: #ef4444;
-  --color-dashboard-success: #22c55e;
-  --color-dashboard-muted: #94a3b8;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -135,42 +123,13 @@
 }
 
 /* -------------------------------------------------------------------------- */
-/* Dashboard — utilitários Cyber-Fantasy                                        */
+/* Dashboard — utilitários alinhados ao design system (dark + dourado)        */
 /* -------------------------------------------------------------------------- */
 
 @utility transition-dashboard {
   transition-property: color, background-color, border-color, box-shadow, opacity;
   transition-duration: 300ms;
   transition-timing-function: ease-in-out;
-}
-
-@utility glass-panel {
-  background-color: rgb(15 23 42 / 0.55);
-  border: 1px solid rgb(137 255 255 / 0.15);
-  backdrop-filter: blur(12px);
-}
-
-@utility neon-border-blue {
-  border: 1px solid rgb(137 255 255 / 0.6);
-  box-shadow:
-    0 0 10px rgb(137 255 255 / 0.5),
-    inset 0 0 5px rgb(137 255 255 / 0.3);
-}
-
-@utility neon-border-purple {
-  border: 1px solid rgb(192 132 252 / 0.7);
-  box-shadow:
-    0 0 12px rgb(168 85 247 / 0.55),
-    inset 0 0 6px rgb(192 132 252 / 0.35);
-}
-
-@utility dashboard-surface {
-  background: linear-gradient(
-    180deg,
-    var(--color-dashboard-bg-deep) 0%,
-    var(--color-dashboard-bg-mid) 50%,
-    var(--color-dashboard-bg-accent) 100%
-  );
 }
 
 /* -------------------------------------------------------------------------- */

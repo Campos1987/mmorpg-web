@@ -6,14 +6,8 @@ import type {
 export type { RegisterFormValues, RegisterPayload };
 
 export type RegisterSuccessResponse = {
-  message: string;
-  userId: string;
-};
-
-export type ApiErrorResponse = {
-  error: string;
-  message?: string;
-  details?: Partial<Record<keyof RegisterPayload, string>>;
+  username: string;
+  email: string;
 };
 
 export type RegisterFieldErrors = Partial<
@@ -21,7 +15,7 @@ export type RegisterFieldErrors = Partial<
 >;
 
 export type RegisterActionResult =
-  | { status: "success"; userId: string; message: string }
+  | { status: "success"; username: string; email: string }
   | { status: "validation"; fieldErrors: RegisterFieldErrors }
   | { status: "conflict"; message: string }
   | { status: "error"; message: string };

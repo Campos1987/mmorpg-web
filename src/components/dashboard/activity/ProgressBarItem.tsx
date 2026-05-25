@@ -12,11 +12,11 @@ export function ProgressBarItem({ challenge }: ProgressBarItemProps) {
   return (
     <li className="flex flex-col gap-2">
       <div className="flex items-center justify-between gap-2 text-sm">
-        <span className="flex items-center gap-2 text-white">
+        <span className="flex items-center gap-2 text-foreground">
           <span aria-hidden>{challenge.icon}</span>
           {challenge.name}
         </span>
-        <span className="shrink-0 text-dashboard-muted">
+        <span className="shrink-0 text-muted">
           {progress.current}/{progress.total}
         </span>
       </div>

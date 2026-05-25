@@ -52,10 +52,16 @@ export function CharacterCarousel({
     container.scrollTo({ left: index * (cardWidth + 16), behavior: "smooth" });
   }, []);
 
+  const controlButtonClass = cn(
+    "focus-ring inline-flex min-h-12 min-w-12 items-center justify-center rounded-lg",
+    "border border-yellow-600/40 bg-black/40 backdrop-blur-md transition-dashboard",
+    "hover:border-yellow-500",
+  );
+
   if (characters.length === 0) {
     return (
       <section className={cn("container-content py-4", className)} aria-label="Meus personagens">
-        <p className="glass-panel rounded-xl p-6 text-center text-sm text-dashboard-muted">
+        <p className="rounded-xl border border-yellow-600/40 bg-black/40 p-6 text-center text-sm text-muted backdrop-blur-md">
           Nenhum personagem nesta sub-conta.
         </p>
       </section>
@@ -68,12 +74,12 @@ export function CharacterCarousel({
       aria-label="Meus personagens"
     >
       <div className="mb-4 flex items-center justify-between">
-        <h2 className="font-serif text-fluid-h2 text-white">Meus Personagens</h2>
+        <h2 className="font-serif text-fluid-h2 text-foreground">Meus Personagens</h2>
         <div className="flex gap-2">
           <button
             type="button"
             onClick={() => scrollByDirection(-1)}
-            className="focus-ring inline-flex min-h-12 min-w-12 items-center justify-center rounded-lg glass-panel transition-dashboard hover:border-dashboard-neon-blue/50"
+            className={controlButtonClass}
             aria-label="Personagem anterior"
           >
             ‹
@@ -81,7 +87,7 @@ export function CharacterCarousel({
           <button
             type="button"
             onClick={() => scrollByDirection(1)}
-            className="focus-ring inline-flex min-h-12 min-w-12 items-center justify-center rounded-lg glass-panel transition-dashboard hover:border-dashboard-neon-blue/50"
+            className={controlButtonClass}
             aria-label="Próximo personagem"
           >
             ›
@@ -123,8 +129,8 @@ export function CharacterCarousel({
             className={cn(
               "focus-ring size-3 rounded-full transition-dashboard",
               index === activeDotIndex
-                ? "bg-dashboard-neon-purple"
-                : "bg-dashboard-muted/50 hover:bg-dashboard-neon-blue/60",
+                ? "bg-brand-gold"
+                : "bg-muted/40 hover:bg-yellow-500/60",
             )}
           />
         ))}

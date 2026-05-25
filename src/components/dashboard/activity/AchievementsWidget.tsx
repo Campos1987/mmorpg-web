@@ -13,7 +13,7 @@ export function AchievementsWidget({ achievements }: AchievementsWidgetProps) {
   return (
     <GlassCard title="Minhas Conquistas" as="section">
       {unlocked.length === 0 ? (
-        <p className="text-sm text-dashboard-muted">Nenhuma conquista desbloqueada.</p>
+        <p className="text-sm text-muted">Nenhuma conquista desbloqueada.</p>
       ) : (
         <ul className="flex flex-col gap-1">
           {unlocked.map((achievement) => (

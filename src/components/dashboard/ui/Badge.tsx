@@ -11,10 +11,10 @@ type BadgeProps = {
 
 const variantStyles: Record<BadgeVariant, string> = {
   level:
-    "bg-dashboard-success text-xs font-bold text-white ring-2 ring-dashboard-bg-deep",
+    "bg-brand-success text-xs font-bold text-white ring-2 ring-brand-dark",
   notification:
-    "bg-dashboard-danger text-xs font-bold text-white min-w-5 px-1",
-  default: "bg-dashboard-neon-blue/20 text-dashboard-neon-blue text-xs font-medium",
+    "bg-brand-cta text-xs font-bold text-white min-w-5 px-1",
+  default: "bg-brand-gold/20 text-brand-gold text-xs font-medium",
 };
 
 export function Badge({

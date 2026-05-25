@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 
-export type ProgressBarVariant = "hp" | "mp" | "xp" | "blue" | "purple";
+export type ProgressBarVariant = "hp" | "mp" | "xp" | "gold" | "muted";
 
 type ProgressBarProps = {
   value: number;
@@ -12,17 +12,17 @@ type ProgressBarProps = {
 };
 
 const fillStyles: Record<ProgressBarVariant, string> = {
-  hp: "bg-dashboard-danger",
-  mp: "bg-dashboard-neon-blue",
-  xp: "bg-gradient-to-r from-dashboard-neon-blue to-dashboard-neon-purple",
-  blue: "bg-dashboard-neon-blue",
-  purple: "bg-dashboard-neon-purple",
+  hp: "bg-brand-cta",
+  mp: "bg-slate-500",
+  xp: "bg-gradient-to-r from-brand-gold to-brand-gold-hover",
+  gold: "bg-brand-gold",
+  muted: "bg-slate-600",
 };
 
 export function ProgressBar({
   value,
   max = 100,
-  variant = "blue",
+  variant = "gold",
   label,
   showLabel = false,
   className,
@@ -32,13 +32,13 @@ export function ProgressBar({
   return (
     <div className={cn("w-full", className)}>
       {(label || showLabel) && (
-        <div className="mb-1 flex items-center justify-between text-xs text-dashboard-muted">
+        <div className="mb-1 flex items-center justify-between text-xs text-muted">
           {label ? <span>{label}</span> : <span />}
           {showLabel && <span>{Math.round(percent)}%</span>}
         </div>
       )}
       <div
-        className="h-2 w-full overflow-hidden rounded-full bg-slate-800/80"
+        className="h-2 w-full overflow-hidden rounded-full bg-brand-card/80"
         role="progressbar"
         aria-valuenow={Math.round(percent)}
         aria-valuemin={0}

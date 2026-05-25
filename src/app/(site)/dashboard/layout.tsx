@@ -11,7 +11,7 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="dashboard-surface flex flex-1 flex-col text-white">
+    <div className="flex flex-1 flex-col bg-brand-dark text-foreground">
       {children}
     </div>
   );

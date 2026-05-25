@@ -21,9 +21,11 @@ export function CharacterCard({
     <article
       className={cn(
         "relative flex w-64 shrink-0 snap-center flex-col overflow-hidden rounded-xl",
-        "transition-dashboard md:w-72",
-        isActive ? "neon-border-purple" : "neon-border-blue",
-        onSelect && "cursor-pointer hover:opacity-95",
+        "border bg-black/40 backdrop-blur-md transition-dashboard md:w-72",
+        isActive
+          ? "border-yellow-500 shadow-[0_0_16px_rgb(234_179_8/0.12)]"
+          : "border-yellow-600/40 hover:border-yellow-500",
+        onSelect && "cursor-pointer",
       )}
       onClick={() => onSelect?.(character.id)}
       onKeyDown={(event) => {
@@ -45,7 +47,7 @@ export function CharacterCard({
           sizes="(max-width: 768px) 256px, 288px"
         />
         <div
-          className="absolute inset-0 bg-gradient-to-t from-dashboard-bg-deep via-dashboard-bg-deep/60 to-transparent"
+          className="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/70 to-transparent"
           aria-hidden
         />
       </div>
@@ -55,30 +57,30 @@ export function CharacterCard({
           <div className="min-w-0">
             <div className="flex items-center gap-2">
               <span
-                className="inline-flex size-5 items-center justify-center rounded bg-dashboard-success/30 text-xs text-dashboard-success"
+                className="inline-flex size-5 items-center justify-center rounded bg-brand-success/20 text-xs text-brand-success"
                 aria-hidden
               >
                 ✓
               </span>
-              <h3 className="truncate font-serif text-base font-bold text-white">
+              <h3 className="truncate font-serif text-base font-bold text-foreground">
                 {character.name}
               </h3>
             </div>
             {character.isOnline ? (
-              <p className="text-xs text-dashboard-success">{character.statusLabel}</p>
+              <p className="text-xs text-brand-success">{character.statusLabel}</p>
             ) : (
-              <p className="text-xs text-dashboard-muted">{character.statusLabel}</p>
+              <p className="text-xs text-muted">{character.statusLabel}</p>
             )}
           </div>
-          <p className="shrink-0 text-right text-xs text-dashboard-muted">
-            <span className="block font-semibold text-dashboard-neon-blue">
+          <p className="shrink-0 text-right text-xs text-muted">
+            <span className="block font-semibold text-brand-gold">
               {stats.equipmentScore}
             </span>
             Equip.
           </p>
         </div>
 
-        <p className="text-xs text-dashboard-muted">
+        <p className="text-xs text-muted">
           {character.className} · Nível {character.level}
         </p>
 
@@ -101,7 +103,7 @@ export function CharacterCard({
           label="XP"
         />
 
-        <dl className="grid grid-cols-2 gap-x-2 gap-y-1 text-xs text-dashboard-muted">
+        <dl className="grid grid-cols-2 gap-x-2 gap-y-1 text-xs text-muted">
           <div>
             <dt className="sr-only">HP</dt>
             <dd>

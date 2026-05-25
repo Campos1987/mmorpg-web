@@ -80,6 +80,7 @@ export const registerPayloadSchema = z.object({
     ),
   email: emailField,
   password: passwordField,
+  recaptchaToken: z.string().min(1, "O token de segurança é obrigatório."),
 });
 
 export type RegisterPayload = z.infer<typeof registerPayloadSchema>;
@@ -158,6 +159,7 @@ export function mapFormValuesToPayload(
     ),
     email: values.email,
     password: values.password,
+    recaptchaToken: "dummy_token", // Valor estático temporário exigido pela API
   };
 }
 
@@ -168,6 +170,7 @@ export const REGISTER_PAYLOAD_FIELDS = [
   "birthday",
   "email",
   "password",
+  "recaptchaToken",
 ] as const satisfies readonly (keyof RegisterPayload)[];
 
 export function mapZodErrorsToFieldErrors(

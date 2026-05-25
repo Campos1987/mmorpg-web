@@ -18,11 +18,11 @@ export function EventCalendarWidget({ event }: EventCalendarWidgetProps) {
           height={20}
           aria-hidden
         />
-        <h3 className="font-serif text-sm font-semibold uppercase tracking-wide text-dashboard-neon-blue md:text-base">
+        <h3 className="font-serif text-sm font-semibold uppercase tracking-wide text-brand-gold md:text-base">
           Calendário de Eventos
         </h3>
       </div>
-      <div className="relative overflow-hidden rounded-lg">
+      <div className="relative overflow-hidden rounded-lg border border-yellow-600/40">
         <Image
           src={event.bannerSrc}
           alt=""
@@ -31,12 +31,12 @@ export function EventCalendarWidget({ event }: EventCalendarWidgetProps) {
           className="h-28 w-full object-cover opacity-40 md:h-32"
         />
         <div
-          className="absolute inset-0 bg-gradient-to-t from-dashboard-bg-deep via-transparent to-transparent"
+          className="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-transparent"
           aria-hidden
         />
         <div className="absolute inset-x-0 bottom-0 p-4">
-          <p className="font-serif text-lg font-bold text-white">{event.title}</p>
-          <p className="text-sm text-dashboard-muted">
+          <p className="font-serif text-lg font-bold text-foreground">{event.title}</p>
+          <p className="text-sm text-muted">
             {event.dateLabel} · {event.timeLabel}
           </p>
         </div>

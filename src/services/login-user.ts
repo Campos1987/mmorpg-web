@@ -6,7 +6,6 @@ import { LOGIN_UNAUTHORIZED_MESSAGE } from "@/schemas/login-schema";
 import type { LoginPayload } from "@/types/login";
 import type {
   LoginApiErrorResponse,
-  LoginApiSuccessResponse,
   LoginServiceResult,
 } from "@/types/login";
 
@@ -32,13 +31,12 @@ export async function loginUserRequest(
     });
 
     if (LOGIN_SUCCESS_STATUSES.has(response.status)) {
-      const data = (await response.json()) as LoginApiSuccessResponse;
-
-      if (!data.claims?.trim()) {
+      const data = await response.json().catch(() => null);
+      const token = data?.claims;
+      if (!token || typeof token !== "string") {
         return { status: "error", message: GENERIC_ERROR_MESSAGE };
       }
-
-      return { status: "success", token: data.claims };
+      return { status: "success", token };
     }
 
     const errorBody = (await response.json().catch(() => null)) as
@@ -57,9 +55,22 @@ export async function loginUserRequest(
     }
 
     if (response.status === 401 || response.status === 403) {
+      const apiMessage = errorBody?.message;
+      let message = LOGIN_UNAUTHORIZED_MESSAGE;
+
+      if (apiMessage) {
+        if (apiMessage.includes("blocked") || apiMessage.includes("suspended")) {
+          message = "Conta ou IP bloqueado temporariamente por excesso de tentativas.";
+        } else if (apiMessage === "Invalid User" || apiMessage === "Invalid username or password") {
+          message = "Usuário ou senha inválidos.";
+        } else {
+          message = apiMessage;
+        }
+      }
+
       return {
         status: "unauthorized",
-        message: LOGIN_UNAUTHORIZED_MESSAGE,
+        message,
       };
     }
 

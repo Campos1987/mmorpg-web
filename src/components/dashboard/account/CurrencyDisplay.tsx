@@ -25,10 +25,10 @@ export function CurrencyDisplay({ currencies, className }: CurrencyDisplayProps)
           aria-hidden
         />
         <div>
-          <p className="text-lg font-bold text-dashboard-gold">
+          <p className="text-lg font-bold text-brand-gold">
             {formatNumber(currencies.gold)}
           </p>
-          <p className="text-xs text-dashboard-muted">Ouro do Jogo</p>
+          <p className="text-xs text-muted">Ouro do Jogo</p>
         </div>
       </div>
       <div className="flex items-center gap-3">
@@ -40,10 +40,10 @@ export function CurrencyDisplay({ currencies, className }: CurrencyDisplayProps)
           aria-hidden
         />
         <div>
-          <p className="text-lg font-bold text-dashboard-neon-blue">
+          <p className="text-lg font-bold text-brand-logo">
             {formatNumber(currencies.diamonds)}
           </p>
-          <p className="text-xs text-dashboard-muted">Diamantes</p>
+          <p className="text-xs text-muted">Diamantes</p>
         </div>
       </div>
     </GlassCard>

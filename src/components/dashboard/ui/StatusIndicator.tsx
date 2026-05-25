@@ -11,9 +11,9 @@ const statusConfig: Record<
   ConnectionStatus,
   { dotClass: string; defaultLabel: string }
 > = {
-  online: { dotClass: "bg-dashboard-success", defaultLabel: "Conectado" },
-  offline: { dotClass: "bg-dashboard-muted", defaultLabel: "Desconectado" },
-  away: { dotClass: "bg-dashboard-gold", defaultLabel: "Ausente" },
+  online: { dotClass: "bg-brand-success", defaultLabel: "Conectado" },
+  offline: { dotClass: "bg-muted", defaultLabel: "Desconectado" },
+  away: { dotClass: "bg-brand-gold", defaultLabel: "Ausente" },
 };
 
 export function StatusIndicator({
@@ -26,7 +26,7 @@ export function StatusIndicator({
 
   return (
     <span
-      className={cn("inline-flex items-center gap-1.5 text-xs text-dashboard-muted", className)}
+      className={cn("inline-flex items-center gap-1.5 text-xs text-muted", className)}
       role="status"
     >
       <span

@@ -65,7 +65,7 @@ export type WeeklyChallenge = {
   name: string;
   icon: string;
   progress: ProgressFraction;
-  barVariant: "blue" | "purple";
+  barVariant: "gold" | "muted";
 };
 
 export type GameEvent = {

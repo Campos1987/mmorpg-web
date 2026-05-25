@@ -7,7 +7,6 @@ export { LOGIN_UNAUTHORIZED_MESSAGE } from "@/schemas/login-schema";
 /** Resposta de sucesso do POST /auth/login (Spring — HTTP 202). */
 export type LoginApiSuccessResponse = {
   loginTime: string;
-  claims: string;
 };
 
 /** Erro padronizado da API (ApiErrorException). */
@@ -31,3 +30,4 @@ export type LoginActionResult =
 export type LoginServiceResult =
   | { status: "success"; token: string }
   | Exclude<LoginActionResult, { status: "success" }>;
+

@@ -3,7 +3,7 @@ import { z } from "zod";
 const PASSWORD_REGEX = /^(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{8,12}$/;
 
 /** Mensagem genérica para 401 — evita enumeração de usuários (specify §3.1). */
-export const LOGIN_UNAUTHORIZED_MESSAGE = "Credenciais inválidas.";
+export const LOGIN_UNAUTHORIZED_MESSAGE = "Usuário ou senha inválidos.";
 
 const loginUserField = z
   .string()
