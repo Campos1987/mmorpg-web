@@ -12,7 +12,6 @@ export function TopBarNav() {
     <nav
       className={cn(
         "hidden min-w-0 xl:block",
-        "overflow-x-auto overscroll-x-contain scrollbar-none",
       )}
       aria-label="Navegação principal"
     >

@@ -8,7 +8,6 @@ export function TopBarActions() {
       aria-label="Ações de conta"
     >
       <AuthLoginLink />
-      <AuthRegisterLink />
     </nav>
   );
 }

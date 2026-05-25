@@ -7,9 +7,9 @@ import { cn } from "@/lib/utils";
 export function TopBar() {
   return (
     <header
-      className={cn(
-        "sticky top-0 z-50 w-full border-b border-border bg-brand-dark",
-      )}
+      className={`header-container cn(
+        "fixed sticky top-0 z-50 w-full",
+      )`}
     >
       <div
         className={cn(
