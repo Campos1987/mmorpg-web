@@ -15,7 +15,7 @@ import { cn } from "@/lib/utils";
 export function Footer() {
   return (
     <footer
-      className={"dropdown-gradient-bg"}
+      className={"footer-gradient-bg"}
     >
       <div className="container-content w-2/3 py-10 md:py-12">
         {/* Linha Superior: Grid de 3 Colunas */}

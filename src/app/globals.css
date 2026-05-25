@@ -162,15 +162,15 @@ body {
   bottom: 0
 }
 
-.dropdown-gradient-bg {
+.container-bg {
   background-color: 111111;
   backdrop-filter: blur(8px);
-  border: rgba(212, 162, 55, .25) solid 1px;
+  border-top: rgba(212, 162, 55, .25) solid 1px;
 }
 
 /* Aplica as mesmas linhas de divisão sutis (1px) no topo e base do dropdown */
-.dropdown-gradient-bg:after,
-.dropdown-gradient-bg:before {
+.container-bg:after,
+.container-bg:before {
   background: linear-gradient(90deg, rgba(0, 0, 0, 0.3), hsla(0, 0%, 66%, 0.7), rgba(0, 0, 0, 0.3));
   content: "";
   height: 1px;
@@ -179,11 +179,36 @@ body {
   right: 0;
 }
 
-.dropdown-gradient-bg:before {
+.container-bg:before {
   top: 0;
 }
 
-.dropdown-gradient-bg:after {
+.container-bg:after {
+  bottom: 0;
+}
+
+.footer-gradient-bg {
+  background-color: 111111;
+  backdrop-filter: blur(8px);
+  border-top: rgba(212, 162, 55, .25) solid 1px;
+}
+
+/* Aplica as mesmas linhas de divisão sutis (1px) no topo e base do dropdown */
+.footer-gradient-bg:after,
+.footer-gradient-bg:before {
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.3), hsla(0, 0%, 66%, 0.7), rgba(0, 0, 0, 0.3));
+  content: "";
+  height: 1px;
+  left: 0;
+  position: absolute;
+  right: 0;
+}
+
+.footer-gradient-bg:before {
+  top: 0;
+}
+
+.footer-gradient-bg:after {
   bottom: 0;
 }
 
