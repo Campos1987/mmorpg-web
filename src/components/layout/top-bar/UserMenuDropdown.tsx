@@ -80,7 +80,7 @@ export function UserMenuDropdown({ firstName }: UserMenuDropdownProps) {
       {/* Dropdown — irmão do button, posicionado pelo wrapper pai */}
       <ul
         className={cn(
-          "absolute right-0 z-50 min-w-48",
+          "absolute right-0 z-50 min-w-48 top-[calc(100%-4px)]",
           "bg-[#111111]/95 backdrop-blur-sm",
           "border border-[#d4af37]/20",
           "rounded-sm shadow-[0_4px_20px_rgba(0,0,0,0.8)] py-1",

@@ -6,7 +6,7 @@ import { ROUTES } from "@/config/routes";
 
 export const metadata: Metadata = {
   title: "Registro — Portal MMORPG",
-  description: "Crie sua conta no portal do servidor Lineage II",
+  description: "Crie sua conta no portal do servidor RPG II",
 };
 
 export default function RegisterPage() {

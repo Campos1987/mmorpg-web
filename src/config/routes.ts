@@ -9,7 +9,7 @@ export const ROUTES = {
     PROFILE: "/dashboard/perfil",
     MARKET: "/dashboard/mercado",
     GUILD: "/dashboard/guilda",
-    SETTINGS: "/dashboard/configuracoes",
+    SETTINGS: "/dashboard/settings",
   },
   DOWNLOADS: "/downloads",
   RULES: "/regras",
@@ -50,8 +50,8 @@ export const ROUTES = {
 type RouteValue<T> = T extends string
   ? T
   : T extends Record<string, infer U>
-    ? RouteValue<U>
-    : never;
+  ? RouteValue<U>
+  : never;
 
 /** Caminho interno válido para links de navegação. */
 export type AppRoute = RouteValue<typeof ROUTES>;

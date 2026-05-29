@@ -18,9 +18,10 @@ export const FormTextInput = forwardRef<HTMLInputElement, FormTextInputProps>(
         id={id}
         type={type}
         className={cn(
-          "focus-ring min-h-12 w-full rounded-md border bg-brand-card px-4 py-2 text-sm text-foreground",
+          "focus-ring min-h-12 w-full rounded-md border ",
+          "bg-olive-800/30 px-4 py-2 text-sm text-foreground",
           "placeholder:text-muted",
-          hasError ? "border-brand-cta" : "border-border",
+          hasError ? "border-brand-cta" : "border-olive-800",
           className,
         )}
         {...props}

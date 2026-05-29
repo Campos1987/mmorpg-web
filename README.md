@@ -1,4 +1,4 @@
-# Portal MMORPG — Lineage II
+# Portal MMORPG — RPG II
 
 Frontend web do portal da comunidade do servidor (Next.js 16, TypeScript, Tailwind CSS v4).
 

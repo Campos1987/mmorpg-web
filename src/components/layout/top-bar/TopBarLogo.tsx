@@ -14,7 +14,7 @@ export function TopBarLogo() {
       )}
       aria-label="Ir para a página inicial — Portal MMORPG"
     >
-      <span className="truncate">L2 Portal</span>
+      <span className="truncate">Portal RPG</span>
     </Link>
   );
 }

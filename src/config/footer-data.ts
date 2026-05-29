@@ -20,7 +20,7 @@ export const FOOTER_BRAND_NAME = "Portal MMORPG" as const;
  * Complementa o ano dinâmico renderizado em `FooterCopyright`.
  */
 export const FOOTER_COPYRIGHT_NOTICE =
-  "Lineage II é marca registrada da NCsoft Corporation. Os logotipos da família \"PS\", \"PS5\", \"Xbox Series X|S\", \"Xbox\" e \"Steam\" são marcas registradas ou comerciais de seus respectivos proprietários. Todos os direitos reservados." as const;
+  "RPG II é marca registrada da NCsoft Corporation. Os logotipos da família \"PS\", \"PS5\", \"Xbox Series X|S\", \"Xbox\" e \"Steam\" são marcas registradas ou comerciais de seus respectivos proprietários. Todos os direitos reservados." as const;
 
 /**
  * Metadados por coluna — `id` estável para `aria-labelledby` / `id` do heading.

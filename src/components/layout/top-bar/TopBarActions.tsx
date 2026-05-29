@@ -19,6 +19,7 @@ export async function TopBarActions() {
               ? profile.fullName.trim().split(/\s+/)[0]
               : profile.login
           }
+
         />
       ) : (
         <AuthLoginLink />

@@ -17,7 +17,8 @@ export function Footer() {
     <footer
       className={"footer-gradient-bg"}
     >
-      <div className="container-content w-2/3 py-10 md:py-12">
+
+      <div className="w-2/3 py-10 md:py-12 w-max-[2560px] relative mx-auto px-4">
         {/* Linha Superior: Grid de 3 Colunas */}
         <div
           className={cn(
@@ -34,12 +35,12 @@ export function Footer() {
           <div className="flex flex-col items-center justify-center text-center">
             <Link
               href="/"
-              className="font-serif text-6xl font-bold tracking-[0.2em] text-brand-logo transition-colors hover:text-brand-logo-hover uppercase"
+              className="font-serif text-4xl font-bold tracking-[0.2em] text-brand-logo transition-colors hover:text-brand-logo-hover uppercase"
             >
-              L2GK
+              Portal
             </Link>
             <span className="text-sm tracking-[0.3em] uppercase text-muted mt-1">
-              l2gk.com
+              portal.com
             </span>
           </div>
 
@@ -73,7 +74,7 @@ export function Footer() {
 
         {/* Direitos Autorais */}
         <div className="mt-6 text-center text-xs text-muted/60">
-          <p>© 2026, l2gk.com. Todos os direitos reservados.</p>
+          <p>© 2026, portal.com. Todos os direitos reservados.</p>
         </div>
       </div>
     </footer>

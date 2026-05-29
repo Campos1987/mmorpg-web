@@ -13,6 +13,17 @@ export interface UserProfileResponse {
   status?: string;
 }
 
+// Decode JWT payload if possible to extract distinct fields
+const decodeJwt = (jwt: string) => {
+  try {
+    const payload = jwt.split('.')[1];
+    const json = Buffer.from(payload, 'base64').toString('utf-8');
+    return JSON.parse(json) as Record<string, any>;
+  } catch (e) {
+    return {};
+  }
+};
+
 /**
  * Obtém o perfil do usuário autenticado.
  *
@@ -33,16 +44,16 @@ export async function getUserProfile(): Promise<UserProfileResponse | null> {
   // Decodifica para suportar valores com encodeURIComponent (ex: "Ewerton%20Campos")
   const token = decodeURIComponent(rawToken);
 
-  // Fallback: token não é JWT (não contém ".") → backend retornou o userName diretamente
-  if (!token.includes(".")) {
+  // Fallback: token not JWT – treat as simple username
+  if (!token.includes('.')) {
     return {
       login: token,
       fullName: token,
-      email: "",
+      email: '',
     };
   }
 
-  // Token parece JWT → tenta a API protegida
+  // Token looks JWT – try protected API for full profile
   const authHeader = await getAuthorizationHeader();
   const url = getAuthApiUrl(AUTH_API.PROFILE_PATH);
 
@@ -63,5 +74,14 @@ export async function getUserProfile(): Promise<UserProfileResponse | null> {
     console.error("[getUserProfile] Erro ao buscar perfil do usuário:", error);
   }
 
-  return null;
+  // Fallback to decoded token values if API call fails
+  const claims = decodeJwt(token);
+  const loginFromToken = claims.sub || claims.login || token;
+  const fullNameFromToken = claims.name || claims.fullName || claims.displayName || loginFromToken;
+
+  return {
+    login: loginFromToken,
+    fullName: fullNameFromToken,
+    email: claims.email || '',
+  };
 }

@@ -1,4 +1,4 @@
-# Documentação Técnica — Portal MMORPG (Lineage II)
+# Documentação Técnica — Portal MMORPG (RPG II)
 
 Documento único de referência do que foi implementado até o momento no frontend web do portal.
 
@@ -6,7 +6,7 @@ Documento único de referência do que foi implementado até o momento no fronte
 
 ## 1. Visão geral
 
-O projeto é um portal da comunidade do servidor Lineage II, construído como aplicação **Next.js 16** com **App Router**, **TypeScript** e **Tailwind CSS v4**. O tema visual é **dark mode imersivo**, pensado para leitura de dados, rankings e conversão (registro de contas).
+O projeto é um portal da comunidade do servidor RPG II, construído como aplicação **Next.js 16** com **App Router**, **TypeScript** e **Tailwind CSS v4**. O tema visual é **dark mode imersivo**, pensado para leitura de dados, rankings e conversão (registro de contas).
 
 A primeira entrega funcional cobre:
 
