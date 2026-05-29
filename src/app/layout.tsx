@@ -4,7 +4,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Portal MMORPG",
-  description: "Portal da comunidade do servidor Lineage II",
+  description: "Portal da comunidade do servidor RPG II",
 };
 
 export default function RootLayout({
