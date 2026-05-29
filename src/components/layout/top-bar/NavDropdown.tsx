@@ -71,12 +71,12 @@ export function NavDropdown({ label, items }: NavDropdownProps) {
         {label}
         <span
           className={cn(
-            "text-xs text-muted transition-transform duration-200",
-            isDropdownExpanded && "rotate-180 text-brand-gold",
+            "ml-1.5 text-[10px] transition-transform duration-200",
+            isDropdownExpanded && "rotate-180",
           )}
           aria-hidden
         >
-          ˅
+          ▼
         </span>
       </button>
 

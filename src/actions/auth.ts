@@ -26,12 +26,22 @@ export async function loginAction(
       return { error: json as ApiError };
     }
 
-    const { claims, loginTime } = json as LoginResponse;
+    const { claims, loginTime, userName } = json as LoginResponse;
 
     const cookieStore = await cookies();
 
-    // Salva o JWT em cookie HttpOnly — inacessível ao JavaScript do browser
-    cookieStore.set("auth_token", claims, {
+    const tokenToSave = claims || userName;
+
+    console.log("[loginAction] json recebido:", JSON.stringify(json));
+    console.log("[loginAction] tokenToSave:", tokenToSave);
+
+    if (!tokenToSave) {
+      throw new Error("Resposta da API inválida: token ausente.");
+    }
+
+    // Salva o JWT ou userName em cookie HttpOnly — inacessível ao JavaScript do browser
+    // encodeURIComponent garante que valores com espaços (ex: "Ewerton Campos") sejam válidos
+    cookieStore.set("auth_token", encodeURIComponent(tokenToSave), {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
@@ -39,8 +49,10 @@ export async function loginAction(
       path: "/",
     });
 
+    console.log("[loginAction] cookie gravado com sucesso!");
+
     // Não retorna o token bruto para o client component
-    return { data: { loginTime } };
+    return { data: { loginTime: loginTime || new Date().toISOString() } };
   } catch (err) {
     return {
       error: {

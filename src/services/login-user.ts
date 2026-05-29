@@ -34,11 +34,13 @@ export async function loginUserRequest(
     if (LOGIN_SUCCESS_STATUSES.has(response.status)) {
       const data = (await response.json()) as LoginApiSuccessResponse;
 
-      if (!data.claims?.trim()) {
+      const receivedToken = data.claims || data.userName;
+
+      if (!receivedToken?.trim()) {
         return { status: "error", message: GENERIC_ERROR_MESSAGE };
       }
 
-      return { status: "success", token: data.claims };
+      return { status: "success", token: receivedToken };
     }
 
     const errorBody = (await response.json().catch(() => null)) as

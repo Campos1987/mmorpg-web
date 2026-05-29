@@ -15,12 +15,12 @@ export function NavigationDrawerLink({
   isNested = false,
 }: NavigationDrawerLinkProps) {
   return (
-    <li className={isNested ? undefined : "border-b border-border"}>
+    <li className={isNested ? undefined : "border-t border-[#d4af37]/10 mt-1 pt-1"}>
       <Link
         href={href}
         className={cn(
-          "focus-ring block min-h-12 py-3 text-sm text-foreground transition-colors",
-          "hover:bg-brand-dark hover:text-brand-gold",
+          "focus-ring flex w-full items-center px-4 py-2.5 text-xs font-medium uppercase tracking-wide text-red-400 transition-colors text-left",
+          "hover:bg-[#d4af37]/10 hover:text-brand-gold cursor-pointer",
           isNested ? "pl-8 pr-4" : "px-4",
         )}
         onClick={onNavigationLinkSelect}

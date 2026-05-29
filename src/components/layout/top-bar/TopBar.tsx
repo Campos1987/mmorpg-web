@@ -1,6 +1,5 @@
 import { TopBarActions } from "@/components/layout/top-bar/TopBarActions";
 import { TopBarLogo } from "@/components/layout/top-bar/TopBarLogo";
-import { TopBarMobileNav } from "@/components/layout/top-bar/TopBarMobileNav";
 import { TopBarNav } from "@/components/layout/top-bar/TopBarNav";
 import { cn } from "@/lib/utils";
 
@@ -20,10 +19,7 @@ export function TopBar() {
       >
         <TopBarLogo />
         <TopBarNav />
-        <div className="flex shrink-0 items-center justify-end gap-1.5 sm:gap-2 xl:gap-3">
-          <TopBarMobileNav />
-          <TopBarActions />
-        </div>
+        <TopBarActions />
       </div>
     </header>
   );

@@ -6,8 +6,9 @@ export { LOGIN_UNAUTHORIZED_MESSAGE } from "@/schemas/login-schema";
 
 /** Resposta de sucesso do POST /auth/login (Spring — HTTP 202). */
 export type LoginApiSuccessResponse = {
-  loginTime: string;
-  claims: string;
+  loginTime?: string;
+  claims?: string;
+  userName?: string;
 };
 
 /** Erro padronizado da API (ApiErrorException). */

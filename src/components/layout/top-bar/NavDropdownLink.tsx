@@ -12,8 +12,8 @@ export function NavDropdownLink({ label, href }: NavDropdownLinkProps) {
         href={href}
         role="menuitem"
         className={cn(
-          "focus-ring block min-h-12 px-4 py-3 text-sm text-foreground",
-          "transition-colors hover:bg-brand-dark hover:text-brand-gold",
+          "focus-ring flex w-full items-center px-4 py-2.5 text-xs font-medium uppercase tracking-wide text-amber-100/80 transition-colors",
+          "hover:bg-[#d4af37]/10 hover:text-brand-gold",
         )}
       >
         {label}

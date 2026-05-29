@@ -10,9 +10,10 @@ export interface LoginRequest {
 /** Resposta de sucesso do endpoint POST /auth/login */
 export interface LoginResponse {
   /** Timestamp ISO 8601 do momento do login */
-  loginTime: string;
+  loginTime?: string;
   /** JWT Bearer Token. Armazenar em cookie HttpOnly, nunca em localStorage */
-  claims: string;
+  claims?: string;
+  userName?: string;
 }
 
 /** Payload decodificado do JWT */

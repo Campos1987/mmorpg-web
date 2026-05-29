@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 
 export function AuthLoginLink() {
   return (
-    <div className="bt-top-bar-button">
+    <div className="bt-top-bar-button h-16">
       <Link
         href={ROUTES.AUTH.LOGIN}
         className={cn(
@@ -14,7 +14,7 @@ export function AuthLoginLink() {
           "hover:text-foreground xl:px-3 xl:text-sm",
         )}
       >
-        <span>
+        <span className="text-2xl tracking-wider">
           Login
         </span>
       </Link>
