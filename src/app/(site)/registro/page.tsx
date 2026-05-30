@@ -11,10 +11,10 @@ export const metadata: Metadata = {
 
 export default function RegisterPage() {
   return (
-    <div className="container-content flex flex-1 flex-col items-center py-12">
+    <div className="container-content w-full max-w-md rounded-xl p-8">
       <div className="w-full max-w-lg">
         <header className="mb-8 text-center">
-          <h1 className="font-serif text-fluid-h1 text-foreground">
+          <h1 className="h1-content">
             Criar conta
           </h1>
           <p className="mt-2 text-sm text-muted">

@@ -1,6 +1,6 @@
 export default function Home() {
   return (
-    <div className="container-content flex flex-1 flex-col py-12">
+    <div className="container-content w-full max-w-7xl flex flex-1 flex-col py-12">
       <h1 className="font-serif text-fluid-h1 text-foreground">
         Portal RPG II
       </h1>

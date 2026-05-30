@@ -8,6 +8,11 @@ type FormFieldProps = {
   error?: string;
   children: ReactNode;
   className?: string;
+  /**
+   * Classes opcionais para o elemento <label>.
+   * Use "sr-only" para ocultar visualmente mantendo acessibilidade (WCAG 2.4.6).
+   */
+  labelClassName?: string;
 };
 
 export function FormField({
@@ -16,13 +21,17 @@ export function FormField({
   error,
   children,
   className,
+  labelClassName,
 }: FormFieldProps) {
   const errorId = `${id}-error`;
 
   return (
     <div className={cn("flex flex-col gap-1.5", className)}>
       {label && label.trim() !== "" ? (
-        <label htmlFor={id} className="text-sm font-medium text-foreground">
+        <label
+          htmlFor={id}
+          className={cn("text-sm font-medium text-foreground", labelClassName)}
+        >
           {label}
         </label>
       ) : null}
@@ -39,6 +48,7 @@ export function FormField({
     </div>
   );
 }
+
 
 export function getFormFieldAriaProps(
   id: string,

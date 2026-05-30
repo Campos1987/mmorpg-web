@@ -9,15 +9,15 @@ export const metadata: Metadata = {
 
 export default function LoginPage() {
   return (
-    <div className="container-content flex flex-1 flex-col items-center justify-center py-16 md:py-24">
+    <div className="flex flex-1 flex-col items-center justify-center py-16 md:py-24">
       {/* Container principal com estética dark imersiva e borda dourada sutil */}
-      <div className="container-bg w-full max-w-md rounded-xl border border-brand-gold/15 bg-brand-card/75 p-8 shadow-2xl shadow-black/85 backdrop-blur-md">
+      <div className="container-content w-full max-w-md rounded-xl p-8">
         <div className="mb-8 text-center">
           {/* Logo ou Título estilizado em Cinzel */}
           <span className="font-serif text-xs uppercase tracking-[0.3em] text-brand-logo">
             Grankain Platform
           </span>
-          <h1 className="mt-2 font-serif text-fluid-h2 font-bold tracking-wide text-foreground">
+          <h1 className="h1-content">
             Acessar Conta
           </h1>
           <p className="mt-2 text-sm text-muted">

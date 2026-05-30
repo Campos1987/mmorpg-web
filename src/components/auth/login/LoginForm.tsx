@@ -3,20 +3,24 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 import { loginAction } from "@/actions/auth";
 import { LoginFeedback } from "@/components/auth/login/LoginFeedback";
 import { FormPlaceholderInput } from "@/components/ui/form/FormPlaceholderInput";
+import { PasswordInput } from "@/components/ui/form/PasswordInput";
+import { FormButton } from "@/components/ui/form/FormButton";
 import { ROUTES } from "@/config/routes";
-import { cn } from "@/lib/utils";
 import {
   type LoginFormValues,
   loginSchema,
 } from "@/schemas/login-schema";
 import { getErrorMessage } from "@/utils/api-error-handler";
 import { parseLoginFieldErrorsFromApiMessage } from "@/lib/auth/parse-api-error";
+import { Lock } from "lucide-react";
+
+import type { ApiError } from "@/types/api";
 
 const defaultValues: LoginFormValues = {
   user: "",
@@ -27,6 +31,12 @@ export function LoginForm() {
   const router = useRouter();
   const [isLoginRequestPending, setIsLoginRequestPending] = useState(false);
   const [globalError, setGlobalError] = useState<string | null>(null);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setIsMounted(true);
+  }, []);
 
   const {
     register,
@@ -39,6 +49,30 @@ export function LoginForm() {
     mode: "onChange",
     defaultValues,
   });
+
+  const setFormErrors = (fieldErrors: Record<string, string>) => {
+    for (const [field, message] of Object.entries(fieldErrors)) {
+      if (message && (field === "user" || field === "password")) {
+        setError(field, { message });
+      }
+    }
+  };
+
+  const processLoginError = (apiError: ApiError) => {
+    resetField("password");
+
+    if (apiError.error === "BAD_REQUEST" && apiError.message) {
+      const fieldErrors = parseLoginFieldErrorsFromApiMessage(apiError.message);
+      const hasFieldErrors = Object.keys(fieldErrors).length > 0;
+
+      if (hasFieldErrors) {
+        setFormErrors(fieldErrors);
+        return;
+      }
+    }
+
+    setGlobalError(getErrorMessage(apiError));
+  };
 
   const handleLoginFormSubmit = handleSubmit(async (values) => {
     setIsLoginRequestPending(true);
@@ -54,27 +88,7 @@ export function LoginForm() {
       }
 
       if (result.error) {
-        const apiError = result.error;
-
-        if (apiError.error === "BAD_REQUEST" && apiError.message) {
-          const fieldErrors = parseLoginFieldErrorsFromApiMessage(
-            apiError.message,
-          );
-          const hasFieldErrors = Object.keys(fieldErrors).length > 0;
-
-          if (hasFieldErrors) {
-            for (const [field, message] of Object.entries(fieldErrors)) {
-              if (message && (field === "user" || field === "password")) {
-                setError(field, { message });
-              }
-            }
-            resetField("password");
-            return;
-          }
-        }
-
-        setGlobalError(getErrorMessage(apiError));
-        resetField("password");
+        processLoginError(result.error);
       }
     } catch {
       setGlobalError("Ocorreu um erro inesperado. Tente novamente mais tarde.");
@@ -86,6 +100,7 @@ export function LoginForm() {
 
   return (
     <form
+      id="loginForm"
       noValidate
       onSubmit={handleLoginFormSubmit}
       className="flex w-full flex-col gap-4"
@@ -93,6 +108,7 @@ export function LoginForm() {
     >
       {globalError ? <LoginFeedback message={globalError} /> : null}
 
+      {/* Campo: Usuário — mantém FormPlaceholderInput (estilo visual auth) */}
       <FormPlaceholderInput
         id="user"
         placeholder="Usuário ou E-mail"
@@ -102,55 +118,45 @@ export function LoginForm() {
         {...register("user")}
       />
 
-      <FormPlaceholderInput
+      {/*
+       * Campo: Senha — substituído por PasswordInput (componente acessível).
+       * WCAG 2.5.5: botão de olho com min 44×44px.
+       * WCAG 4.1.2: aria-label descritivo + aria-pressed no toggle.
+       * Nota: sem leadingIcon para manter consistência visual com o campo
+       * "Usuário" acima (FormPlaceholderInput sem ícone).
+       */}
+      <PasswordInput
         id="password"
-        type="password"
-        placeholder="Senha"
-        autoComplete="current-password"
-        hasError={Boolean(errors.password)}
+        label="Senha"
         error={errors.password?.message}
+        showLabel="Exibir senha"
+        hideLabel="Ocultar senha"
+        placeholder="••••••••"
+        autoComplete="current-password"
+        hiddenLabel
         {...register("password")}
       />
 
-      <button
-        type="submit"
-        disabled={isLoginRequestPending || !isValid}
-        className={cn(
-          "focus-ring mt-2 min-h-12 w-full rounded-lg bg-brand-cta px-5 py-3",
-          "text-sm font-semibold uppercase tracking-wide text-foreground",
-          "transition-colors hover:bg-brand-cta-hover",
-          "disabled:cursor-not-allowed disabled:opacity-50",
-          "flex items-center justify-center"
-        )}
+      {/*
+       * SubmitButton substitui o <button> manual com SVG spinner inline.
+       * WCAG 1.4.3: text-foreground sobre bg-brand-cta (#dc2626) ≈ 4.5:1 ✓
+       * WCAG 4.1.2: aria-busy + aria-disabled sincronizados.
+       * WCAG 4.1.3: sr-only com status de carregamento para leitores de tela.
+       *
+       * className sobrescreve a cor padrão verde do SubmitButton para usar
+       * o vermelho/CTA do tema de autenticação (brand-cta).
+       */}
+      <FormButton
+        form="loginForm"
+        variant="danger"
+        isPending={isLoginRequestPending}
+        pendingLabel="Alterando..."
+        idleIcon={(isLoginRequestPending || (isMounted && !isValid))
+          ? <Lock className="size-4" aria-hidden="true" /> : null}
+        disabled={isLoginRequestPending || (isMounted && !isValid)}
       >
-        {isLoginRequestPending ? (
-          <span className="flex items-center justify-center gap-2">
-            <svg
-              className="h-5 w-5 animate-spin text-foreground"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <circle
-                className="opacity-25"
-                cx="12"
-                cy="12"
-                r="10"
-                stroke="currentColor"
-                strokeWidth="4"
-              />
-              <path
-                className="opacity-75"
-                fill="currentColor"
-                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-              />
-            </svg>
-            Entrando…
-          </span>
-        ) : (
-          "Entrar"
-        )}
-      </button>
+        Entrar
+      </FormButton>
 
       <p className="text-center text-sm text-muted">
         Não tem conta?{" "}
@@ -164,4 +170,3 @@ export function LoginForm() {
     </form>
   );
 }
-

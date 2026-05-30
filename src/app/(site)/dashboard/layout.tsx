@@ -12,7 +12,9 @@ export default function DashboardLayout({
 }>) {
   return (
     <div className="dashboard-surface flex flex-1 flex-col text-white">
-      {children}
+      <div className="container-content py-8 md:py-12 md:my-[50px] rounded-xl">
+        {children}
+      </div>
     </div>
   );
 }

@@ -29,9 +29,6 @@
   /* Breakpoint ultrawide (mobile-first: sm–2xl são defaults do Tailwind) */
   --breakpoint-3xl: 2560px;
 
-  /* Anel de foco acessível (WCAG) */
-  --color-focus-ring: var(--color-brand-cta);
-
   /* Dashboard — tema Cyber-Fantasy (escopo isolado do portal público) */
   --color-dashboard-bg-deep: #1a0b2e;
   --color-dashboard-bg-mid: #20005f;
@@ -43,6 +40,9 @@
   --color-dashboard-danger: #ef4444;
   --color-dashboard-success: #22c55e;
   --color-dashboard-muted: #94a3b8;
+  --color-focus-ring: #365314;
+
+  --color-text-h1-content: #E87722;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -97,6 +97,18 @@
   line-height: 1.2;
 }
 
+@utility h1-content {
+  color: var(--color-text-h1-content);
+  margin-top: 20px;
+  font-family: var(--font-serif);
+  font-size: var(--text-h2);
+  font-weight: bold;
+  letter-spacing: 1.2px;
+  text-align: center;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 2px #131313;
+}
+
 @utility container-content {
   width: 100%;
   max-width: 1920px;
@@ -106,8 +118,10 @@
   backdrop-filter: blur(8px);
   border-top: 1px solid #d4af37;
   border-bottom: 1px solid #d4af37;
-  border-radius: 4px;
+  border-radius: var(--radius-xl);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+  margin: 50px auto;
+
 }
 
 @utility container-grid {

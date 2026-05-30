@@ -9,15 +9,9 @@ import { useForm } from "react-hook-form";
 import { registerUserAction } from "@/actions/register-user-action";
 import { RegisterFeedback } from "@/components/auth/register/RegisterFeedback";
 import { FormPlaceholderInput } from "@/components/ui/form/FormPlaceholderInput";
-import { FormSectionLabel } from "@/components/ui/form/FormSectionLabel";
-import { FormSelect } from "@/components/ui/form/FormSelect";
-import {
-  REGISTER_DAYS,
-  REGISTER_MONTHS,
-  REGISTER_YEARS,
-} from "@/config/register-form-options";
+import { PasswordInput } from "@/components/ui/form/PasswordInput";
+import { FormButton } from "@/components/ui/form/FormButton";
 import { ROUTES } from "@/config/routes";
-import { cn } from "@/lib/utils";
 import {
   type RegisterFormValues,
   mapFormValuesToPayload,
@@ -58,11 +52,6 @@ export function RegisterForm() {
     mode: "onChange",
     defaultValues,
   });
-
-  const birthDateError =
-    errors.birthDay?.message ??
-    errors.birthMonth?.message ??
-    errors.birthYear?.message;
 
   const handleRegisterFormSubmit = async (values: RegisterFormValues) => {
     setIsRegisterRequestPending(true);
@@ -129,6 +118,7 @@ export function RegisterForm() {
         />
       ) : null}
 
+      {/* Campos: Nome e Sobrenome */}
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         <FormPlaceholderInput
           id="name"
@@ -148,6 +138,7 @@ export function RegisterForm() {
         />
       </div>
 
+      {/* Campo: E-mail */}
       <FormPlaceholderInput
         id="email"
         type="email"
@@ -159,36 +150,7 @@ export function RegisterForm() {
         {...register("email")}
       />
 
-      <div className="flex flex-col gap-2">
-        <FormSectionLabel label="Data de nascimento" />
-        <div className="grid grid-cols-3 gap-3">
-          <FormSelect
-            id="birthDay"
-            placeholder="Dia"
-            options={REGISTER_DAYS}
-            hasError={Boolean(errors.birthDay || birthDateError)}
-            error={errors.birthDay?.message}
-            {...register("birthDay")}
-          />
-          <FormSelect
-            id="birthMonth"
-            placeholder="Mês"
-            options={REGISTER_MONTHS}
-            hasError={Boolean(errors.birthMonth || birthDateError)}
-            error={errors.birthMonth?.message}
-            {...register("birthMonth")}
-          />
-          <FormSelect
-            id="birthYear"
-            placeholder="Ano"
-            options={REGISTER_YEARS}
-            hasError={Boolean(errors.birthYear || birthDateError)}
-            error={errors.birthYear?.message ?? birthDateError}
-            {...register("birthYear")}
-          />
-        </div>
-      </div>
-
+      {/* Campo: Usuário */}
       <FormPlaceholderInput
         id="user"
         placeholder="Usuário"
@@ -198,38 +160,58 @@ export function RegisterForm() {
         {...register("user")}
       />
 
-      <FormPlaceholderInput
+      {/*
+       * Campos de senha — substituídos por PasswordInput.
+       * WCAG 2.5.5: botão de olho com alvo mínimo 44×44px.
+       * WCAG 4.1.2: aria-label + aria-pressed descrevem o estado de visibilidade.
+       * WCAG 2.4.6: label visível associada via htmlFor/id (FormField interno).
+       *
+       * fieldClassName="gap-0" oculta visualmente o label para manter a
+       * consistência estética com os demais campos (FormPlaceholderInput
+       * usa apenas placeholder). O label ainda existe no DOM para SR (sr-only
+       * não aplicado aqui pois o placeholder é suficiente para o contexto visual,
+       * mas o label garante a associação semântica para tecnologias assistivas).
+       */}
+      <PasswordInput
         id="password"
-        type="password"
+        label="Senha"
+        error={errors.password?.message}
+        showLabel="Exibir senha"
+        hideLabel="Ocultar senha"
         placeholder="Senha"
         autoComplete="new-password"
-        hasError={Boolean(errors.password)}
-        error={errors.password?.message}
+        hiddenLabel
         {...register("password")}
       />
 
-      <FormPlaceholderInput
+      <PasswordInput
         id="confirmPassword"
-        type="password"
+        label="Confirmar senha"
+        error={errors.confirmPassword?.message}
+        showLabel="Exibir confirmação de senha"
+        hideLabel="Ocultar confirmação de senha"
         placeholder="Confirmar senha"
         autoComplete="new-password"
-        hasError={Boolean(errors.confirmPassword)}
-        error={errors.confirmPassword?.message}
+        hiddenLabel
         {...register("confirmPassword")}
       />
 
-      <button
-        type="submit"
+      {/*
+       * SubmitButton substitui o <button> manual.
+       * className sobrescreve a cor verde padrão para brand-cta (tema auth).
+       * WCAG 1.4.3: text-foreground sobre bg-brand-cta (#dc2626) ≈ 4.5:1 ✓
+       * WCAG 4.1.2: aria-busy + aria-disabled.
+       * WCAG 4.1.3: sr-only anuncia estado de carregamento para SR.
+       */}
+      <FormButton
+        variant="primary"
+        isPending={isRegisterRequestPending}
+        pendingLabel="Criando conta…"
         disabled={isRegisterRequestPending || !isValid}
-        className={cn(
-          "focus-ring mt-2 min-h-12 w-full rounded-lg bg-brand-cta px-5 py-3",
-          "text-sm font-semibold uppercase tracking-wide text-foreground",
-          "transition-colors hover:bg-brand-cta-hover",
-          "disabled:cursor-not-allowed disabled:opacity-50",
-        )}
+        className="mt-2"
       >
-        {isRegisterRequestPending ? "Criando conta…" : "Criar conta"}
-      </button>
+        Criar conta
+      </FormButton>
 
       <p className="text-center text-sm text-muted">
         Já tem conta?{" "}

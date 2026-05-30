@@ -1,6 +1,11 @@
 import { forwardRef } from "react";
 
 import { getFormFieldAriaProps } from "@/components/ui/form/FormField";
+import {
+  formControlClassName,
+  formControlDefaultClassName,
+  formControlErrorClassName,
+} from "@/lib/form-control-styles";
 import { cn } from "@/lib/utils";
 
 type FormTextInputProps = React.ComponentPropsWithoutRef<"input"> & {
@@ -18,10 +23,8 @@ export const FormTextInput = forwardRef<HTMLInputElement, FormTextInputProps>(
         id={id}
         type={type}
         className={cn(
-          "focus-ring min-h-12 w-full rounded-md border ",
-          "bg-olive-800/30 px-4 py-2 text-sm text-foreground",
-          "placeholder:text-muted",
-          hasError ? "border-brand-cta" : "border-olive-800",
+          formControlClassName,
+          hasError ? formControlErrorClassName : formControlDefaultClassName,
           className,
         )}
         {...props}
@@ -30,3 +33,4 @@ export const FormTextInput = forwardRef<HTMLInputElement, FormTextInputProps>(
     );
   },
 );
+
