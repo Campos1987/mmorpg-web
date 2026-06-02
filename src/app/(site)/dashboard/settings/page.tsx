@@ -5,6 +5,8 @@ import { getUserProfile } from "@/services/user-profile";
 import { UserProfileForm } from "@/components/dashboard/settings/UserProfileForm";
 import type { UserProfileData } from "@/types/user-profile";
 import { SERVER_INFO } from "@/config/server-info";
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 
 export const metadata: Metadata = {
   title: `Configurações da Conta | ${SERVER_INFO.serverName}`,
@@ -46,7 +48,18 @@ export default async function SettingsPage() {
       aria-label="Configurações da conta"
       className="container-content w-full max-w-7xl mx-auto flex flex-1 flex-col py-12 px-4 sm:px-6 lg:px-8"
     >
-      {/* Cabeçalho da página */}
+     {/* ── Cabeçalho ─────────────────────────────────────────────────────── */}
+      <header className="mb-2">
+        <Link
+          href="/dashboard"
+          className="focus-ring inline-flex items-center gap-2 text-xs text-dashboard-muted transition-dashboard hover:text-foreground"
+          aria-label="Voltar para o painel"
+        >
+          <ArrowLeft className="size-3.5" aria-hidden="true" />
+          Voltar para o painel
+        </Link>
+      </header>
+
       <header className="mb-8">
         <h1 className="text-fluid-h1 uppercase text-text-h1-content">
           Dados Cadastrais

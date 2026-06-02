@@ -17,7 +17,13 @@ type SubAccountDropdownProps = {
 };
 
 function formatAccountLabel(account: SubAccount): string {
-  return `${account.nickname} (${account.className} Nível ${account.level})`;
+  if (!account.characters || account.characters.length === 0) {
+    return `${account.nickname} ( Sem personagens )`;
+  }
+  const charsStr = account.characters
+    .map((c) => `${c.name} - lvl ${c.level}`)
+    .join(" || ");
+  return `${account.nickname} ( ${charsStr} )`;
 }
 
 export function SubAccountDropdown({

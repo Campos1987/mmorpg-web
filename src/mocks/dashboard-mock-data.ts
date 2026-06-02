@@ -18,9 +18,37 @@ export const dashboardMockData: DashboardMockData = {
     unreadNotifications: 3,
   },
   subAccounts: [
-    { id: "sub-1", nickname: "NightCrawler", className: "Guerreiro", level: 85 },
-    { id: "sub-2", nickname: "MoonBlade", className: "Arqueiro", level: 78 },
-    { id: "sub-3", nickname: "ArcaneSoul", className: "Mago", level: 82 },
+    {
+      id: "sub-1",
+      nickname: "NightCrawler",
+      className: "Guerreiro",
+      level: 85,
+      characterCount: 2,
+      characters: [
+        { name: "NightCrawler", level: 85 },
+        { name: "IronWall", level: 80 },
+      ],
+    },
+    {
+      id: "sub-2",
+      nickname: "MoonBlade",
+      className: "Arqueiro",
+      level: 78,
+      characterCount: 1,
+      characters: [
+        { name: "MoonBlade", level: 78 },
+      ],
+    },
+    {
+      id: "sub-3",
+      nickname: "ArcaneSoul",
+      className: "Mago",
+      level: 82,
+      characterCount: 1,
+      characters: [
+        { name: "ArcaneSoul", level: 82 },
+      ],
+    },
   ],
   characters: [
     {

@@ -60,12 +60,17 @@ export async function getGamerAccount(): Promise<GamerAccount | null> {
   const body: unknown = await res.json().catch(() => null);
 
   const parsed = gamerAccountApiSchema.safeParse(body);
-  if (!parsed.success || parsed.data.length === 0) {
+  if (!parsed.success) {
+    return null;
+  }
+
+  const logins = Object.keys(parsed.data);
+  if (logins.length === 0) {
     return null;
   }
 
   return {
-    username: parsed.data[0],
+    username: logins[0],
   };
 }
 
@@ -106,13 +111,21 @@ export async function getGamerAccounts(): Promise<SubAccount[]> {
     return [];
   }
 
-  const logins = parsed.data;
+  const logins = Object.keys(parsed.data);
 
   // Mapeia a lista de logins (strings) -> SubAccount do design system
-  return logins.map((login) => ({
-    id: login,
-    nickname: login,
-    className: "—",
-    level: 0,
-  }));
+  return logins.map((login) => {
+    const characterNames = parsed.data[login] || [];
+    return {
+      id: login,
+      nickname: login,
+      className: "—",
+      level: 0,
+      characterCount: characterNames.length,
+      characters: characterNames.map((name) => ({
+        name,
+        level: 1, // Default level as backend only returns names
+      })),
+    };
+  });
 }
