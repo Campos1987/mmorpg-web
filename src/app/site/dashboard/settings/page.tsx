@@ -5,6 +5,7 @@ import { getUserProfile } from "@/services/user-profile";
 import { UserProfileForm } from "@/components/dashboard/settings/UserProfileForm";
 import type { UserProfileData } from "@/types/user-profile";
 import { SERVER_INFO } from "@/config/server-info";
+import { ROUTES } from "@/config/routes";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
@@ -30,7 +31,7 @@ export default async function SettingsPage() {
 
   // Garante proteção da rota: usuário sem sessão é redirecionado para o login
   if (!profile) {
-    redirect("/login");
+    redirect(ROUTES.AUTH.LOGIN);
   }
 
   // Mapeia UserProfileResponse → UserProfileData (tipagem do domínio da UI)
@@ -51,7 +52,7 @@ export default async function SettingsPage() {
      {/* ── Cabeçalho ─────────────────────────────────────────────────────── */}
       <header className="mb-2">
         <Link
-          href="/dashboard"
+          href={ROUTES.DASHBOARD.ROOT}
           className="focus-ring inline-flex items-center gap-2 text-xs text-dashboard-muted transition-dashboard hover:text-foreground"
           aria-label="Voltar para o painel"
         >

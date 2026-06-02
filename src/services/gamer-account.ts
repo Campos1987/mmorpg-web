@@ -12,9 +12,13 @@ import "server-only";
 
 import { AUTH_API, getAuthApiUrl } from "@/config/auth-api";
 import { getAuthorizationHeader } from "@/lib/auth/session";
-import { gamerAccountApiSchema } from "@/schemas/gamer-account-schema";
+import {
+  gamerAccountApiSchema,
+  type CreateGamerAccountInput,
+} from "@/schemas/gamer-account-schema";
 import type { GamerAccount } from "@/types/gamer-account";
 import type { SubAccount } from "@/types/dashboard";
+import type { ApiError } from "@/types/api";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Helper interno — compartilhado entre os dois serviços
@@ -115,17 +119,107 @@ export async function getGamerAccounts(): Promise<SubAccount[]> {
 
   // Mapeia a lista de logins (strings) -> SubAccount do design system
   return logins.map((login) => {
-    const characterNames = parsed.data[login] || [];
+    const charactersData = parsed.data[login] || [];
     return {
       id: login,
       nickname: login,
       className: "—",
       level: 0,
-      characterCount: characterNames.length,
-      characters: characterNames.map((name) => ({
-        name,
-        level: 1, // Default level as backend only returns names
+      characterCount: charactersData.length,
+      characters: charactersData.map((charData) => ({
+        name: charData.charName,
+        level: charData.lvl, 
       })),
     };
   });
 }
+
+// ─────────────────────────────────────────────────────────────────────────────
+// createGamerAccountRequest — cria uma nova conta de jogo associada à conta web
+// ─────────────────────────────────────────────────────────────────────────────
+
+export interface CreateGamerAccountResult {
+  status: "success" | "validation" | "conflict" | "limit_reached" | "error";
+  message?: string;
+  fieldErrors?: Partial<Record<keyof CreateGamerAccountInput, string>>;
+}
+
+export async function createGamerAccountRequest(
+  payload: CreateGamerAccountInput,
+): Promise<CreateGamerAccountResult> {
+  const authHeader = await getAuthorizationHeader();
+
+  if (!authHeader.Authorization) {
+    return {
+      status: "error",
+      message: "Sessão inválida. Por favor, faça login novamente.",
+    };
+  }
+
+  try {
+    const res = await fetch(getAuthApiUrl(AUTH_API.GAMER_CREATE_PATH), {
+      method: AUTH_API.GAMER_CREATE_METHOD,
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        ...authHeader,
+      },
+      body: JSON.stringify({
+        login: payload.account,
+        password: payload.password,
+      }),
+      cache: "no-store",
+    });
+
+    if (res.status === 200 || res.status === 201) {
+      return { status: "success" };
+    }
+
+    const errorBody: unknown = await res.json().catch(() => null);
+
+    if (res.status === 400 && typeof errorBody === "object" && errorBody !== null) {
+      const apiError = errorBody as ApiError;
+      const message = apiError.message || "";
+      const fieldErrors: Partial<Record<keyof CreateGamerAccountInput, string>> = {};
+
+      if (message.toLowerCase().includes("login") || message.toLowerCase().includes("username")) {
+        fieldErrors.account = message.replace(/^(login|username):\s*/i, "");
+      } else if (message.toLowerCase().includes("password") || message.toLowerCase().includes("senha")) {
+        fieldErrors.password = message.replace(/^password:\s*/i, "");
+      } else {
+        return { status: "error", message: message || "Erro de validação nos dados enviados." };
+      }
+
+      return { status: "validation", fieldErrors };
+    }
+
+    if (res.status === 404 && typeof errorBody === "object" && errorBody !== null) {
+      const apiError = errorBody as ApiError;
+      const message = apiError.message || "";
+      if (message.includes("3 gamer accounts") || message.includes("You can only have")) {
+        return {
+          status: "limit_reached",
+          message: "Você atingiu o limite máximo de 3 contas de jogo.",
+        };
+      }
+    }
+
+    if (res.status === 409) {
+      return {
+        status: "conflict",
+        message: "Este nome de conta de jogo já está em uso.",
+      };
+    }
+
+    return {
+      status: "error",
+      message: "Erro inesperado ao criar a conta de jogo.",
+    };
+  } catch (err) {
+    return {
+      status: "error",
+      message: err instanceof Error ? err.message : "Erro de conexão com o servidor.",
+    };
+  }
+}
+

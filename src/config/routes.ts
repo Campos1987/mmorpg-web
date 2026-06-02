@@ -3,21 +3,22 @@
  * Placeholders alinhados à estrutura de navegação da Top Bar; ajustar quando as páginas existirem.
  */
 export const ROUTES = {
-  HOME: "/",
+  HOME: "/site",
   DASHBOARD: {
-    ROOT: "/dashboard",
-    PROFILE: "/dashboard/perfil",
-    MARKET: "/dashboard/mercado",
-    GUILD: "/dashboard/guilda",
-    SETTINGS: "/dashboard/settings",
+    ROOT: "/site/dashboard",
+    PROFILE: "/site/dashboard/perfil",
+    MARKET: "/site/dashboard/mercado",
+    GUILD: "/site/dashboard/guilda",
+    SETTINGS: "/site/dashboard/settings",
+    CREATE_ACCOUNT: "/site/dashboard/create-account",
   },
   DOWNLOADS: "/downloads",
   RULES: "/regras",
   DONATIONS: "/doacoes",
   AUTH: {
     /** Página de login — implementação em `app/login/page.tsx` (Fase 4+) */
-    LOGIN: "/login",
-    REGISTER: "/register",
+    LOGIN: "/site/login",
+    REGISTER: "/site/register",
   },
   INFO: {
     SYSTEMS: "/informacoes/sistemas",
@@ -47,9 +48,9 @@ export const ROUTES = {
   },
   /** Páginas de status de conta bloqueada — redirecionado pelo LoginForm */
   ACCOUNT_STATUS: {
-    PENDING: "/conta/pendente",
-    BANNED: "/conta/banida",
-    SUSPENDED: "/conta/suspensa",
+    PENDING: "/site/conta/pendente",
+    BANNED: "/site/conta/banida",
+    SUSPENDED: "/site/conta/suspensa",
   },
 } as const;
 

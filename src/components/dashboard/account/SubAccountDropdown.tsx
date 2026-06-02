@@ -16,14 +16,18 @@ type SubAccountDropdownProps = {
   className?: string;
 };
 
-function formatAccountLabel(account: SubAccount): string {
+function formatAccountLabel(account: SubAccount): React.ReactNode {
   if (!account.characters || account.characters.length === 0) {
     return `${account.nickname} ( Sem personagens )`;
   }
   const charsStr = account.characters
     .map((c) => `${c.name} - lvl ${c.level}`)
     .join(" || ");
-  return `${account.nickname} ( ${charsStr} )`;
+  return (
+  <>
+    <span className="text-brand-gold font-semibold uppercase" >{account.nickname}</span> <span className="text-sm text-gray-400/95" >( {charsStr} )</span>
+  </>
+);
 }
 
 export function SubAccountDropdown({

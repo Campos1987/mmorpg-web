@@ -2,12 +2,13 @@ import Link from "next/link";
 import { Plus, Lock, Settings } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { formControlClassName } from "@/lib/form-control-styles";
+import { ROUTES } from "@/config/routes";
 
 export function RightSettingAccount() {
   return (
     <div className="flex items-center gap-2 shrink-0">
       <Link
-        href="/dashboard/create-account"
+        href={ROUTES.DASHBOARD.CREATE_ACCOUNT}
         className={cn(formControlClassName,
           "focus-ring flex size-12 items-center justify-center rounded-full border bg-olive-900/30", "transition-all duration-200 text-olive-500 ",
           "border-lime-500/10 hover:border-[#d4af37]/40 hover:bg-[#d4af37]/10 hover:text-brand-gold"
@@ -18,7 +19,7 @@ export function RightSettingAccount() {
         <Plus className="size-5" />
       </Link>
       <Link
-        href="/dashboard/settings"
+        href={ROUTES.DASHBOARD.SETTINGS}
         className={cn(
           "focus-ring flex size-12 items-center justify-center rounded-full border bg-olive-900/30", "transition-all duration-200 text-olive-500 ",
           "border-lime-500/10 hover:border-[#d4af37]/40 hover:bg-[#d4af37]/10 hover:text-brand-gold"
@@ -29,7 +30,7 @@ export function RightSettingAccount() {
         <Lock className="size-5" />
       </Link>
       <Link
-        href="/dashboard/settings"
+        href={ROUTES.DASHBOARD.SETTINGS}
         className={cn(
           "focus-ring flex size-12 items-center justify-center rounded-full border bg-olive-900/30", "transition-all duration-200 text-olive-500 ",
           "border-lime-500/10 hover:border-[#d4af37]/40 hover:bg-[#d4af37]/10 hover:text-brand-gold"

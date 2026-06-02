@@ -14,6 +14,8 @@ export const AUTH_API = {
   CHANGE_PASSWORD_PATH: "/user/changePassword",
   GAMER_ACCOUNT_PATH: "/gamer/account",
   GAMER_ACCOUNT_METHOD: "POST",
+  GAMER_CREATE_PATH: "/gamer/create",
+  GAMER_CREATE_METHOD: "POST",
 } as const;
 
 export function getAuthApiUrl(path: string): string {

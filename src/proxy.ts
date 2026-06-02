@@ -7,7 +7,7 @@ import { ROUTES } from "@/config/routes";
  * Rotas que exigem autenticação.
  * Qualquer caminho que começa com /dashboard é protegido.
  */
-const PROTECTED_PREFIXES = ["/dashboard"];
+const PROTECTED_PREFIXES = ["/site/dashboard"];
 
 /**
  * Proxy de autenticação — executa na Edge antes de qualquer RSC/SSR.

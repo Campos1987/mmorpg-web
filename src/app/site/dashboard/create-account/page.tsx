@@ -4,6 +4,8 @@ import { ArrowLeft } from "lucide-react";
 
 import { CreateAccountForm } from "@/components/dashboard/create-account/CreateAccountForm";
 import { SERVER_INFO } from "@/config/server-info";
+import { getGamerAccounts } from "@/services/gamer-account";
+import { ROUTES } from "@/config/routes";
 
 export const metadata: Metadata = {
   title: `Criar Conta de Jogo | ${SERVER_INFO.serverName}`,
@@ -13,17 +15,19 @@ export const metadata: Metadata = {
 /**
  * Página de criação de Gamer Account — Server Component (RSC).
  *
- * TODO: integrar com POST /gamer/account quando o endpoint estiver disponível.
- * O formulário já está preparado para receber um Server Action via `startTransition`.
+ * Busca a quantidade de contas atuais do usuário para exibir o contador e limitar a criação a 3.
  */
-export default function CreateAccountPage() {
+export default async function CreateAccountPage() {
+  const accounts = await getGamerAccounts();
+  const accountCount = accounts.length;
+
   return (
     <main aria-label="Criar conta de jogo" className="container-content w-full max-w-7xl mx-auto flex flex-1 flex-col py-12 px-4 sm:px-6 lg:px-8">
 
       {/* ── Cabeçalho ─────────────────────────────────────────────────────── */}
       <header className="mb-2">
         <Link
-          href="/dashboard"
+          href={ROUTES.DASHBOARD.ROOT}
           className="focus-ring inline-flex items-center gap-2 text-xs text-dashboard-muted transition-dashboard hover:text-foreground"
           aria-label="Voltar para o painel"
         >
@@ -33,7 +37,7 @@ export default function CreateAccountPage() {
       </header>
 
       {/* ── Formulário (Client Component) ─────────────────────────────────── */}
-      <CreateAccountForm />
+      <CreateAccountForm accountCount={accountCount} />
 
     </main>
   );
