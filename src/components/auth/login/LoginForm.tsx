@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 
-import { loginAction } from "@/actions/auth";
+import { loginUserAction } from "@/actions/login-user-action";
 import { LoginFeedback } from "@/components/auth/login/LoginFeedback";
 import { FormPlaceholderInput } from "@/components/ui/form/FormPlaceholderInput";
 import { PasswordInput } from "@/components/ui/form/PasswordInput";
@@ -16,16 +16,19 @@ import {
   type LoginFormValues,
   loginSchema,
 } from "@/schemas/login-schema";
-import { getErrorMessage } from "@/utils/api-error-handler";
-import { parseLoginFieldErrorsFromApiMessage } from "@/lib/auth/parse-api-error";
 import { Lock } from "lucide-react";
-
-import type { ApiError } from "@/types/api";
 
 const defaultValues: LoginFormValues = {
   user: "",
   password: "",
 };
+
+/** Mapeia o code de bloqueio para a rota de aviso correspondente. */
+const BLOCKED_ROUTE_MAP = {
+  PENDING: ROUTES.ACCOUNT_STATUS.PENDING,
+  BANNED: ROUTES.ACCOUNT_STATUS.BANNED,
+  SUSPENDED: ROUTES.ACCOUNT_STATUS.SUSPENDED,
+} as const;
 
 export function LoginForm() {
   const router = useRouter();
@@ -50,46 +53,42 @@ export function LoginForm() {
     defaultValues,
   });
 
-  const setFormErrors = (fieldErrors: Record<string, string>) => {
-    for (const [field, message] of Object.entries(fieldErrors)) {
-      if (message && (field === "user" || field === "password")) {
-        setError(field, { message });
-      }
-    }
-  };
-
-  const processLoginError = (apiError: ApiError) => {
-    resetField("password");
-
-    if (apiError.error === "BAD_REQUEST" && apiError.message) {
-      const fieldErrors = parseLoginFieldErrorsFromApiMessage(apiError.message);
-      const hasFieldErrors = Object.keys(fieldErrors).length > 0;
-
-      if (hasFieldErrors) {
-        setFormErrors(fieldErrors);
-        return;
-      }
-    }
-
-    setGlobalError(getErrorMessage(apiError));
-  };
-
   const handleLoginFormSubmit = handleSubmit(async (values) => {
     setIsLoginRequestPending(true);
     setGlobalError(null);
 
     try {
-      const result = await loginAction(values);
+      const result = await loginUserAction(values);
 
-      if (result.data) {
-        router.push(ROUTES.HOME);
+      if (result.status === "success") {
+        router.push(ROUTES.DASHBOARD.ROOT);
         router.refresh();
         return;
       }
 
-      if (result.error) {
-        processLoginError(result.error);
+      if (result.status === "account_blocked") {
+        router.push(BLOCKED_ROUTE_MAP[result.code]);
+        return;
       }
+
+      if (result.status === "validation") {
+        for (const [field, message] of Object.entries(result.fieldErrors)) {
+          if (message && (field === "user" || field === "password")) {
+            setError(field as keyof LoginFormValues, { message });
+          }
+        }
+        resetField("password");
+        return;
+      }
+
+      if (result.status === "unauthorized") {
+        resetField("password");
+        setGlobalError(result.message);
+        return;
+      }
+
+      resetField("password");
+      setGlobalError(result.message);
     } catch {
       setGlobalError("Ocorreu um erro inesperado. Tente novamente mais tarde.");
       resetField("password");
@@ -105,6 +104,7 @@ export function LoginForm() {
       onSubmit={handleLoginFormSubmit}
       className="flex w-full flex-col gap-4"
       aria-label="Formulário de login"
+      autoComplete="off"
     >
       {globalError ? <LoginFeedback message={globalError} /> : null}
 

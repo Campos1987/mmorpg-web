@@ -4,11 +4,15 @@ export type { LoginFormValues, LoginPayload };
 
 export { LOGIN_UNAUTHORIZED_MESSAGE } from "@/schemas/login-schema";
 
-/** Resposta de sucesso do POST /auth/login (Spring — HTTP 202). */
+/** Resposta do POST /auth/login (Spring — HTTP 200/202).
+ *  Novo contrato: { email, status }
+ *  Campos legados mantidos para fallback: claims, userName, loginTime
+ */
 export type LoginApiSuccessResponse = {
-  loginTime?: string;
-  claims?: string;
-  userName?: string;
+  fullName?: string;
+  email?: string;
+  status?: string;
+  token?: string;
 };
 
 /** Erro padronizado da API (ApiErrorException). */
@@ -26,9 +30,9 @@ export type LoginActionResult =
   | { status: "success" }
   | { status: "validation"; fieldErrors: LoginFieldErrors }
   | { status: "unauthorized"; message: string }
+  | { status: "account_blocked"; code: "PENDING" | "BANNED" | "SUSPENDED" }
   | { status: "error"; message: string };
 
-/** Resultado interno do serviço — inclui o JWT antes de gravar o cookie. */
 export type LoginServiceResult =
-  | { status: "success"; token: string }
+  | { status: "success"; token: string; fullName?: string }
   | Exclude<LoginActionResult, { status: "success" }>;

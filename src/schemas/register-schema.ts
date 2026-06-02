@@ -21,34 +21,30 @@ const isPastDate = (value: string) => {
 const userField = z
   .string()
   .min(1, "O usuário é obrigatório.")
-  .max(12, "O usuário deve ter entre 5 e 12 caracteres alfanuméricos.")
-  .min(5, "O usuário deve ter entre 5 e 12 caracteres alfanuméricos.")
-  .refine(noWhitespace, "O usuário não pode conter espaços.")
+  .max(12, "Máximo 12 caracteres.")
+  .min(5, "Mínimo 5 caracteres.")
+  .refine(noWhitespace, "Não pode conter espaços.")
   .refine(
     (value) => ALPHANUMERIC_REGEX.test(value),
-    "O usuário deve ter entre 5 e 12 caracteres alfanuméricos.",
+    "Use apenas letras e números.",
   );
 
 const nameField = z
   .string()
   .min(1, "O nome é obrigatório.")
-  .max(20, "Nome inválido. Use apenas letras (5-20 caracteres).")
-  .min(5, "Nome inválido. Use apenas letras (5-20 caracteres).")
   .refine(noWhitespace, "O nome não pode conter espaços.")
   .refine(
     (value) => LETTERS_ONLY_REGEX.test(value),
-    "Nome inválido. Use apenas letras (5-20 caracteres).",
+    "Use apenas letras.",
   );
 
 const lastnameField = z
   .string()
   .min(1, "O sobrenome é obrigatório.")
-  .max(20, "Sobrenome inválido. Use apenas letras (5-20 caracteres).")
-  .min(5, "Sobrenome inválido. Use apenas letras (5-20 caracteres).")
   .refine(noWhitespace, "O sobrenome não pode conter espaços.")
   .refine(
     (value) => LETTERS_ONLY_REGEX.test(value),
-    "Sobrenome inválido. Use apenas letras (5-20 caracteres).",
+    "Use apenas letras.",
   );
 
 const emailField = z
@@ -59,11 +55,11 @@ const emailField = z
 const passwordField = z
   .string()
   .min(1, "A senha é obrigatória.")
-  .max(12, "A senha deve ter 8-12 caracteres, incluindo maiúscula, número e símbolo.")
-  .min(8, "A senha deve ter 8-12 caracteres, incluindo maiúscula, número e símbolo.")
+  .max(12, "Máximo 12 caracteres.")
+  .min(8, "Mínimo 8 caracteres.")
   .regex(
     PASSWORD_REGEX,
-    "A senha deve ter 8-12 caracteres, incluindo maiúscula, número e símbolo.",
+    "Obrigatorio 1 letra maiúscula, 1 número e 1 símbolo.",
   );
 
 /** Payload enviado à API — contrato do backend. */
@@ -71,13 +67,6 @@ export const registerPayloadSchema = z.object({
   user: userField,
   name: nameField,
   lastname: lastnameField,
-  birthday: z
-    .string()
-    .regex(ISO_DATE_REGEX, "Selecione uma data de nascimento válida no passado.")
-    .refine(
-      isPastDate,
-      "Selecione uma data de nascimento válida no passado.",
-    ),
   email: emailField,
   password: passwordField,
 });
@@ -90,36 +79,13 @@ export const registerFormSchema = z
     name: nameField,
     lastname: lastnameField,
     email: emailField,
-    birthDay: z.string().min(1, "Selecione o dia."),
-    birthMonth: z.string().min(1, "Selecione o mês."),
-    birthYear: z.string().min(1, "Selecione o ano."),
     user: userField,
     password: passwordField,
     confirmPassword: z.string().min(1, "Confirme sua senha."),
   })
-  .superRefine((data, context) => {
-    if (data.password !== data.confirmPassword) {
-      context.addIssue({
-        code: z.ZodIssueCode.custom,
-        path: ["confirmPassword"],
-        message: "As senhas não coincidem.",
-      });
-    }
-
-    const birthday = buildBirthdayIso(data.birthDay, data.birthMonth, data.birthYear);
-    const birthdayResult = registerPayloadSchema.shape.birthday.safeParse(birthday);
-
-    if (!birthdayResult.success) {
-      const message =
-        birthdayResult.error.issues[0]?.message ??
-        "Selecione uma data de nascimento válida no passado.";
-
-      context.addIssue({
-        code: z.ZodIssueCode.custom,
-        path: ["birthYear"],
-        message,
-      });
-    }
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "As senhas não coincidem.",
+    path: ["confirmPassword"],
   });
 
 export type RegisterFormValues = z.infer<typeof registerFormSchema>;
@@ -128,9 +94,6 @@ export const REGISTER_FORM_FIELDS = [
   "name",
   "lastname",
   "email",
-  "birthDay",
-  "birthMonth",
-  "birthYear",
   "user",
   "password",
   "confirmPassword",
@@ -151,11 +114,6 @@ export function mapFormValuesToPayload(
     user: values.user,
     name: values.name,
     lastname: values.lastname,
-    birthday: buildBirthdayIso(
-      values.birthDay,
-      values.birthMonth,
-      values.birthYear,
-    ),
     email: values.email,
     password: values.password,
   };
@@ -165,7 +123,6 @@ export const REGISTER_PAYLOAD_FIELDS = [
   "user",
   "name",
   "lastname",
-  "birthday",
   "email",
   "password",
 ] as const satisfies readonly (keyof RegisterPayload)[];

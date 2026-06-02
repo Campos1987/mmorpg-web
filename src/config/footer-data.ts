@@ -1,3 +1,4 @@
+import { SERVER_INFO } from "@/config/server-info";
 import { FOOTER_EXTERNAL_LINKS } from "@/config/footer-links";
 import { ROUTES } from "@/config/routes";
 import type {
@@ -13,14 +14,14 @@ export const FOOTER_EXTERNAL_LINK_TARGET = "_blank" as const;
 export const FOOTER_EXTERNAL_LINK_REL = "noopener noreferrer" as const;
 
 /** Nome exibido na faixa de copyright do rodapé. */
-export const FOOTER_BRAND_NAME = "Portal MMORPG" as const;
+export const FOOTER_BRAND_NAME = SERVER_INFO.serverName;
 
 /**
  * Menção a marcas registradas — texto configurável sem alterar componentes.
  * Complementa o ano dinâmico renderizado em `FooterCopyright`.
  */
 export const FOOTER_COPYRIGHT_NOTICE =
-  "RPG II é marca registrada da NCsoft Corporation. Os logotipos da família \"PS\", \"PS5\", \"Xbox Series X|S\", \"Xbox\" e \"Steam\" são marcas registradas ou comerciais de seus respectivos proprietários. Todos os direitos reservados." as const;
+  `${SERVER_INFO.serverName} é marca registrada da NCsoft Corporation. Os logotipos da família "PS", "PS5", "Xbox Series X|S", "Xbox" e "Steam" são marcas registradas ou comerciais de seus respectivos proprietários. Todos os direitos reservados.`;
 
 /**
  * Metadados por coluna — `id` estável para `aria-labelledby` / `id` do heading.

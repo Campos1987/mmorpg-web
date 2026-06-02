@@ -17,8 +17,8 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { Lock, Calendar, User, Mail, ShieldCheck } from "lucide-react";
-
+import { useRouter } from "next/navigation";
+import { Lock, Calendar, User, Mail, ShieldCheck, Unlock } from "lucide-react";
 import { SectionCard } from "@/components/ui/SectionCard";
 import { ReadOnlyDataList } from "@/components/ui/ReadOnlyDataList";
 import type { DataListItem } from "@/components/ui/ReadOnlyDataList";
@@ -78,8 +78,11 @@ interface UserProfileFormProps {
 // Componente principal
 // ──────────────────────────────────────────────────────────────────────────────
 export function UserProfileForm({ profile }: UserProfileFormProps) {
-  // ── Condicional: a data de nascimento já está cadastrada?
-  const hasBirthDate = Boolean(profile.birthDate?.trim());
+  const router = useRouter();
+
+  // ── Estado local para a data de nascimento já cadastrada (permite atualização imediata na UI)
+  const [localBirthDate, setLocalBirthDate] = useState<string>(profile.birthDate || "");
+  const hasBirthDate = Boolean(localBirthDate && localBirthDate.trim());
 
   // ── Estado: formulário de data de nascimento (somente quando editável)
   const [birthDateForm, setBirthDateForm] = useState<BirthDateFormState>({
@@ -109,7 +112,7 @@ export function UserProfileForm({ profile }: UserProfileFormProps) {
   const personalDataItems: DataListItem[] = [
     {
       id: "field-login",
-      label: "Usuário (Login)",
+      label: "Usuário",
       value: profile.login,
       icon: User,
     },
@@ -127,13 +130,13 @@ export function UserProfileForm({ profile }: UserProfileFormProps) {
     },
     ...(hasBirthDate
       ? [
-          {
-            id: "field-birthdate",
-            label: "Data de Nascimento",
-            value: formatDateDisplay(profile.birthDate!),
-            icon: Calendar,
-          } satisfies DataListItem,
-        ]
+        {
+          id: "field-birthdate",
+          label: "Data de Nascimento",
+          value: formatDateDisplay(localBirthDate),
+          icon: Calendar,
+        } satisfies DataListItem,
+      ]
       : []),
   ];
 
@@ -165,7 +168,9 @@ export function UserProfileForm({ profile }: UserProfileFormProps) {
 
       if (result.success) {
         setBirthDateFeedback({ type: "success", message: result.message });
+        setLocalBirthDate(parsed.data.birthDate); // Atualiza o estado local imediatamente!
         setBirthDateForm({ birthDate: "" });
+        router.refresh();
       } else {
         setBirthDateFeedback({ type: "error", message: result.message });
         if (result.fieldErrors?.birthDate) {
@@ -257,7 +262,7 @@ export function UserProfileForm({ profile }: UserProfileFormProps) {
         subtitle="Dados de identidade bloqueados para fins de segurança."
         icon={User}
       >
-        <div className="space-y-6">
+        <div className="space-y-6 max-w-3xl mx-auto">
           {/*
            * WCAG 1.3.1: ReadOnlyDataList usa <dl>/<dt>/<dd> — semântica
            * correta para pares nome-valor. Substitui <label> sem <input>
@@ -272,6 +277,7 @@ export function UserProfileForm({ profile }: UserProfileFormProps) {
               onSubmit={handleBirthDateSubmit}
               noValidate
               aria-label="Formulário de data de nascimento"
+              autoComplete="off"
             >
               <fieldset className="space-y-4">
                 <legend className="sr-only">Cadastrar Data de Nascimento</legend>
@@ -318,13 +324,14 @@ export function UserProfileForm({ profile }: UserProfileFormProps) {
                       min="1900-01-01"
                       aria-required="true"
                       disabled={isBirthDatePending}
+                      suppressHydrationWarning
                     />
                   </div>
                 </FormField>
 
                 <FeedbackBadge feedback={birthDateFeedback} />
 
-                <div className="flex justify-end">
+                <div className="flex justify-end ">
                   {/*
                    * SubmitButton centraliza: WCAG 1.4.3 (contraste 4.55:1),
                    * 4.1.2 (aria-busy/aria-disabled), 4.1.3 (sr-only de status).
@@ -335,7 +342,7 @@ export function UserProfileForm({ profile }: UserProfileFormProps) {
                     isPending={isBirthDatePending}
                     pendingLabel="Salvando..."
                     idleIcon={<Lock className="size-4" aria-hidden="true" />}
-                    disabled={isBirthDatePending || !birthDateForm.birthDate}
+                    disabled={!!(isBirthDatePending || !birthDateForm.birthDate)}
                   >
                     Salvar Data
                   </FormButton>
@@ -358,8 +365,9 @@ export function UserProfileForm({ profile }: UserProfileFormProps) {
           onSubmit={handlePasswordSubmit}
           noValidate
           aria-label="Formulário de alteração de senha"
+          autoComplete="off"
         >
-          <fieldset className="space-y-5" disabled={isPasswordPending}>
+          <fieldset className="space-y-5 max-w-3xl mx-auto" disabled={isPasswordPending}>
             <legend className="sr-only">Alterar Senha</legend>
 
             {/*
@@ -444,7 +452,9 @@ export function UserProfileForm({ profile }: UserProfileFormProps) {
                 variant="danger"
                 isPending={isPasswordPending}
                 pendingLabel="Alterando..."
-                idleIcon={<Lock className="size-4" aria-hidden="true" />}
+                idleIcon={(isPasswordPending || isPasswordFormEmpty)
+                  ? <Lock className="size-4" aria-hidden="true" />
+                  : <Unlock className="size-4" aria-hidden="true" />}
                 disabled={isPasswordPending || isPasswordFormEmpty}
               >
                 Alterar Senha

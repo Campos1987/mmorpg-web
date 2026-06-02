@@ -87,7 +87,7 @@ export function FormButton({
   className,
   ...rest
 }: FormButtonProps) {
-  const isDisabled = disabled || isPending;
+  const isDisabled = !!(disabled || isPending);
 
   return (
     <button

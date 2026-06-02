@@ -1,8 +1,10 @@
+import { SERVER_INFO } from "@/config/server-info";
+
 export default function Home() {
   return (
     <div className="container-content w-full max-w-7xl flex flex-1 flex-col py-12">
       <h1 className="font-serif text-fluid-h1 text-foreground">
-        Portal RPG II
+        {SERVER_INFO.serverName}
       </h1>
       <p className="mt-4 max-w-2xl text-muted">
         Role a página para validar o cabeçalho fixo e a navegação responsiva da

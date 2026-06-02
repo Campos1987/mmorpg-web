@@ -45,5 +45,4 @@ next-env.d.ts
 .cursor/
 .spec/
 .vscode/
-AGENTS.md
-CLAUDE.md
+.AGENT.md

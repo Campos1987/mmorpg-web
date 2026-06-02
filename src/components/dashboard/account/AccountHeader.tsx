@@ -1,8 +1,8 @@
 import type { CurrencyBalance, SubAccount } from "@/types/dashboard";
 import { cn } from "@/lib/utils";
 
-import { CurrencyDisplay } from "./CurrencyDisplay";
 import { SubAccountDropdown } from "./SubAccountDropdown";
+import { RightSettingAccount } from "./RightSettingAccount";
 
 type AccountHeaderProps = {
   subAccounts: SubAccount[];
@@ -12,27 +12,25 @@ type AccountHeaderProps = {
   className?: string;
 };
 
-export function AccountHeader({
-  subAccounts,
-  selectedSubAccountId,
-  onSubAccountChange,
-  currencies,
-  className,
-}: AccountHeaderProps) {
+export function AccountHeader(props: AccountHeaderProps) {
+  const { subAccounts, selectedSubAccountId, onSubAccountChange, className } =
+    props;
   return (
     <section
       className={cn(
-        "container-content flex flex-col gap-4 py-6 md:flex-row md:items-stretch md:gap-6",
+        "container-content flex flex-col gap-4 py-6 md:flex-row md:items-center md:gap-6",
         className,
       )}
       aria-label="Visão geral da conta"
     >
-      <SubAccountDropdown
-        accounts={subAccounts}
-        selectedId={selectedSubAccountId}
-        onSelect={onSubAccountChange}
-      />
-      <CurrencyDisplay currencies={currencies} className="md:max-w-md md:shrink-0" />
+      <div className="flex flex-1 items-center gap-3 w-full">
+        <SubAccountDropdown
+          accounts={subAccounts}
+          selectedId={selectedSubAccountId}
+          onSelect={onSubAccountChange}
+        />
+        <RightSettingAccount />
+      </div>
     </section>
   );
 }

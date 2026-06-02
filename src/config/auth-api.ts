@@ -8,8 +8,12 @@ export const AUTH_API = {
   LOGIN_METHOD: "POST",
   REGISTER_PATH: "/auth/register",
   REGISTER_METHOD: "POST",
-  PROFILE_PATH: "/dashboard/user/me",
+  PROFILE_PATH: "/user/me",
   PROFILE_METHOD: "POST",
+  BIRTHDAY_PATH: "/user/setBirthday",
+  CHANGE_PASSWORD_PATH: "/user/changePassword",
+  GAMER_ACCOUNT_PATH: "/gamer/account",
+  GAMER_ACCOUNT_METHOD: "POST",
 } as const;
 
 export function getAuthApiUrl(path: string): string {

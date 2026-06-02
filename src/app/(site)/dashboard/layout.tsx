@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
+import { SERVER_INFO } from "@/config/server-info";
+import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "Painel do Jogador | Portal MMORPG",
+  title: `Painel do Jogador | ${SERVER_INFO.serverName}`,
   description: "Gerencie personagens, missões e progresso da sua conta",
 };
 
@@ -11,10 +13,9 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="dashboard-surface flex flex-1 flex-col text-white">
-      <div className="container-content py-8 md:py-12 md:my-[50px] rounded-xl">
-        {children}
-      </div>
+    <div className={cn("dashboard-surface",
+      "flex flex-1 flex-col")}>
+      {children}
     </div>
   );
 }

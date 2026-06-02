@@ -13,25 +13,16 @@ export interface UserProfileResponse {
   status?: string;
 }
 
-// Decode JWT payload if possible to extract distinct fields
-const decodeJwt = (jwt: string) => {
-  try {
-    const payload = jwt.split('.')[1];
-    const json = Buffer.from(payload, 'base64').toString('utf-8');
-    return JSON.parse(json) as Record<string, any>;
-  } catch (e) {
-    return {};
-  }
-};
 
 /**
  * Obtém o perfil do usuário autenticado.
  *
- * Estratégia de resolução (em ordem de prioridade):
- * 1. Verifica se existe um token de sessão — se não, retorna null imediatamente.
- * 2. Se o token NÃO parece um JWT (sem pontos), usa-o diretamente como nome
- *    de exibição (fallback para backends que retornam userName em vez de claims).
- * 3. Se o token parece um JWT, chama a API protegida para obter o perfil completo.
+ * Estratégia de resolução:
+ * 1. Verifica se existe um token de sessão — se não, retorna null.
+ * 2. Chama SEMPRE o endpoint PROFILE_PATH com o token como Bearer.
+ * 3. Se a chamada de API falhar ou retornar erro, usa o token como fallback
+ *    de exibição (fullName) sem tentar decodificar JWT, pois o token
+ *    agora é o fullName literal (ex: "Ewerton Campos").
  */
 export async function getUserProfile(): Promise<UserProfileResponse | null> {
   const rawToken = await getSessionToken();
@@ -41,25 +32,14 @@ export async function getUserProfile(): Promise<UserProfileResponse | null> {
     return null;
   }
 
-  // Decodifica para suportar valores com encodeURIComponent (ex: "Ewerton%20Campos")
   const token = decodeURIComponent(rawToken);
 
-  // Fallback: token not JWT – treat as simple username
-  if (!token.includes('.')) {
-    return {
-      login: token,
-      fullName: token,
-      email: '',
-    };
-  }
-
-  // Token looks JWT – try protected API for full profile
   const authHeader = await getAuthorizationHeader();
   const url = getAuthApiUrl(AUTH_API.PROFILE_PATH);
 
   try {
     const response = await fetch(url, {
-      method: AUTH_API.PROFILE_METHOD,
+      method: "POST",
       headers: {
         ...authHeader,
         Accept: "application/json",
@@ -68,20 +48,19 @@ export async function getUserProfile(): Promise<UserProfileResponse | null> {
     });
 
     if (response.ok) {
-      return (await response.json()) as UserProfileResponse;
+      const data = (await response.json()) as UserProfileResponse;
+      console.log("[getUserProfile] Perfil obtido com sucesso:", JSON.stringify(data));
+      return data;
     }
   } catch (error) {
-    console.error("[getUserProfile] Erro ao buscar perfil do usuário:", error);
+    console.error("[getUserProfile] Erro de rede ao buscar perfil do usuário:", error);
   }
 
-  // Fallback to decoded token values if API call fails
-  const claims = decodeJwt(token);
-  const loginFromToken = claims.sub || claims.login || token;
-  const fullNameFromToken = claims.name || claims.fullName || claims.displayName || loginFromToken;
-
+  // Fallback: usa o token (fullName) como dado de exibição mínimo
+  console.warn("[getUserProfile] Usando token como fallback de exibição. login/email estarão vazios.");
   return {
-    login: loginFromToken,
-    fullName: fullNameFromToken,
-    email: claims.email || '',
+    login: token,
+    fullName: token,
+    email: "",
   };
 }

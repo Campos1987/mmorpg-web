@@ -76,7 +76,7 @@ O token é retornado no campo `claims` da resposta do endpoint `POST /auth/login
 
 ```
 1. Frontend → POST /auth/login  (com credenciais)
-2. API       ← 200 OK { loginTime, claims: "eyJ..." }
+2. API       ← 200 OK { email,status }
 3. Frontend → Armazena o token (ver seção 2.2)
 4. Frontend → Inclui em toda requisição protegida:
               Authorization: Bearer eyJ...
@@ -541,7 +541,7 @@ Accept: application/json
   "timestamp": "2026-05-23T03:11:30Z",
   "status": 401,
   "error": "UNAUTHORIZED",
-  "message": "Invalid User",
+  "message": "BANNED" || "PEDDING" || "SUSPENDED",
   "trace": [],
   "path": "/auth/login"
 }
@@ -558,7 +558,7 @@ Accept: application/json
 |--------------------------------------------|---------------------------------------|
 | Usuário não existe no banco                | `"Invalid User"`                      |
 | Senha incorreta                            | `"Invalid User"`                      |
-| Conta com status `SUSPENDED` ou `BANNED`   | `"Account user suspended or blocked"` |
+| Conta com status `SUSPENDED`, `BANNED` ou `PEDDING`   | `"BANNED"` ou `"PEDDING"` ou `"SUSPENDED"` |
 | IP bloqueado (7 ou mais tentativas falhas) | `"Account user suspended or blocked"` |
 
 ---
@@ -575,12 +575,12 @@ export interface LoginRequest {
     password: string;
 }
 
-/** Resposta de sucesso do endpoint POST /auth/login */
+/** Resposta do endpoint POST /auth/login */
 export interface LoginResponse {
     /** Timestamp ISO 8601 do momento do login */
-    loginTime: string;
+    email: string;
     /** JWT Bearer Token. Armazenar em cookie HttpOnly, nunca em localStorage */
-    claims: string;
+    status: string;
 }
 
 /** Payload decodificado do JWT */
@@ -621,7 +621,7 @@ export async function loginAction(
 
     if (!res.ok) return {error: json as ApiError};
 
-    const {claims, loginTime} = json as LoginResponse;
+    const {email, status} = json as LoginResponse;
 
     // Salva o JWT em cookie HttpOnly — inacessível ao JavaScript do browser
     cookies().set('auth_token', claims, {
@@ -633,7 +633,7 @@ export async function loginAction(
     });
 
     // Não retorna o token bruto para o client component
-    return {data: {loginTime}};
+    return {data: {email, status}};
 }
 ```
 

@@ -6,7 +6,7 @@ export interface ApiTraceItem {
 }
 
 /**
- * Estrutura de erro padrão retornada pela Grankain Platform API.
+ * Estrutura de erro padrão retornada pela API do servidor.
  *
  * ATENÇÃO: Em produção, apenas o campo `error` é garantido como não-nulo.
  * Não dependa de `message`, `trace`, `timestamp` ou `path` em lógica de produção.

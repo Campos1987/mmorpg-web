@@ -4,6 +4,10 @@ import { useCallback, useEffect, useId, useRef, useState } from "react";
 
 import type { SubAccount } from "@/types/dashboard";
 import { cn } from "@/lib/utils";
+import {
+  formControlClassName,
+  formControlDefaultClassName,
+} from "@/lib/form-control-styles";
 
 type SubAccountDropdownProps = {
   accounts: SubAccount[];
@@ -77,26 +81,26 @@ export function SubAccountDropdown({
         type="button"
         id={`${listboxId}-trigger`}
         className={cn(
-          "focus-ring glass-panel flex w-full min-h-12 items-center justify-between gap-2",
-          "rounded-xl px-4 py-3 text-left text-sm transition-dashboard",
-          "hover:border-dashboard-neon-blue/40",
+          formControlClassName,
+          formControlDefaultClassName,
+          "flex items-center justify-between gap-2 text-left transition-colors",
         )}
         aria-haspopup="listbox"
         aria-expanded={isOpen}
         aria-controls={listboxId}
         onClick={() => setIsOpen((open) => !open)}
       >
-        <span className="truncate font-medium text-white">
+        <span className="truncate font-medium text-foreground">
           {formatAccountLabel(selected)}
         </span>
         <span
           className={cn(
-            "shrink-0 text-dashboard-neon-blue transition-dashboard",
+            "shrink-0 text-brand-gold transition-transform duration-200",
             isOpen && "rotate-180",
           )}
           aria-hidden
         >
-          ▾
+          ▼
         </span>
       </button>
 
@@ -106,8 +110,10 @@ export function SubAccountDropdown({
           role="listbox"
           aria-labelledby={`${listboxId}-trigger`}
           className={cn(
-            "absolute left-0 right-0 z-20 mt-2 max-h-60 overflow-auto",
-            "glass-panel rounded-xl py-1 shadow-lg",
+            "absolute left-0 right-0 z-50 mt-2 max-h-60 overflow-auto",
+            "bg-[#111111]/95 backdrop-blur-sm",
+            "border border-[#d4af37]/20",
+            "rounded-sm shadow-[0_4px_20px_rgba(0,0,0,0.8)] py-1",
           )}
         >
           {accounts.map((account) => {
@@ -117,9 +123,9 @@ export function SubAccountDropdown({
                 <button
                   type="button"
                   className={cn(
-                    "focus-ring w-full px-4 py-3 text-left text-sm transition-dashboard",
-                    "hover:bg-dashboard-neon-blue/10",
-                    isSelected && "bg-dashboard-neon-purple/15 text-dashboard-neon-blue",
+                    "focus-ring flex w-full items-center px-4 py-2.5 text-left text-xs font-medium uppercase tracking-wide text-amber-100/80 transition-colors",
+                    "hover:bg-[#d4af37]/10 hover:text-brand-gold",
+                    isSelected && "bg-[#d4af37]/20 text-brand-gold font-semibold",
                   )}
                   onClick={() => handleSelect(account.id)}
                 >

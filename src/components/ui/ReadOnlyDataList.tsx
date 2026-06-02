@@ -47,7 +47,7 @@ export function ReadOnlyDataList({ items, className }: ReadOnlyDataListProps) {
           className="flex justify-between items-center gap-4 px-4 py-3 min-h-12"
         >
           {/* dt: rótulo do campo — ícone decorativo + texto */}
-          <dt className="flex items-center gap-1.5 font-medium text-muted shrink-0">
+          <dt className="flex items-center gap-1.5 font-medium text-muted shrink-0 ">
             {/* aria-hidden: ícone puramente decorativo, o texto já descreve */}
             <Icon className="size-3.5 shrink-0" aria-hidden="true" />
             {label}

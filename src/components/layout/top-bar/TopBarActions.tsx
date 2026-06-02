@@ -1,10 +1,21 @@
 import { AuthLoginLink } from "@/components/layout/top-bar/AuthLoginLink";
 import { TopBarMobileNav } from "@/components/layout/top-bar/TopBarMobileNav";
 import { UserMenuDropdown } from "@/components/layout/top-bar/UserMenuDropdown";
+import { getSessionUserName } from "@/lib/auth/session";
 import { getUserProfile } from "@/services/user-profile";
 
 export async function TopBarActions() {
-  const profile = await getUserProfile();
+  // Tenta obter o nome do cookie para evitar requisições desnecessárias ao backend
+  let name = await getSessionUserName();
+  let hasSessionUser = !!name;
+
+  if (!name) {
+    const profile = await getUserProfile();
+    if (profile) {
+      name = profile.fullName || profile.login;
+      hasSessionUser = true;
+    }
+  }
 
   return (
     <nav
@@ -12,14 +23,13 @@ export async function TopBarActions() {
       aria-label="Ações de conta"
     >
       <TopBarMobileNav />
-      {profile ? (
+      {hasSessionUser ? (
         <UserMenuDropdown
           firstName={
-            profile.fullName?.trim()
-              ? profile.fullName.trim().split(/\s+/)[0]
-              : profile.login
+            name?.trim()
+              ? name.trim().split(/\s+/)[0]
+              : "Usuário"
           }
-
         />
       ) : (
         <AuthLoginLink />

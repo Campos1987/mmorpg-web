@@ -1,6 +1,5 @@
 "use server";
 
-import { cookies } from "next/headers";
 import { z } from "zod";
 
 import {
@@ -8,9 +7,8 @@ import {
   changePasswordSchema,
 } from "@/schemas/user-profile-schema";
 import type { ProfileActionResult } from "@/types/user-profile";
-import { getAuthorizationHeader } from "@/lib/auth/session";
-
-const BASE_URL = process.env.API_BASE_URL || "http://localhost:4000";
+import { getAuthorizationHeader, clearSessionToken } from "@/lib/auth/session";
+import { AUTH_API, getAuthApiUrl } from "@/config/auth-api";
 
 // ──────────────────────────────────────────────────────────────────────────────
 // Helper: extrai erros de campo do ZodError para o formato esperado pelo form
@@ -48,15 +46,15 @@ export async function saveBirthDateAction(
   try {
     const authHeader = await getAuthorizationHeader();
 
-    // TODO: substituir pela URL e método corretos do endpoint de perfil
-    const res = await fetch(`${BASE_URL}/account/profile`, {
-      method: "PATCH",
+    // Salva a data de nascimento chamando o endpoint do backend com o JSON { birthday: "AAAA-MM-DD" }
+    const res = await fetch(getAuthApiUrl(AUTH_API.BIRTHDAY_PATH), {
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
         ...authHeader,
       },
-      body: JSON.stringify({ birthDate: parsed.data.birthDate }),
+      body: JSON.stringify({ birthday: parsed.data.birthDate }),
       cache: "no-store",
     });
 
@@ -97,8 +95,7 @@ export async function changePasswordAction(
   try {
     const authHeader = await getAuthorizationHeader();
 
-    // TODO: substituir pela URL e método corretos do endpoint de senha
-    const res = await fetch(`${BASE_URL}/account/change-password`, {
+    const res = await fetch(getAuthApiUrl(AUTH_API.CHANGE_PASSWORD_PATH), {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -106,7 +103,7 @@ export async function changePasswordAction(
         ...authHeader,
       },
       body: JSON.stringify({
-        currentPassword: parsed.data.currentPassword,
+        oldPassword: parsed.data.currentPassword,
         newPassword: parsed.data.newPassword,
       }),
       cache: "no-store",
@@ -126,8 +123,7 @@ export async function changePasswordAction(
 
     // Após mudança de senha bem-sucedida, invalida o cookie de sessão para
     // forçar novo login (boa prática de segurança — RFC 6749 §10.4)
-    const cookieStore = await cookies();
-    cookieStore.delete("auth_token");
+    await clearSessionToken();
 
     return {
       success: true,

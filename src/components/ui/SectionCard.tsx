@@ -40,20 +40,22 @@ export function SectionCard({
         )}
       >
         {/* ── Cabeçalho da seção ── */}
-        <header className="flex items-center gap-3 border-b border-olive-800 pb-4">
+        <header className="flex items-stretch gap-3 border-b border-olive-800 pb-4">
           {/* Ícone decorativo — aria-hidden pois o título já descreve a seção */}
           <div
-            className="flex size-9 items-center justify-center rounded-lg bg-brand-cta/20 ring-1 ring-brand-cta/40"
+            className={cn(
+              "flex size-14 items-center justify-center rounded-lg bg-brand-cta/20 ring-1 ring-brand-cta/40",
+            )}
             aria-hidden="true"
           >
-            <Icon className="size-4 text-brand-cta" aria-hidden="true" />
+            <Icon className="size-6 text-brand-cta" aria-hidden="true" />
           </div>
 
-          <div>
+          <div className="flex-1">
             {/* WCAG 2.4.6: Títulos descritivos e visíveis */}
             <h2
               id={headingId}
-              className="font-serif text-base font-bold tracking-wide text-foreground"
+              className="text-fluid-h2 mt-0 text-gray-200"
             >
               {title}
             </h2>

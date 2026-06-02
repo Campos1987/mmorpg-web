@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
+import { SERVER_INFO } from "@/config/server-info";
 
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Portal MMORPG",
-  description: "Portal da comunidade do servidor RPG II",
+  title: SERVER_INFO.serverName,
+  description: `Comunidade do servidor ${SERVER_INFO.serverName}`,
 };
 
 export default function RootLayout({
@@ -14,7 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR" className="h-full antialiased">
-      <body className="min-h-full RPG font-sans text-foreground">
+      <body className="min-h-full font-sans text-foreground">
         {children}
       </body>
     </html>

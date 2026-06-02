@@ -4,11 +4,12 @@ import { redirect } from "next/navigation";
 import { getUserProfile } from "@/services/user-profile";
 import { UserProfileForm } from "@/components/dashboard/settings/UserProfileForm";
 import type { UserProfileData } from "@/types/user-profile";
+import { SERVER_INFO } from "@/config/server-info";
 
 export const metadata: Metadata = {
-  title: "Configurações da Conta | Portal MMORPG",
+  title: `Configurações da Conta | ${SERVER_INFO.serverName}`,
   description:
-    "Gerencie seus dados cadastrais, data de nascimento e altere sua senha de acesso ao portal.",
+    `Gerencie seus dados cadastrais, data de nascimento e altere sua senha de acesso ao ${SERVER_INFO.serverName}.`,
 };
 
 /**
@@ -43,14 +44,15 @@ export default async function SettingsPage() {
   return (
     <main
       aria-label="Configurações da conta"
+      className="container-content w-full max-w-7xl mx-auto flex flex-1 flex-col py-12 px-4 sm:px-6 lg:px-8"
     >
       {/* Cabeçalho da página */}
       <header className="mb-8">
-        <h1 className="font-serif text-fluid-h2 font-bold text-foreground">
+        <h1 className="text-fluid-h1 uppercase text-text-h1-content">
           Dados Cadastrais
         </h1>
-        <p className="mt-1  text-sm text-gray-300">
-          Gerencie as informações da sua conta no portal.
+        <p className="mt-1 text-sm text-gray-300">
+          Gerencie as informações da sua conta no {SERVER_INFO.serverName}.
         </p>
       </header>
 

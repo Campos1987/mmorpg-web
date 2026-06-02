@@ -2,6 +2,7 @@ import {
   FOOTER_BRAND_NAME,
   FOOTER_COPYRIGHT_NOTICE,
 } from "@/config/footer-data";
+import { SERVER_INFO } from "@/config/server-info";
 import { cn } from "@/lib/utils";
 
 /**
@@ -20,7 +21,7 @@ export function FooterCopyright() {
       )}
     >
       <p className="text-pretty">
-        ©{currentYear} {FOOTER_BRAND_NAME}. {FOOTER_COPYRIGHT_NOTICE}
+        ©{SERVER_INFO.createdServer}-{currentYear} {FOOTER_BRAND_NAME}. {FOOTER_COPYRIGHT_NOTICE}
       </p>
     </div>
   );

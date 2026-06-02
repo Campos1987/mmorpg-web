@@ -17,7 +17,7 @@ export const ROUTES = {
   AUTH: {
     /** Página de login — implementação em `app/login/page.tsx` (Fase 4+) */
     LOGIN: "/login",
-    REGISTER: "/registro",
+    REGISTER: "/register",
   },
   INFO: {
     SYSTEMS: "/informacoes/sistemas",
@@ -44,6 +44,12 @@ export const ROUTES = {
     PRIVACY: "/legal/privacidade",
     TERMS: "/legal/termos",
     COOKIES: "/legal/cookies",
+  },
+  /** Páginas de status de conta bloqueada — redirecionado pelo LoginForm */
+  ACCOUNT_STATUS: {
+    PENDING: "/conta/pendente",
+    BANNED: "/conta/banida",
+    SUSPENDED: "/conta/suspensa",
   },
 } as const;
 

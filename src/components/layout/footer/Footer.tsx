@@ -4,6 +4,8 @@ import { FooterAgeRating } from "@/components/layout/footer/FooterAgeRating";
 import { FooterSocialLink } from "@/components/layout/footer/FooterSocialLink";
 import { FOOTER_LEGAL_LINKS, FOOTER_SOCIAL_LINKS } from "@/config/footer-data";
 import { cn } from "@/lib/utils";
+import { SERVER_INFO } from "@/config/server-info";
+import { lowercase } from "zod";
 
 /**
  * Rodapé global — Server Component (RSC), renderizado no `RootLayout`.
@@ -37,11 +39,11 @@ export function Footer() {
               href="/"
               className="font-serif text-4xl font-bold tracking-[0.2em] text-brand-logo transition-colors hover:text-brand-logo-hover uppercase"
             >
-              Portal
+              {SERVER_INFO.serverName}
             </Link>
-            <span className="text-sm tracking-[0.3em] uppercase text-muted mt-1">
-              portal.com
-            </span>
+            {/* <span className="text-sm tracking-[0.3em] uppercase text-muted mt-1">
+              {SERVER_INFO.serverName}
+            </span> */}
           </div>
 
           {/* Coluna Direita: Redes Sociais */}
@@ -74,7 +76,7 @@ export function Footer() {
 
         {/* Direitos Autorais */}
         <div className="mt-6 text-center text-xs text-muted/60">
-          <p>© 2026, portal.com. Todos os direitos reservados.</p>
+          <p>© 2026, {SERVER_INFO.serverName.toLowerCase()}.com. Todos os direitos reservados.</p>
         </div>
       </div>
     </footer>

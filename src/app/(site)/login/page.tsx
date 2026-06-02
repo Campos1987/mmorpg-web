@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
+import { SERVER_INFO } from "@/config/server-info";
 
 import { LoginForm } from "@/components/auth/login/LoginForm";
 
 export const metadata: Metadata = {
-  title: "Acessar Conta — Portal MMORPG",
+  title: `Acessar Conta — ${SERVER_INFO.serverName}`,
   description: "Faça login para gerenciar seus personagens, doações e acessar o painel exclusivo.",
 };
 
@@ -15,13 +16,13 @@ export default function LoginPage() {
         <div className="mb-8 text-center">
           {/* Logo ou Título estilizado em Cinzel */}
           <span className="font-serif text-xs uppercase tracking-[0.3em] text-brand-logo">
-            Grankain Platform
+            {SERVER_INFO.serverName}
           </span>
-          <h1 className="h1-content">
+          <h1 className="text-fluid-h1 uppercase text-text-h1-content">
             Acessar Conta
           </h1>
           <p className="mt-2 text-sm text-muted">
-            Insira suas credenciais para entrar no portal
+            Insira suas credenciais para entrar no {SERVER_INFO.serverName}
           </p>
         </div>
 

@@ -27,9 +27,6 @@ const defaultValues: RegisterFormValues = {
   name: "",
   lastname: "",
   email: "",
-  birthDay: "",
-  birthMonth: "",
-  birthYear: "",
   user: "",
   password: "",
   confirmPassword: "",
@@ -79,11 +76,6 @@ export function RegisterForm() {
             continue;
           }
 
-          if (field === "birthday") {
-            setError("birthYear", { message });
-            continue;
-          }
-
           if (field in defaultValues) {
             setError(field as keyof RegisterFormValues, { message });
           }
@@ -110,6 +102,7 @@ export function RegisterForm() {
       noValidate
       onSubmit={handleSubmit(handleRegisterFormSubmit)}
       className="flex w-full max-w-lg flex-col gap-4"
+      autoComplete="off"
     >
       {globalFeedback ? (
         <RegisterFeedback
