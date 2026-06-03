@@ -14,7 +14,7 @@ type ProgressBarProps = {
 const fillStyles: Record<ProgressBarVariant, string> = {
   cp: "bg-dashboard-cp",
   hp: "bg-dashboard-danger",
-  mp: "bg-dashboard-neon-blue",
+  mp: "bg-dashboard-mp",
   xp: "bg-gradient-to-r from-dashboard-neon-blue to-dashboard-neon-purple",
   blue: "bg-dashboard-neon-blue",
   purple: "bg-dashboard-neon-purple",

@@ -53,7 +53,7 @@ export function CharacterPanel({
             <button
               type="button"
               onClick={onPrev}
-              className="focus-ring flex size-9 items-center justify-center rounded-full bg-black/60 text-white/80 border border-white/10 hover:border-[#d4af37]/50 hover:text-[#d4af37] transition-all hover:bg-black/80 hover:scale-110 active:scale-95 cursor-pointer"
+              className="focus-ring flex size-9 items-center justify-center rounded-full bg-black/60 text-brand-gold/80 border border-brand-gold/10 hover:border-[#d4af37]/50 hover:text-[#d4af37] transition-all hover:bg-black/80 hover:scale-110 active:scale-95 cursor-pointer"
               aria-label="Personagem anterior"
             >
               <ChevronLeft className="size-5" />
@@ -61,7 +61,7 @@ export function CharacterPanel({
             <button
               type="button"
               onClick={onNext}
-              className="focus-ring flex size-9 items-center justify-center rounded-full bg-black/60 text-white/80 border border-white/10 hover:border-[#d4af37]/50 hover:text-[#d4af37] transition-all hover:bg-black/80 hover:scale-110 active:scale-95 cursor-pointer"
+              className="focus-ring flex size-9 items-center justify-center rounded-full bg-black/60 text-brand-gold/80 border border-brand-gold/10 hover:border-[#d4af37]/50 hover:text-[#d4af37] transition-all hover:bg-black/80 hover:scale-110 active:scale-95 cursor-pointer"
               aria-label="Próximo personagem"
             >
               <ChevronRight className="size-5" />
@@ -150,7 +150,7 @@ export function CharacterPanel({
         {/* MP — Pontos de Mana */}
         <div>
           <dt className="mb-1 flex items-center justify-between text-xs">
-            <span className="font-semibold text-dashboard-neon-blue uppercase tracking-wide">
+            <span className="font-semibold text-dashboard-mp uppercase tracking-wide">
               MP
             </span>
             <span className="text-dashboard-muted tabular-nums">
