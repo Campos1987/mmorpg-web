@@ -19,6 +19,7 @@ export type SubAccount = {
 };
 
 export type CharacterStats = {
+  cp: { current: number; max: number };
   hp: { current: number; max: number };
   mp: { current: number; max: number };
   xpPercent: number;

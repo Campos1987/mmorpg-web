@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 
-export type ProgressBarVariant = "hp" | "mp" | "xp" | "blue" | "purple";
+export type ProgressBarVariant = "hp" | "mp" | "cp" | "xp" | "blue" | "purple";
 
 type ProgressBarProps = {
   value: number;
@@ -12,6 +12,7 @@ type ProgressBarProps = {
 };
 
 const fillStyles: Record<ProgressBarVariant, string> = {
+  cp: "bg-dashboard-cp",
   hp: "bg-dashboard-danger",
   mp: "bg-dashboard-neon-blue",
   xp: "bg-gradient-to-r from-dashboard-neon-blue to-dashboard-neon-purple",

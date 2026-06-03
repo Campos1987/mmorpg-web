@@ -17,7 +17,7 @@ import {
   type CreateGamerAccountInput,
 } from "@/schemas/gamer-account-schema";
 import type { GamerAccount } from "@/types/gamer-account";
-import type { SubAccount } from "@/types/dashboard";
+import type { SubAccount, Character } from "@/types/dashboard";
 import type { ApiError } from "@/types/api";
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -128,10 +128,86 @@ export async function getGamerAccounts(): Promise<SubAccount[]> {
       characterCount: charactersData.length,
       characters: charactersData.map((charData) => ({
         name: charData.charName,
-        level: charData.lvl, 
+        level: charData.lvl,
       })),
     };
   });
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// getCharactersFromApi — personagens reais para o CharacterPanel
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Busca `POST /gamer/account`, valida via Zod e devolve um array de `Character`
+ * pronto para consumo pelo `DashboardView` / `CharacterPanel`.
+ *
+ * A API só retorna os valores máximos (maxHp, maxMp, maxCp).
+ * Os valores atuais (current) são assumidos como iguais ao máximo —
+ * refletindo o estado offline do personagem (plena capacidade sem combat log).
+ *
+ * Retorna `[]` em caso de 404 (sem conta) ou token ausente.
+ * Propaga erros de rede/5xx para o Error Boundary da página.
+ */
+export async function getCharactersFromApi(): Promise<Character[]> {
+  const res = await fetchGamerAccount();
+
+  if (!res) return [];
+  if (res.status === 404) return [];
+
+  if (!res.ok) {
+    throw new Error(
+      `Erro ao buscar personagens: ${res.status} ${res.statusText}`,
+    );
+  }
+
+  const body: unknown = await res.json().catch(() => null);
+
+  const parsed = gamerAccountApiSchema.safeParse(body);
+
+  if (!parsed.success) {
+    console.error(
+      "[getCharactersFromApi] Payload inválido retornado pela API:",
+      parsed.error.flatten(),
+    );
+    return [];
+  }
+
+  const characters: Character[] = [];
+
+  for (const [login, charList] of Object.entries(parsed.data)) {
+    charList.forEach((char, index) => {
+      const isOnline = char.isOnline === 1;
+
+      characters.push({
+        // id único: login + índice (API não retorna UUID de personagem)
+        id: `${login}-char-${index}`,
+        subAccountId: login,
+        name: char.charName,
+        // A API retorna classId numérico; exibimos o ID até integração com tabela de classes
+        className: `Classe ${char.classId}`,
+        level: char.lvl,
+        statusLabel: isOnline ? "Online" : "Offline",
+        isOnline,
+        // Imagem fixa por enquanto — será parametrizada quando a API expuser o campo
+        imageSrc: "/images/dasboard/set/elegia/light/dark-elf.jpg",
+        stats: {
+          // A API retorna apenas valores máximos; current = max (capacidade plena offline)
+          cp: { current: Math.round(char.maxCp), max: Math.round(char.maxCp) },
+          hp: { current: Math.round(char.maxHp), max: Math.round(char.maxHp) },
+          mp: { current: Math.round(char.maxMp), max: Math.round(char.maxMp) },
+          // Campos não disponíveis na API nesta versão — valores neutros
+          xpPercent: 0,
+          equipmentScore: 0,
+          activeQuests: { current: 0, total: 0 },
+          guildName: "—",
+          equipmentSummary: "—",
+        },
+      });
+    });
+  }
+
+  return characters;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -195,11 +271,44 @@ export async function createGamerAccountRequest(
 
     if (res.status === 404 && typeof errorBody === "object" && errorBody !== null) {
       const apiError = errorBody as ApiError;
-      const message = apiError.message || "";
-      if (message.includes("3 gamer accounts") || message.includes("You can only have")) {
+      const message = (apiError.message || "").toLowerCase();
+
+      if (message.includes("3 gamer accounts") || message.includes("you can only have")) {
         return {
           status: "limit_reached",
           message: "Você atingiu o limite máximo de 3 contas de jogo.",
+        };
+      }
+
+      if (message.includes("account already exists")) {
+        return {
+          status: "conflict",
+          message: "Este nome de conta de jogo já está em uso.",
+        };
+      }
+
+      // Em produção, a API não retorna 'message' (retorna null por segurança).
+      // Como fallback para 404, se não houver mensagem, verificamos a quantidade de contas
+      // para saber se o limite foi atingido, caso contrário assumimos conflito de nome existente.
+      if (!message) {
+        try {
+          const accounts = await getGamerAccounts();
+          if (accounts.length >= 3) {
+            return {
+              status: "limit_reached",
+              message: "Você atingiu o limite máximo de 3 contas de jogo.",
+            };
+          }
+        } catch (e) {
+          console.error(
+            "[createGamerAccountRequest] Erro ao verificar limite de contas no fallback:",
+            e,
+          );
+        }
+
+        return {
+          status: "conflict",
+          message: "Este nome de conta de jogo já está em uso.",
         };
       }
     }

@@ -11,6 +11,7 @@ export const characterStatusSchema = z.object({
   classId: z.number(),
   exp: z.number(),
   karma: z.number(),
+  isOnline: z.number().int().min(0).max(1),
 });
 
 /**

@@ -144,6 +144,14 @@ export function CreateAccountForm({ accountCount = 0 }: CreateAccountFormProps) 
           ...prev,
           errors: res.fieldErrors || {},
         }));
+      } else if (res.status === "conflict") {
+        setForm((prev) => ({
+          ...prev,
+          errors: {
+            ...prev.errors,
+            account: res.message || "Este nome de conta de jogo já está em uso.",
+          },
+        }));
       } else {
         setFeedback({
           type: "error",

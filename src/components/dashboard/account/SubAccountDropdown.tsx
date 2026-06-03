@@ -18,7 +18,11 @@ type SubAccountDropdownProps = {
 
 function formatAccountLabel(account: SubAccount): React.ReactNode {
   if (!account.characters || account.characters.length === 0) {
-    return `${account.nickname} ( Sem personagens )`;
+    return (
+      <>
+        <span className="text-brand-gold font-semibold uppercase">{account.nickname}</span> <span className="text-sm text-gray-400/95" >( Sem personagens )</span>
+      </>
+    )
   }
   const charsStr = account.characters
     .map((c) => `${c.name} - lvl ${c.level}`)
@@ -93,6 +97,7 @@ export function SubAccountDropdown({
         className={cn(
           formControlClassName,
           formControlDefaultClassName,
+          "h-2",
           "flex items-center justify-between gap-2 text-left transition-colors",
         )}
         aria-haspopup="listbox"
@@ -120,10 +125,10 @@ export function SubAccountDropdown({
           role="listbox"
           aria-labelledby={`${listboxId}-trigger`}
           className={cn(
-            "absolute left-0 right-0 z-50 mt-2 max-h-60 overflow-auto",
+            "absolute left-0 right-0 z-50 mt-2 max-h-50 overflow-auto",
             "bg-[#111111]/95 backdrop-blur-sm",
             "border border-[#d4af37]/20",
-            "rounded-sm shadow-[0_4px_20px_rgba(0,0,0,0.8)] py-1",
+            "rounded-sm shadow-[0_4px_20px_rgba(0,0,0,0.8)] py-0",
           )}
         >
           {accounts.map((account) => {

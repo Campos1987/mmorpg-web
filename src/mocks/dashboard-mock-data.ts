@@ -61,6 +61,7 @@ export const dashboardMockData: DashboardMockData = {
       isOnline: true,
       imageSrc: ASSETS.warrior,
       stats: {
+        cp: { current: 4800, max: 5000 },
         hp: { current: 8420, max: 9200 },
         mp: { current: 1200, max: 2100 },
         xpPercent: 67,
@@ -80,6 +81,7 @@ export const dashboardMockData: DashboardMockData = {
       isOnline: false,
       imageSrc: ASSETS.warrior,
       stats: {
+        cp: { current: 2100, max: 4200 },
         hp: { current: 7100, max: 8800 },
         mp: { current: 900, max: 1800 },
         xpPercent: 42,
@@ -99,6 +101,7 @@ export const dashboardMockData: DashboardMockData = {
       isOnline: true,
       imageSrc: ASSETS.archer,
       stats: {
+        cp: { current: 3100, max: 3500 },
         hp: { current: 5200, max: 6100 },
         mp: { current: 3400, max: 4000 },
         xpPercent: 88,
@@ -118,6 +121,7 @@ export const dashboardMockData: DashboardMockData = {
       isOnline: true,
       imageSrc: ASSETS.mage,
       stats: {
+        cp: { current: 1200, max: 2800 },
         hp: { current: 3100, max: 4500 },
         mp: { current: 8900, max: 9200 },
         xpPercent: 95,
