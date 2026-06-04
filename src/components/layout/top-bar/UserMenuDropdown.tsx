@@ -42,6 +42,7 @@ export function UserMenuDropdown({ firstName }: UserMenuDropdownProps) {
 
   return (
     <div
+      className="relative"
       onMouseEnter={() => setIsOpen(true)}
       onMouseLeave={handleClose}
       onFocus={() => setIsOpen(true)}
