@@ -275,9 +275,10 @@ body {
 }
 
 .footer-gradient-bg {
-  background-color: 111111;
+  margin-inline: auto;
+  padding-inline: var(--spacing-container);
+  background-color: #111111;
   backdrop-filter: blur(8px);
-  border-top: rgba(212, 162, 55, .25) solid 1px;
 }
 
 /* Aplica as mesmas linhas de divisão sutis (1px) no topo e base do dropdown */

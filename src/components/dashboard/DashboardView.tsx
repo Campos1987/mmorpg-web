@@ -4,6 +4,13 @@ import { useState, useEffect } from "react";
 
 import { AccountHeader } from "./account";
 import { CharacterPanel } from "./character";
+import {
+  WalletEconomy,
+  Achievements,
+  DailyChallenges,
+  EventCalendar,
+  TopRankings,
+} from "./widgets";
 import { findCharacterAction } from "@/actions/gamer-account-actions";
 import type { DashboardMockData, Character } from "@/types/dashboard";
 
@@ -85,7 +92,7 @@ export function DashboardView({ data, initialCharacter }: DashboardViewProps) {
   return (
     <main
       aria-label="Painel do jogador"
-      className="w-full max-w-7xl mx-auto flex flex-1 flex-col gap-6"
+      className="w-full max-w-7xl mx-auto flex flex-1 flex-col gap-4"
     >
       {/* ── Cabeçalho de conta: seletor de sub-contas + saldo ── */}
       <AccountHeader
@@ -95,16 +102,35 @@ export function DashboardView({ data, initialCharacter }: DashboardViewProps) {
         currencies={data.currencies}
       />
 
-      {/* ── Painel do personagem ativo: arte + barras CP / HP / MP ── */}
-      {activeCharDetails && (
-        <CharacterPanel
-          character={activeCharDetails}
-          onNext={handleNextCharacter}
-          onPrev={handlePrevCharacter}
-          hasMultipleCharacters={subAccountCharacters.length > 1}
-          isLoading={isLoading}
-        />
-      )}
+      {/* ── Grid Principal de 3 Colunas (lg:grid-cols-12) ── */}
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-12 px-4 md:px-0 pb-12">
+        {/* Coluna Esquerda: Detalhes do Personagem Ativo (3/12) */}
+        <div className="lg:col-span-3 h-full">
+          {activeCharDetails && (
+            <CharacterPanel
+              character={activeCharDetails}
+              onNext={handleNextCharacter}
+              onPrev={handlePrevCharacter}
+              hasMultipleCharacters={subAccountCharacters.length > 1}
+              isLoading={isLoading}
+              className="h-full"
+            />
+          )}
+        </div>
+
+        {/* Coluna Central: Wallet & Economy + Achievements + Daily Challenges (6/12) */}
+        <div className="lg:col-span-6 flex flex-col gap-4">
+          <WalletEconomy currencies={data.currencies} />
+          <Achievements />
+          <DailyChallenges />
+        </div>
+
+        {/* Coluna Direita: Event Calendar + Top Rankings (3/12) */}
+        <div className="lg:col-span-3 flex flex-col gap-4 h-full">
+          <EventCalendar />
+          <TopRankings activeCharacter={activeCharDetails} />
+        </div>
+      </div>
     </main>
   );
 }

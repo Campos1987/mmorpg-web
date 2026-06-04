@@ -4,6 +4,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { ProgressBar } from "@/components/dashboard/ui";
 import type { Character } from "@/types/dashboard";
 import classes from "@/config/character/classes.json";
+import { cn } from "@/lib/utils";
 
 type CharacterPanelProps = {
   character: Character;
@@ -11,6 +12,7 @@ type CharacterPanelProps = {
   onPrev?: () => void;
   hasMultipleCharacters?: boolean;
   isLoading?: boolean;
+  className?: string;
 };
 
 /**
@@ -26,6 +28,7 @@ export function CharacterPanel({
   onPrev,
   hasMultipleCharacters = false,
   isLoading = false,
+  className,
 }: CharacterPanelProps) {
   const { stats } = character;
 
@@ -44,7 +47,10 @@ export function CharacterPanel({
   return (
     <section
       aria-labelledby="character-panel-heading"
-      className="max-w-xs relative overflow-hidden rounded-xl border border-[#d4af37]/20 bg-[#111111] -z-10"
+      className={cn(
+        "max-w-xs h-full flex flex-col relative overflow-hidden rounded-xl border border-[#d4af37]/20 bg-[#111111]",
+        className,
+      )}
     >
       {/* ── Overlay de Carregamento ── */}
       {isLoading && (
@@ -56,7 +62,7 @@ export function CharacterPanel({
         </div>
       )}
       {/* ── Imagem do personagem ── */}
-      <div className="relative h-72 w-full sm:h-80 md:h-96">
+      <div className="relative flex-1 min-h-[160px] w-full">
         <Image
           src="/images/dasboard/set/elegia/light/dark-elf.jpg"
           alt={`Arte do personagem ${character.name}`}

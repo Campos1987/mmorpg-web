@@ -18,7 +18,7 @@ export function AccountHeader(props: AccountHeaderProps) {
   return (
     <section
       className={cn(
-        "container-content flex flex-col gap-4 py-4 md:flex-row md:items-center md:gap-6 mb-0",
+        "container-content flex flex-col gap-4 py-4 md:flex-row md:items-center md:gap-6 mb-0 z-50",
         className,
       )}
       aria-label="Visão geral da conta"

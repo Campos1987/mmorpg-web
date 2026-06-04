@@ -7,7 +7,7 @@ export function TopBar() {
   return (
     <header
       className={`header-container cn(
-        "fixed sticky top-0 z-50 w-full",
+        "fixed sticky top-0 z-100 w-full",
       )`}
     >
       <div className="w-full max-w-[2560px] mx-auto px-4 relative">
