@@ -34,6 +34,7 @@ export type Character = {
   subAccountId: string;
   name: string;
   className: string;
+  classId?: number;
   level: number;
   statusLabel: string;
   isOnline: boolean;

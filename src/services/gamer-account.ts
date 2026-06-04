@@ -186,6 +186,7 @@ export async function getCharactersFromApi(): Promise<Character[]> {
         name: char.charName,
         // A API retorna classId numérico; exibimos o ID até integração com tabela de classes
         className: `Classe ${char.classId}`,
+        classId: char.classId,
         level: char.lvl,
         statusLabel: isOnline ? "Online" : "Offline",
         isOnline,

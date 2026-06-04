@@ -3,6 +3,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 
 import { ProgressBar } from "@/components/dashboard/ui";
 import type { Character } from "@/types/dashboard";
+import classes from "@/config/character/classes.json";
 
 type CharacterPanelProps = {
   character: Character;
@@ -25,6 +26,18 @@ export function CharacterPanel({
   hasMultipleCharacters = false,
 }: CharacterPanelProps) {
   const { stats } = character;
+
+  // Encontra o nome da classe estaticamente mapeada a partir do JSON pelo classId do personagem
+  const resolvedClass = classes.find((c) => c.id === character.classId);
+  const rawClassName = resolvedClass ? resolvedClass.name : character.className;
+
+  // Formata o nome para Capitalize (Capitaliza todas as palavras) e substitui '_' por espaço
+  const formattedClassName = rawClassName
+    .toLowerCase()
+    .replace(/_/g, " ")
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
 
   return (
     <section
@@ -80,7 +93,7 @@ export function CharacterPanel({
             {character.name}
           </h2>
           <p className="text-xs text-dashboard-muted mt-0.5">
-            {character.className} · Nível {character.level}
+            {formattedClassName} · Nível {character.level}
           </p>
         </div>
 
