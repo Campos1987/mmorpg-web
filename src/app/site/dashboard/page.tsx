@@ -3,9 +3,10 @@ import { dashboardMockData } from "@/mocks/dashboard-mock-data";
 import {
   getGamerAccount,
   getGamerAccounts,
-  getCharactersFromApi,
+  findCharacterRequest,
 } from "@/services/gamer-account";
 import CreateAccountPage from "./create-account/page";
+import type { Character } from "@/types/dashboard";
 
 /**
  * Página inicial do painel do jogador (RSC assíncrono).
@@ -13,10 +14,9 @@ import CreateAccountPage from "./create-account/page";
  * Fluxo de renderização:
  * 1. Busca `POST /gamer/account` server-side (com JWT da sessão)
  * 2. Sem conta (null)  → exibe <CreateAccountPage /> (onboarding)
- * 3. Com conta         → busca sub-contas e personagens em paralelo
- *                        e exibe <DashboardView /> com dados reais
- *
- * Erros de rede inesperados propagam para o Error Boundary do layout.
+ * 3. Com conta         → busca sub-contas
+ * 4. Pega o primeiro personagem e busca suas estatísticas reais em `/gamer/findCharacters`
+ * 5. Exibe o dashboard com os dados carregados
  */
 export default async function DashboardPage() {
   const gamerAccount = await getGamerAccount();
@@ -25,20 +25,24 @@ export default async function DashboardPage() {
     return <CreateAccountPage />;
   }
 
-  // Busca sub-contas e personagens em paralelo (mesma chamada de rede — ambos
-  // usam fetchGamerAccount internamente, que é cache:"no-store")
-  const [subAccounts, characters] = await Promise.all([
-    getGamerAccounts(),
-    getCharactersFromApi(),
-  ]);
+  const subAccounts = await getGamerAccounts();
+
+  // Pega o primeiro personagem do primeiro sub-account para carregamento inicial
+  const firstChar = subAccounts[0]?.characters?.[0];
+  let initialCharacter: Character | null = null;
+
+  if (firstChar) {
+    initialCharacter = await findCharacterRequest(firstChar.id);
+  }
 
   return (
     <DashboardView
       data={{
         ...dashboardMockData,
         subAccounts,   // contas de jogo reais
-        characters,    // personagens reais com CP/HP/MP da API
+        characters: [], // não é mais necessário carregar todos globalmente
       }}
+      initialCharacter={initialCharacter}
     />
   );
 }

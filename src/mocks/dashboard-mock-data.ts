@@ -25,8 +25,8 @@ export const dashboardMockData: DashboardMockData = {
       level: 85,
       characterCount: 2,
       characters: [
-        { name: "NightCrawler", level: 85 },
-        { name: "IronWall", level: 80 },
+        { id: "char-1", name: "NightCrawler", level: 85 },
+        { id: "char-2", name: "IronWall", level: 80 },
       ],
     },
     {
@@ -36,7 +36,7 @@ export const dashboardMockData: DashboardMockData = {
       level: 78,
       characterCount: 1,
       characters: [
-        { name: "MoonBlade", level: 78 },
+        { id: "char-3", name: "MoonBlade", level: 78 },
       ],
     },
     {
@@ -46,7 +46,7 @@ export const dashboardMockData: DashboardMockData = {
       level: 82,
       characterCount: 1,
       characters: [
-        { name: "ArcaneSoul", level: 82 },
+        { id: "char-4", name: "ArcaneSoul", level: 82 },
       ],
     },
   ],

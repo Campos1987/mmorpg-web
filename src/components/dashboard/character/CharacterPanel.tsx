@@ -10,6 +10,7 @@ type CharacterPanelProps = {
   onNext?: () => void;
   onPrev?: () => void;
   hasMultipleCharacters?: boolean;
+  isLoading?: boolean;
 };
 
 /**
@@ -24,6 +25,7 @@ export function CharacterPanel({
   onNext,
   onPrev,
   hasMultipleCharacters = false,
+  isLoading = false,
 }: CharacterPanelProps) {
   const { stats } = character;
 
@@ -42,8 +44,17 @@ export function CharacterPanel({
   return (
     <section
       aria-labelledby="character-panel-heading"
-      className="max-w-xs relative overflow-hidden rounded-xl border border-[#d4af37]/20 bg-[#111111]"
+      className="max-w-xs relative overflow-hidden rounded-xl border border-[#d4af37]/20 bg-[#111111] -z-10"
     >
+      {/* ── Overlay de Carregamento ── */}
+      {isLoading && (
+        <div className="absolute inset-0 bg-black/60 backdrop-blur-[1px] flex items-center justify-center z-30 transition-all duration-300">
+          <div className="flex flex-col items-center gap-2">
+            <span className="animate-spin size-8 border-4 border-[#d4af37] border-t-transparent rounded-full" />
+            <span className="text-xs text-[#d4af37] font-semibold font-serif tracking-wider">Carregando...</span>
+          </div>
+        </div>
+      )}
       {/* ── Imagem do personagem ── */}
       <div className="relative h-72 w-full sm:h-80 md:h-96">
         <Image

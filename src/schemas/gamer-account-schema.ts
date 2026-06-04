@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 export const characterStatusSchema = z.object({
+  charId: z.number(),
   charName: z.string(),
   lvl: z.number(),
   maxHp: z.number(),

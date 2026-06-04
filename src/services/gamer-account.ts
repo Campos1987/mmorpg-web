@@ -127,6 +127,7 @@ export async function getGamerAccounts(): Promise<SubAccount[]> {
       level: 0,
       characterCount: charactersData.length,
       characters: charactersData.map((charData) => ({
+        id: charData.charId.toString(),
         name: charData.charName,
         level: charData.lvl,
       })),
@@ -330,6 +331,64 @@ export async function createGamerAccountRequest(
       status: "error",
       message: err instanceof Error ? err.message : "Erro de conexão com o servidor.",
     };
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// findCharacterRequest — busca detalhes de um personagem específico pelo ID
+// ─────────────────────────────────────────────────────────────────────────────
+
+export async function findCharacterRequest(charId: string): Promise<Character | null> {
+  const authHeader = await getAuthorizationHeader();
+
+  if (!authHeader.Authorization) return null;
+
+  try {
+    const res = await fetch(getAuthApiUrl("/gamer/findCharacters"), {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        ...authHeader,
+      },
+      body: JSON.stringify({ charId }),
+      cache: "no-store",
+    });
+
+    if (!res.ok) {
+      if (res.status === 404 || res.status === 403) {
+        return null;
+      }
+      throw new Error(`Erro ao buscar detalhes do personagem: ${res.status}`);
+    }
+
+    const char = await res.json();
+    const isOnline = char.isOnline === 1;
+
+    return {
+      id: char.charId.toString(),
+      subAccountId: char.accountName || "",
+      name: char.charName,
+      className: `Classe ${char.classId}`,
+      classId: char.classId,
+      level: char.lvl,
+      statusLabel: isOnline ? "Online" : "Offline",
+      isOnline,
+      imageSrc: "/images/dasboard/set/elegia/light/dark-elf.jpg",
+      stats: {
+        cp: { current: Math.round(char.maxCp), max: Math.round(char.maxCp) },
+        hp: { current: Math.round(char.maxHp), max: Math.round(char.maxHp) },
+        mp: { current: Math.round(char.maxMp), max: Math.round(char.maxMp) },
+        xpPercent: 0,
+        equipmentScore: 0,
+        activeQuests: { current: 0, total: 0 },
+        guildName: "—",
+        equipmentSummary: "—",
+      },
+    };
+  } catch (err) {
+    console.error("[findCharacterRequest] Erro:", err);
+    return null;
   }
 }
 

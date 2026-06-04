@@ -15,7 +15,7 @@ export type SubAccount = {
   className: string;
   level: number;
   characterCount?: number;
-  characters?: { name: string; level: number }[];
+  characters?: { id: string; name: string; level: number }[];
 };
 
 export type CharacterStats = {

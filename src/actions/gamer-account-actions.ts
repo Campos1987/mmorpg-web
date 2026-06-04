@@ -4,8 +4,12 @@ import {
   createGamerAccountSchema,
   mapZodErrorsToCreateAccountFieldErrors,
 } from "@/schemas/gamer-account-schema";
-import { createGamerAccountRequest } from "@/services/gamer-account";
+import {
+  createGamerAccountRequest,
+  findCharacterRequest,
+} from "@/services/gamer-account";
 import type { CreateGamerAccountResult } from "@/services/gamer-account";
+import type { Character } from "@/types/dashboard";
 
 export async function createGamerAccountAction(
   rawPayload: unknown,
@@ -20,4 +24,8 @@ export async function createGamerAccountAction(
   }
 
   return createGamerAccountRequest(parsed.data);
+}
+
+export async function findCharacterAction(charId: string): Promise<Character | null> {
+  return findCharacterRequest(charId);
 }
